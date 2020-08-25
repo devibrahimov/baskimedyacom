@@ -12,13 +12,14 @@ use Illuminate\Http\Request;
 class BasketController extends Controller
 {
 
-    public function index(){
+    public function index($id){
+
         return view('Site.pages.Products.Shop.cart');
     }
 
 
 
-
+#################### ADD TO CART AJAX ###########################
     public function addtocart(Request $request){
 
 
@@ -58,18 +59,27 @@ class BasketController extends Controller
         #==================end OPTIONS============================
 
         #create basket==================
-        $basket = new Basket() ;
-        $basket->user_id =  $user_id;
-        $basket->save() ;
-        $basket_lastid = $basket->id;
-        #get basket id
+//      $basketcontrol = Basket::find($user_id);
+//        if(!$basketcontrol){
+//
+//        }else{
+//
+//            $basketid =  $basketcontrol->id ;
+//
+//        }
+        $basket = Basket::firstOrCreate([
+            'user_id'=>$user_id
+        ]) ;
+
+        $basketid = $basket->id;
+        
         #end basket=====================
 
 
         $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE)*$quantity);
         //print_r($PRICE) ;die;
         $item =[
-            'basket_id' => $basket_lastid,
+            'basket_id' => $basketid,
             'product_id' => $product_id,
             'option_id' => $optionid,
             'additional_options' =>json_encode($additionaloptions) ,
