@@ -453,20 +453,18 @@
             if (!loggedIn) {
 
                 alert('Sebete Ekleye bilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
-
-            } else {
-
+            }else{
                 $.ajax({ /* AJAX REQUEST */
                     type: 'post',
                     url: "{{route('product.addtocart')}}",
                     data: {
-                        'user_id': AuthUser,
-                        'product_id': {{$product->id}},
-                        'optionid': optionid,
-                        'additionaloptions': additionaloption,
+                        'user_id':AuthUser,
+                        'product_id' : {{$product->id}},
+                        'optionid':optionid,
+                        'additionaloptions':additionaloption,
                         'height': vinilHeight,
                         'width': vinilWidth,
-                        'qty': qty,
+                        'qty':qty,
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function (data) {
@@ -476,22 +474,7 @@
             }
 
 
-            $.ajax({ /* AJAX REQUEST */
-                type: 'post',
-                url: "{{route('product.addtocart')}}",
-                data: {
-                    'user_id':{{\Illuminate\Support\Facades\Auth::user()->id}},
-                    'optionid': optionid,
-                    // 'option': options,
-                    'vinilHeight': vinilHeight,
-                    'vinilWidth': vinilWidth,
-                    'qty': qty,
-                    "_token": "{{ csrf_token() }}"
-                },
-                success: function (data) {
-                    return this.data
-                }
-            });
+
         });
 
     </script>

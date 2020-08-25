@@ -24,20 +24,20 @@ class Basket extends Model
 //        }
 //    }
 
-    public function add($item, $id)
-    {
-        $storedItem = ['adet' => 0, 'fiyat' => $item->price, 'item' => $item];
-        if ($this->items) {
-            if (array_key_exists($id, $this->items)) {
-                $storedItem = $this->items[$id];
-            }
-        }
-
-        $storedItem['adet']++;
-        $storedItem['price'] = $item->price * $storedItem['adet'];
-        $this->items[$id] = $storedItem;
-        $this->totalQuantity++;
-        $this->totalPrice += $item->price;
-    }
+//    public function add($item, $id)
+//    {
+//        $storedItem = ['adet' => 0, 'fiyat' => $item->price, 'item' => $item];
+//        if ($this->items) {
+//            if (array_key_exists($id, $this->items)) {
+//                $storedItem = $this->items[$id];
+//            }
+//        }
+//
+//        $storedItem['adet']++;
+//        $storedItem['price'] = $item->price * $storedItem['adet'];
+//        $this->items[$id] = $storedItem;
+//        $this->totalQuantity++;
+//        $this->totalPrice += $item->price;
+//    }
 
 }
