@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="bf16a910-517d-4b22-ad98-d5774e9eedd7" name="baskimedya" url="http://baskimedya.com">
+        <fileTransfer rootFolder="/public_html" host="baskimedya.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" showHiddenFiles="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="2ac41b6a-f784-4313-9011-ff8726f7d686" name="yolyardimkonya" url="http://yolyardimkonya.com">
+        <fileTransfer host="yolyardimkonya.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="8396c316-c660-45b2-9409-655667ec396a" name="coronaturkiye" url="http://coronaturkiye.site">
+        <fileTransfer rootFolder="/public_html" host="coronaturkiye.site" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="5591c723-d7b0-4b24-ade9-bfad069eb5c5" name="akturkmuzik.com" url="http://diyetisyengulsumyildirim.com">
+        <fileTransfer rootFolder="/public_html" host="diyetisyengulsumyildirim.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
