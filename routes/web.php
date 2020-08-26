@@ -89,7 +89,7 @@ Route::group(['prefix' => 'kullanici'], function () {
     Route::get('/aktiflestir/{token}', 'Site\SignUpController@activate')->name('user.activate');
 
     //auth
-    Route::get('/sepet', 'Site\Product\BasketController@index');
+    Route::get('/sepet/{id}', 'Site\Product\BasketController@index')->name('site.addtocart');
 
 
         Route::post('/sepet','Site\Product\BasketController@addtocart')->name('product.addtocart');

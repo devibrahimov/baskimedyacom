@@ -1,10 +1,11 @@
+<?php use App\AdditionalOption; ?>
 @extends('Site.index')
 
 
 
 @section('content')
     <div class="section">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
 
@@ -20,14 +21,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                          @for($i =0 ; $i<=1; $i++)
+                          @foreach($basketdata as $basketproduct)
                             <tr>
                                 <td>
                                     <table class="table table-sm font-sm mb-0 mt-2">
                                         <tbody>
                                         <tr>
-                                            <th class="compress text-nowrap">Vinil </th>
-                                            <td colspan="2"> Çin 280gr   </td>
+                                            <th class="compress text-nowrap">{{$basketproduct->product->name}} </th>
+                                            <td colspan="2">{{$basketproduct->option->name}}  </td>
                                         </tr>
                                         <tr>
                                             <th>Ölçüler</th>
@@ -42,43 +43,39 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td class="text-nowrap">300 cm</td>
-                                                        <td class="text-nowrap">100 cm</td>
+                                                        <?php $squaremeter = json_decode($basketproduct->square_meter) ;?>
+                                                        <td class="text-nowrap">{{$squaremeter->width}} cm</td>
+                                                        <td class="text-nowrap">{{$squaremeter->height}} cm</td>
                                                         <td class="text-nowrap">
 
-                                                            <span class="text-muted"><strong> 3 m<sup>2</sup></strong>   </span>
+                                                            <span class="text-muted"><strong> {{$squaremeter->total}}m<sup>2</sup></strong>  </span>
                                                         </td>
 
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </td>
-                                            <td ><strong class=" border-bottom border-dark">Ürün TL fiyatı</strong> </br><p>28.56 TL</p> </td>
+                                            <td ><strong class=" border-bottom border-dark">Ürün TL fiyatı</strong> </br><p>{{$basketproduct->option->price*$squaremeter->total}} TL</p> </td>
                                         </tr>
 
-                                        <tr>
-                                            <th class="compress text-nowrap">Baskı</th>
-                                            <td>İç Mekan Baskı (7.32 TL)</td>
-                                            <td class="text-monospace text-right">21.96 TL</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="compress text-nowrap">Kopça</th>
-                                            <td>Kopça ve Dikiş İstiyorum (0.00 TL)</td>
-                                            <td class="text-monospace text-right">0.00 TL</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="compress text-nowrap">Kolon Dikişi</th>
-                                            <td>Kolon Dikiş İstemiyorum (0.00 TL)</td>
-                                            <td class="text-monospace text-right">0.00 TL</td>
-                                        </tr>
+                               <?php $additional_options = json_decode($basketproduct->additional_options) ;?>
+                                        @foreach( $additional_options as $option)
+                                            <tr>
+                                                <th class="compress text-nowrap">{{ (new \App\AdditionalOption())->optionROW($option)->parent->name }}</th>
+                                                <td>{{ (new \App\AdditionalOption())->optionROW($option)->name }}</td>
+                                                <td class="text-monospace text-right">{{ (new \App\AdditionalOption())->optionROW($option)->price }} TL</td>
+                                            </tr>
+                                        @endforeach
+
+
                                         </tbody>
 
                                     </table>
-                                   <span class=" text-monospace mt-1  text-sm-left">Ürün Sipariş Kodunuz  - PRVNL0021-CHN280</span>
+                                   <span class=" text-monospace mt-1  text-sm-left">Ürün Sipariş Kodunuz  - {{$basketproduct->product->product_code}}-{{$basketproduct->option->option_code}}</span>
                                 </td>
-                                <td > 23.54 <sup>₺</sup></td>
+                                <td > {{$basketproduct->price}} <sup>₺</sup></td>
                                 <td>
-                                    <input type="number" name="" id="" value="1" class="form-control">
+                                    <input type="number" name="" id="" value="{{$basketproduct->quantity}}" class="form-control">
                                 </td>
                                 <td>
                                     <div class="price-wrap">
@@ -90,7 +87,7 @@
                                      <a href="" class="btn btn-sm btn-outline-danger"> × Sil</a>
                                 </td>
                             </tr>
-                          @endfor
+                          @endforeach
                             </tbody>
 
 

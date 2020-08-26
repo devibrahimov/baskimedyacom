@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="row allContent">
+                <div class="row">
                     <div class="col-lg-6">
                         {{--                        <p>Seçenekler</p>--}}
 
@@ -108,27 +108,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <a style="display: none">{{{$rakam = 0}}}</a>
                             @foreach($product->options($product->parent_option) as $option)
-                                <tr class="radio-tr" id="allRadio{{$rakam}}">
-                                    <a style="display: none"> {{{$rakam++}}}</a>
+                                <tr>
                                     <th scope="row">
                                         <div class="custome-checkbox" name="myForm">
 
-                                            <label class="form-radio-label" for="exampleRadio3">
-                                                <input class="form-radio-input option" type="radio" name="radios"
-                                                       data-option="{{$option->id}}"
-                                                       @if($loop->first) {{'checked'}} @endif data-optionprice="{{$option->price}}"
-                                                       id="exampleRadio{{$option->id}}" value="{{$option->id}}">
-                                            </label>
+                                            <input class="form-radio-input option" type="radio" name="radios"
+                                                   data-option="{{$option->id}}"
+                                                   @if($loop->first) {{'checked'}} @endif data-optionprice="{{$option->price}}"
+                                                   id="exampleRadio3" value="{{$option->id}}">
+                                            <label class="form-radio-label" for="exampleRadio3"> </label>
                                         </div>
                                     </th>
-
-                                    <td><label for="exampleRadio{{$option->id}}">{{$option->name}}</label></td>
-                                    <td><label
-                                            for="exampleRadio{{$option->id}}">@if($option->stock == 1) {{'var'}} @endif</label>
-                                    </td>
-                                    <td><label for="exampleRadio{{$option->id}}">$ {{$option->price}}</label></td>
+                                    <td>{{$option->name}}</td>
+                                    <td>@if($option->stock == 1) {{'var'}} @endif</td>
+                                    <td>$ {{$option->price}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -141,7 +135,7 @@
                             <div class="card-header bg_default text-white">
                                 <h6 class="mb-0 font-weight-bold text-white">Ölçüler</h6>
                             </div>
-                            <div class="card-body hesaplama">
+                            <div class="card-body ">
                                 <div class="row ">
                                     <div class="col-6 ">
                                         <div class="form-group mb-0 metreKare">
@@ -203,51 +197,36 @@
                         </div>
 
                         <hr>
-                        <a style="display: none">{{{$say = 0}}}</a>
+
 
                         @if($product->additional_options != NULL)
                             <p>Ek Seçenekler</p>
                             @foreach( $product->additionaloptionsparent($product->additional_options) as $options)
                                 @foreach($options as $key => $option)
-                                    <div class="input-group mb-3 additionaloptions" data-id="{{$option->id}}">
+                                    <div class="input-group mb-3 additionaloptions">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text bg_default text-white "
                                                    for="inputGroupSelect01">{{$option->name}}</label>
                                         </div>
-                                        <select class="custom-select additionaloption" id="inputGroupSelect0{{$say}}">
-                                            <option value="0" disabled> -----</option>
+
+                                        <select class="custom-select additionaloption" id="inputGroupSelect01"  >
+                                            <option value="0"> -----</option>
                                             @foreach($product->additionaloption($option->id)  as $opt)
-                                                <option class="veri" value="{{$opt->id}}"
-                                                        data-price="{{$opt->price}}">{{$opt->name}}</option>
-                                                <div class="valid-feedback">Doldurulması</div>
+                                                <option name="veri" value="{{$opt->id}}">{{$opt->name}}</option>
                                             @endforeach
                                         </select>
+
                                     </div>
-                                    <a style="display: none">{{{$say++}}}</a>
                                 @endforeach
                             @endforeach
                         @endif
 
 
-                        <div class="last-infos">
-                            <ul class="product-meta d-inline">
-                                <li class="text-default">Ürün Sipariş Kodu : <a
-                                        href="{{route('showProducts',[$product->id,$product->slug])}}"> {{$product->product_code}}</a>
-                                </li>
-
-                            </ul>
-                            <ul class="product-meta d-inline">
-                                <li class="text-default">Toplam Tutar :
-                                    <a class="tutar">100</a>
-                                </li>
-                            </ul>
-                        </div>
-
                         <div class="cart_extra mt-2">
                             <div class="cart-product-quantity">
                                 <div class="quantity">
                                     <input type="button" value="-" class="minus">
-                                    <input type="number" name="quantity" value="1" title="Qty" class="qty" size="4">
+                                    <input type="text" name="quantity" value="1" title="Qty" class="qty" size="4">
                                     <input type="button" value="+" class="plus">
                                 </div>
                             </div>
@@ -278,7 +257,8 @@
 
 @section('js')
     <script>
-        var AuthUser = "{{{ (Auth::user()) ? Auth::user()->id : null }}}";
+
+        var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
         $(function () {
 
             var $featureSelect = $('.allContent');
@@ -439,19 +419,15 @@
             var vinilWidth = $('.vinilWidth').val()
             var vinilHeight = $('.vinilHeight').val()
             var qty = $('.qty').val()
-            //    console.log(qty)
+        //    console.log(qty)
 
             var additionaloption = new Array()
             for (var i = 0; i < $('.additionaloption').length; i++) {
                 additionaloption.push($('.additionaloption')[i].value)
             }
-            //console.log(additionaloption)
-
-
+           // console.log(additionaloption)
             var loggedIn = {{{(Auth::user())? 'true' : 'false' }}} ;
-
-            if (!loggedIn) {
-
+            if (!loggedIn){
                 alert('Sebete Ekleye bilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
             }else{
                 $.ajax({ /* AJAX REQUEST */
