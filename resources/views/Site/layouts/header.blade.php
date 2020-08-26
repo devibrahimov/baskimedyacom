@@ -111,7 +111,7 @@
                             </ul>
                             <div class="cart_footer">
                                 <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span class="price_symbole">$</span></span>159.00</p>
-                                <p class="cart_buttons"><a href="{{route('product.addtocart')}}" class="btn btn-fill-line view-cart">Sebete Git</a>
+                                <p class="cart_buttons"><a href="{{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}}" class="btn btn-fill-line view-cart">Sebete Git</a>
 {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
                             </div>

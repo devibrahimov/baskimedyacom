@@ -15,5 +15,13 @@ class AdditionalOption extends Model
         return $this->belongsto('App\AdditionalOption','parent_id');
     }
 
+    public function optionROW($id){
+     //   $addops = table;
+       return $this->find($id);
+    }
+//    public function parentROW($id){
+//     //   $addops = table;
+//       return $this->find($id);
+//    }
 
 }

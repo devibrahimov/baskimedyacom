@@ -269,11 +269,13 @@
 
 @section('js')
     <script>
-        var AuthUser = "{{{ (Auth::user()) ? Auth::user()->id : null }}}";
+
+        var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
         $('#addBasket').on('click', function () {
             var optionid = ($('.option:checked')[0].dataset.option)
             var vinilWidth = $('.vinilWidth').val()
             var vinilHeight = $('.vinilHeight').val()
+
             var qty = $('.qty').val()
         //    console.log(qty)
 
