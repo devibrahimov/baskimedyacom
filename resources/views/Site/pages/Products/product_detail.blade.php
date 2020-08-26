@@ -278,6 +278,7 @@
 
 @section('js')
     <script>
+        //deneme
         var AuthUser = "{{{ (Auth::user()) ? Auth::user()->id : null }}}";
         $(function () {
 

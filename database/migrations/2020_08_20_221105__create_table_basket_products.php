@@ -23,7 +23,6 @@ class CreateTableBasketProducts extends Migration
             $table->timestamps();
         });
 
-
         Schema::table('basket_products', function (Blueprint $table) {
             $table->foreign('basket_id')->references('id')->on('basket')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
