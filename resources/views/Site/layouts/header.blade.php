@@ -98,8 +98,6 @@
                             </form>
                         </div><div class="search_overlay"></div>
                     </li>
-
-
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
                             <ul class="cart_list">
@@ -111,9 +109,7 @@
                             </ul>
                             <div class="cart_footer">
                                 <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span class="price_symbole">$</span></span>159.00</p>
-                                <p class="cart_buttons"><a href="{{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}}" class="btn btn-fill-line view-cart">Sebete Git</a>
-{{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
-                                </p>
+                                <p class="cart_buttons"><a href="#" class="btn btn-fill-line view-cart">View Cart</a><a href="#" class="btn btn-fill-out checkout">Checkout</a></p>
                             </div>
                         </div>
                     </li>

@@ -89,11 +89,11 @@ Route::group(['prefix' => 'kullanici'], function () {
     Route::get('/aktiflestir/{token}', 'Site\SignUpController@activate')->name('user.activate');
 
     //auth
-    Route::get('/sepet/{id}', 'Site\Product\BasketController@index')->name('site.addtocart');
+    Route::get('/sepet', 'Site\Product\BasketController@index');
 
 
         Route::post('/sepet','Site\Product\BasketController@addtocart')->name('product.addtocart');
-         Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
         Route::post('/changepassword', 'Site\UserController@changepassword')->name('password.change');
         Route::post('/accountupdate', 'Site\UserController@updateinform')->name('user.accountchange');

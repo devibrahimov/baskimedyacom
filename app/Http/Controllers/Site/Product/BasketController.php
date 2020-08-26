@@ -8,43 +8,31 @@ use App\BasketProduct;
 use App\Http\Controllers\Controller;
 use App\Option;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class BasketController extends Controller
 {
 
-    public function index($id){
-     $userid  = Crypt::decrypt($id) ;
-     $basket = Basket::where('user_id','=',$userid)->first();
-     $basket = $basket->id;
-     $basketdata = BasketProduct::where('basket_id','=',$basket)->get();
-
-
-     return view('Site.pages.Products.Shop.cart',compact(['basketdata']));
+    public function index(){
+        return view('Site.pages.Products.Shop.cart');
     }
 
 
 
-#################### ADD TO CART AJAX ###########################
+
     public function addtocart(Request $request){
 
 
-        $user_id = Crypt::decrypt($request->user_id);
+        $user_id = $request->user_id ;
         $product_id = $request->product_id ;
         $quantity = $request->qty;
 
 
         ############  SQUARE
-
         $width = $request->width;
         $height= $request->height;
 
-        $width /=100.0;
-        $height /=100.0;
-        $SQUARE = $width * $height  ;
-        $SQUARE = number_format($SQUARE,2);
+        $SQUARE = $width*$height ;
 
-      //  print_r($SQUARE);die;
         ###########END SQUARE
 
 
@@ -70,29 +58,18 @@ class BasketController extends Controller
         #==================end OPTIONS============================
 
         #create basket==================
-        
-//      $basketcontrol = Basket::find($user_id);
-//        if(!$basketcontrol){
-//
-//        }else{
-//
-//            $basketid =  $basketcontrol->id ;
-//
-//        }
-        $basket = Basket::firstOrCreate([
-            'user_id'=>$user_id
-        ]) ;
-
-        $basketid = $basket->id;
-
+        $basket = new Basket() ;
+        $basket->user_id =  $user_id;
+        $basket->save() ;
+        $basket_lastid = $basket->id;
+        #get basket id
         #end basket=====================
 
 
-        $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE));
-       // print_r($PRICE);die;
+        $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE)*$quantity);
         //print_r($PRICE) ;die;
         $item =[
-            'basket_id' => $basketid,
+            'basket_id' => $basket_lastid,
             'product_id' => $product_id,
             'option_id' => $optionid,
             'additional_options' =>json_encode($additionaloptions) ,
