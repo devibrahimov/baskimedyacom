@@ -107,7 +107,7 @@
                                 <th width="15%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="product-options tr">
                             @foreach($product->options($product->parent_option) as $option)
                                 <tr>
                                     <th scope="row">
@@ -209,7 +209,7 @@
                                                    for="inputGroupSelect01">{{$option->name}}</label>
                                         </div>
 
-                                        <select class="custom-select additionaloption" id="inputGroupSelect01"  >
+                                        <select class="custom-select additionaloption" id="inputGroupSelect01">
                                             <option value="0"> -----</option>
                                             @foreach($product->additionaloption($option->id)  as $opt)
                                                 <option name="veri" value="{{$opt->id}}">{{$opt->name}}</option>
@@ -257,7 +257,6 @@
 
 @section('js')
     <script>
-
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
         $(function () {
 
@@ -408,9 +407,17 @@
             //   calculateTotal();
             //   });
 
+
         });
 
+        // RADIO BUTTON
 
+        $('.product-options tr').click(function () {
+            $(this).children('th').children('div').children('input').prop('checked', true);
+
+            $('.product-options tr').removeClass('selected');
+            $(this).toggleClass('selected');
+        });
         //--------------------------------------------
 
 
@@ -419,28 +426,28 @@
             var vinilWidth = $('.vinilWidth').val()
             var vinilHeight = $('.vinilHeight').val()
             var qty = $('.qty').val()
-        //    console.log(qty)
+            //    console.log(qty)
 
             var additionaloption = new Array()
             for (var i = 0; i < $('.additionaloption').length; i++) {
                 additionaloption.push($('.additionaloption')[i].value)
             }
-           // console.log(additionaloption)
+            // console.log(additionaloption)
             var loggedIn = {{{(Auth::user())? 'true' : 'false' }}} ;
-            if (!loggedIn){
+            if (!loggedIn) {
                 alert('Sebete Ekleye bilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
-            }else{
+            } else {
                 $.ajax({ /* AJAX REQUEST */
                     type: 'post',
                     url: "{{route('product.addtocart')}}",
                     data: {
-                        'user_id':AuthUser,
-                        'product_id' : {{$product->id}},
-                        'optionid':optionid,
-                        'additionaloptions':additionaloption,
+                        'user_id': AuthUser,
+                        'product_id': {{$product->id}},
+                        'optionid': optionid,
+                        'additionaloptions': additionaloption,
                         'height': vinilHeight,
                         'width': vinilWidth,
-                        'qty':qty,
+                        'qty': qty,
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function (data) {
@@ -448,9 +455,6 @@
                     }
                 });
             }
-
-
-
         });
 
     </script>
