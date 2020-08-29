@@ -24,7 +24,8 @@ class SignUpController extends Controller
     public function index()
     {
         $provinces = Province::all();
-        return view('Site.pages.Login.signuplast',compact(['provinces']));
+        $breadcrump = ['thispage' => 'Kayıt ol' , 'thispageURL' => route('site.signup')];
+        return view('Site.pages.Login.signuplast',compact(['provinces','breadcrump']));
     }
 
     /**

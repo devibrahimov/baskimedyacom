@@ -5,7 +5,7 @@
     <div class="top-header">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-6   d-xs-none    ">
                     <div class="d-flex align-items-center justify-content-center justify-content-md-start">
 
                         <ul class="contact_detail text-center text-lg-left">
@@ -58,8 +58,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="{{route('site.index')}}">
-                    <img class="logo_light" src="/assets/images/logo_light.png" alt="baskimedya-logo" title="Baskimedya logo" />
-                    <img class="logo_dark" src="/assets/images/logo_dark.png" alt="baskimedya-logo" title="Baskimedya logo"/>
+                    <img class="logo_light" src="/uploads/setting/{{$setting->logo}}" alt="baskimedya-logo" title="Baskimedya logo" />
+                    <img class="logo_dark" src="/uploads/setting/{{$setting->logo}}" alt="baskimedya-logo" title="Baskimedya logo"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false">
                     <span class="ion-android-menu"></span>
@@ -89,16 +89,6 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav attr-nav align-items-center">
-                    <li><a href="javascript:void(0);" class="nav-link search_trigger"><i class="linearicons-magnifier"></i></a>
-                        <div class="search_wrap">
-                            <span class="close-search"><i class="ion-ios-close-empty"></i></span>
-                            <form>
-                                <input type="text" placeholder="Search" class="form-control" id="search_input">
-                                <button type="submit" class="search_icon"><i class="ion-ios-search-strong"></i></button>
-                            </form>
-                        </div><div class="search_overlay"></div>
-                    </li>
-
 
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
@@ -111,7 +101,7 @@
                             </ul>
                             <div class="cart_footer">
                                 <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span class="price_symbole">$</span></span>159.00</p>
-                                <p class="cart_buttons"><a href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @endif" class="btn btn-fill-line view-cart">Sebete Git</a>
+                                <p class="cart_buttons"><a href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @else {{route('site.login')}} @endif" class="btn btn-fill-line view-cart">Sebete Git</a>
 {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
                             </div>

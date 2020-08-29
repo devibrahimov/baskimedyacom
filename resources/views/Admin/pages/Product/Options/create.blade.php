@@ -21,11 +21,11 @@
                         <div class="row">
                             <div class="form-group col-lg-3 col-xl-3 col-md-12 col-sm-12">
                                 <label for="exampleInputEmail1">Seçenek</label>
-                                <input type="text" class="form-control" name="name"     value="{{old('name')}}">
+                                <input type="text" class="form-control" name="name"  required   value="{{old('name')}}">
                             </div>
                             <div class="form-group col-lg-3 col-xl-3 col-md-12 col-sm-12">
                                 <label for="exampleInputEmail1">Kodu</label>
-                                <input type="text" class="form-control" name="option_code"  value=" {{old('product_code')}}">
+                                <input type="text" class="form-control" name="option_code" required  value=" {{old('product_code')}}">
                             </div>
                             <div class="form-group col-lg-2 col-xl-2 col-md-12 col-sm-12">
                                 <label for="exampleInputEmail1">Fiyatı</label>

@@ -16,7 +16,8 @@ class ServicesController extends Controller
     public function index()
     {
         $services = Service::all();
-        return view('site.pages.services.services',compact(['services']));
+        $breadcrump = ['thispage' => 'Hizmetler' , 'thispageURL' => route('site.services')];
+        return view('Site.pages.Services.services',compact(['services','breadcrump']));
     }
 
     /**

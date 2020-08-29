@@ -169,7 +169,7 @@
                             <div class="product_info">
                                 <h6 class="product_title"><a href="{{route('showProducts',[$product->id,$product->slug])}}">{{$product->name}}</a></h6>
                                 <div class="product_price">
-                                    <span class="price">${{$product->price}}</span>
+                                    <span class="price">$ {{$product->optionchipoption($product->parent_option)->price}}</span>
 
                                 </div>
                                 <div class="rating_wrap">

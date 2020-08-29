@@ -12,6 +12,7 @@ use App\User ;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -28,7 +29,12 @@ class UserController extends Controller
             ->first();
      // $user = $user[0];
         $provinces = Province::all();
-      return view('Site.pages.User.profil',compact(['user','provinces']));
+
+        $breadcrump = ['thispage' => $user->name ,
+            'thispageURL' => route('user.profil',[ Str::slug($user->name) , Crypt::encrypt( $user->user_id)]) ];
+
+
+        return view('Site.pages.User.profil',compact(['user','provinces','breadcrump']));
     }
 
     public function changepassword(Request $request){

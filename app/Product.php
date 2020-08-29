@@ -22,6 +22,9 @@ class Product extends Model
         return Option::where('parent_id','=',$parentid)->get();
     }
 
+    public function optionchipoption($parentid){
+        return Option::where('parent_id','=',$parentid)->orderBy('price' , 'ASC')->first();
+    }
     public function optionparentName(){
         return  $this->belongsTo('App\Option' , 'parent_option');
     }

@@ -16,7 +16,8 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery::all();
-        return view('Site.pages.Gallery.index',compact(['galleries']));
+        $breadcrump = ['thispage' => 'Galeri' , 'thispageURL' => route('site.gallery')];
+        return view('Site.pages.Gallery.index',compact(['galleries','breadcrump']));
     }
 
     /**

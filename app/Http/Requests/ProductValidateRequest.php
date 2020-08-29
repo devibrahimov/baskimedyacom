@@ -25,7 +25,7 @@ class ProductValidateRequest extends FormRequest
     {
         return [
             'name'=>'required|string|max:250',
-            'description'=>'required|string|max:250',
+            'description'=>'required|string|max:650',
             'metatitle'=>'required|string|max:150',
             'metadescription'=>'required|string|max:150',
             'product_code'=>'required|string|unique:products|',
