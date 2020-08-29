@@ -96,6 +96,7 @@ Route::group(['prefix' => 'kullanici'], function () {
          Route::group(['middleware' => ['auth']], function () {
         Route::post('/sepet','Site\Product\BasketController@addtocart')->name('product.addtocart');
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
+        Route::get('/basket/get/{id}','Site\Product\BasketController@basketfetch')->name('basket.fetch');
         Route::post('/changepassword', 'Site\UserController@changepassword')->name('password.change');
         Route::post('/accountupdate', 'Site\UserController@updateinform')->name('user.accountchange');
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');

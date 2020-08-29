@@ -111,7 +111,7 @@
 
                                             <input class="form-radio-input option" type="radio" name="radios"
                                                    data-option="{{$option->id}}"
-                                                   @if($loop->first) {{'checked'}} @endif data-optionprice="{{$option->price}}"
+                                                   @if($loop->first) {{'checked'}} @endif   data-optionprice="{{$option->price}}"
                                                    id="exampleRadio3" value="{{$option->id}}">
                                             <label class="form-radio-label" for="exampleRadio3"> </label>
                                         </div>
@@ -183,7 +183,7 @@
                                 <tr>
                                     <td><span id="calc-w">100</span></td>
                                     <td><span id="calc-h">100</span></td>
-                                    <td><span id="calc-area">1.0000</span></td>
+                                    <td><span id="calc-area">1.00</span></td>
                                 </tr>
 
                                 </tbody>
@@ -293,7 +293,7 @@
 
                 $totalCalcW.text(calcW * quantitiy);
                 $totalCalcH.text(calcH * quantitiy);
-                $calcArea.text((calcArea * quantitiy).toFixed(4));
+                $calcArea.text((calcArea * quantitiy).toFixed(2));
 
                 $additionalOption.each(function (i, elm) {
                     var price = $(elm).data("price");
@@ -303,7 +303,7 @@
             var updateDimensionsTable = function () {
                 var w = getWidthM();
                 var h = getHeightM();
-                var area = (w * h).toFixed(4);
+                var area = (w * h).toFixed(2);
                 var quantitiy = $quantityInput.val();
                 $calcW.text(parseInt($width.val()));
                 $calcH.text(parseInt($height.val()));
@@ -445,7 +445,16 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function (data) {
-                        return this.data
+                        $.ajax({
+                            method : 'GET',
+                            url:"/kullanici/basket/get/"+AuthUser,
+
+                            success:function(data)
+                            {
+                                $('#cartproducts').html(data.products)
+                                $('#cart_count').html(data.count)
+                            }
+                        })
                     }
                 });
             }

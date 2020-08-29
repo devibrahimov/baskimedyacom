@@ -90,17 +90,11 @@
                 </div>
                 <ul class="navbar-nav attr-nav align-items-center">
 
-                    <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
+                    <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i class="linearicons-cart"></i><span id="cart_count"  class="cart_count">0</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
-                            <ul class="cart_list">
-                                <li>
-                                    <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                    <a href="#"><img src="/assets/images/cart_thamb1.jpg" alt="cart_thumb1">Variable product 001</a>
-                                    <span class="cart_quantity"> 1 x <span class="cart_amount"> <span class="price_symbole">$</span></span>78.00</span>
-                                </li>
-                            </ul>
+                            <div  id="cartproducts" >{{--                          basket products --}}
+                            </div>
                             <div class="cart_footer">
-                                <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> <span class="price_symbole">$</span></span>159.00</p>
                                 <p class="cart_buttons"><a href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @else {{route('site.login')}} @endif" class="btn btn-fill-line view-cart">Sebete Git</a>
 {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
