@@ -8,7 +8,8 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
-        tr.selected{
+
+        tr.selected {
             background: #00b4ff;
         }
     </style>
@@ -93,37 +94,38 @@
                     <div class="col-lg-6">
                         {{--                        <p>Seçenekler</p>--}}
                         @if($product->parent_option != NULL)
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th width="5%" scope="col">#</th>
-                                <th width="65%" scope="col">Ürün <br> Malzemesi</th>
-                                <th width="15%" scope="col">Stok <br/> Durumu</th>
-                                <th width="25%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
-                            </tr>
-                            </thead>
-                            <tbody class="product-options tr">
-
-                            @foreach($product->options($product->parent_option) as $option)
-                                <tr class="@if($loop->first) {{'selected'}} @endif ">
-                                    <th scope="row">
-                                        <div class="custome-checkbox" name="myForm">
-
-                                            <input class="form-radio-input option" type="radio" name="radios"
-                                                   data-option="{{$option->id}}"
-                                                   @if($loop->first) {{'checked'}} @endif data-optionprice="{{$option->price}}"
-                                                   id="exampleRadio3" value="{{$option->id}}">
-                                            <label class="form-radio-label" for="exampleRadio3"> </label>
-                                        </div>
-                                    </th>
-                                    <td>{{$option->name}}</td>
-                                    <td>@if($option->stock == 1) {{'var'}} @endif</td>
-                                    <td>$ {{$option->price}}</td>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="5%" scope="col">#</th>
+                                    <th width="65%" scope="col">Ürün <br> Malzemesi</th>
+                                    <th width="15%" scope="col">Stok <br/> Durumu</th>
+                                    <th width="25%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
                                 </tr>
-                            @endforeach
+                                </thead>
+                                <tbody class="product-options tr">
 
-                            </tbody>
-                        </table>
+                                @foreach($product->options($product->parent_option) as $option)
+                                    <tr class="@if($loop->first) {{'selected'}} @endif ">
+                                        <th scope="row">
+                                            <div class="custome-checkbox" name="myForm">
+
+                                                <input class="form-radio-input option" type="radio" name="radios"
+                                                       data-option="{{$option->id}}"
+                                                       @if($loop->first) {{'checked'}} @endif data-optioncode="{{$option->option_code}}"
+                                                       data-optionprice="{{$option->price}}"
+                                                       id="exampleRadio3" value="{{$option->id}}">
+                                                <label class="form-radio-label" for="exampleRadio3"> </label>
+                                            </div>
+                                        </th>
+                                        <td>{{$option->name}}</td>
+                                        <td>@if($option->stock == 1) {{'var'}} @endif</td>
+                                        <td>$ {{$option->price}}</td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
                         @endif
                     </div>
                     <div class="otherOptions col-lg-6">
@@ -216,6 +218,28 @@
                         @endif
 
 
+                        <div class="pr_detail">
+                            <div class="product_description">
+                                <div class="pr_detail">
+                                    <div class="product_description">
+                                        <br>
+                                        <ul class="product-meta d-inline">
+                                            <li class="text-default">Sipariş Kodu: <a
+                                                    href="#"> {{$product->product_code}}-<span
+                                                        id="siparisCode">{{$option->product_code}}</span></a></li>
+                                            <li class="text-default">Toplam Fiyat : $ <a
+                                                    class="tutar"> 0.00</a>
+                                            </li>
+                                        </ul>
+                                        <hr/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
                         <div class="cart_extra mt-2">
                             <div class="cart-product-quantity">
                                 <div class="quantity">
@@ -253,7 +277,6 @@
     <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
         $(function () {
-
             var $featureSelect = $('.allContent');
             var $productFeatureSelect = $('.option')
             var $price = $('#price');
@@ -265,9 +288,6 @@
             var $calcW = $('#calc-w');
             var $calcH = $('#calc-h');
             var $calcArea = $('#calc-area');
-            var $totalCalcW = $('#calc-w');
-            var $totalCalcH = $('#calc-h');
-            var $totalCalcArea = $('#calc-area');
 
             var getWidthM = function () {
                 return parseFloat(parseInt($width.val()) / 100);
@@ -286,17 +306,12 @@
                 var calcH = parseInt($calcH.text());
                 var calcArea = parseFloat($calcArea.text());
                 var $additionalOption = $('.additionaloption option:selected');
-                //var calculatedPrice = currency(price).add(featurePrice).multiply(quantitiy);
-
-                var calculatedPrice = calcArea * $featurePrice;
-                $priceShow.text(calculatedPrice);
-
-                $totalCalcW.text(calcW * quantitiy);
-                $totalCalcH.text(calcH * quantitiy);
-                $calcArea.text((calcArea * quantitiy).toFixed(4));
 
                 $additionalOption.each(function (i, elm) {
                     var price = $(elm).data("price");
+
+                    var calculatedPrice = (calcArea * $featurePrice).toFixed(2);
+                    $priceShow.text(calculatedPrice);
                 });
             };
 
@@ -321,87 +336,6 @@
                 calculateTotal();
                 updateDimensionsTable();
             });
-
-
-            {{--$.ajax({--}}
-            {{--    url: '{{route('product.addtocart')}}',--}}
-            {{--    method: 'POST',--}}
-            {{--    data: {--}}
-            {{--        'sku': selectedSku,--}}
-            {{--        'parts': optionCodesWithoutProductCode,--}}
-            {{--        'product_code': $productCode.val()--}}
-            {{--    },--}}
-            {{--    success: function (variant) {--}}
-
-            {{--        if (variant) {--}}
-            {{--            var price = currency(variant.price);--}}
-            {{--            $priceShow.text(price);--}}
-            {{--            $originalPrice.val(price);--}}
-            {{--            $price.val(price);--}}
-            {{--            $stock.val(variant.stock);--}}
-            {{--            $skuShow.text(variant.sku + ' : ' + variant.name);--}}
-            {{--            $variantId.val(variant.id);--}}
-            {{--            $variantSku.val(variant.sku);--}}
-            {{--        }--}}
-            {{--    }--}}
-            {{--});--}}
-
-            // });
-
-            //
-//             $productFeatureSelect.on('click', function () {
-//
-//                 $quantityInput.val(1);
-//
-//                 var featurePrices = [];
-//                 var price = $price.val();
-//                 $productFeatureSelect.find('radio:checked').each(function () {
-//                     var featurePrice = $(this).data('price');
-//                     console.log($(this))
-//                     // var featurePriceEffect = $(this).data('effect');
-//                     // var featurePriceEffectTitle = $(this).data('effect-title');
-// //                    var featureId = $(this).data('feature-id');
-// //                     var $featureTotal = $('#feature-total-' + featureId);
-// //                     var $featureInfo = $('#feature-info-' + featureId);
-//                     var w = getWidthM();
-//                     var h = getHeightM();
-//                     console.log(w,h)
-//                     var area = w * h;
-//                     var perimeter = 2 * (w + h);
-//
-//                     // switch (featurePriceEffect) {
-//                     //     case 'direct':
-//                     //
-//                     //         break;
-//                     //     case 'area':
-//                     //         featurePrice = featurePrice.multiply(area);
-//                     //         break;
-//                     //     case 'perimeter':
-//                     //         featurePrice = featurePrice.multiply(perimeter);
-//                     //         break;
-//                     //     case 'width':
-//                     //         featurePrice = featurePrice.multiply(w);
-//                     //         break;
-//                     //     case 'height':
-//                     //         featurePrice = featurePrice.multiply(h);
-//                     //         break;
-//                     // }
-//
-//                     featurePrices.push(featurePrice);
-//                     // $featureTotal.data('price', featurePrice);
-//                     // $featureInfo.text(featurePriceEffectTitle)
-//                 });
-//
-
-            // var total = currency(0.00);
-            // $.each(featurePrices, function (i, p) {
-            //     total = currency(total).add(currency(p));
-            // });
-            // $featurePrice.val(total);
-            //   calculateTotal();
-            //   });
-
-
         });
 
         // RADIO BUTTON
@@ -411,6 +345,12 @@
 
             $('.product-options tr').removeClass('selected');
             $(this).toggleClass('selected');
+
+            var $featureId = $('.option:checked');
+            var optioncode = $featureId[0].dataset.optioncode
+            console.log(optioncode)
+            document.getElementById('siparisCode').innerHTML = optioncode;
+
         });
         //--------------------------------------------
 

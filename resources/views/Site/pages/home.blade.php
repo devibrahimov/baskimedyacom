@@ -126,8 +126,7 @@
         <!-- END SECTION ABOUT -->
     <div class="section pb_20 small_pt">
         <div class="container-fluid px-2">
-            <div class="row no-gutters">
-
+            <div class="row no-gutters justify-content-center">
               @foreach($services as $service)
                   <div class="col-md-4">
                     <div class=" sale_banner rounded-0">
