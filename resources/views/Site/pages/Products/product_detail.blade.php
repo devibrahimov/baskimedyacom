@@ -8,8 +8,7 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
-
-        tr.selected {
+        tr.selected{
             background: #00b4ff;
         }
     </style>
@@ -94,21 +93,21 @@
                     <div class="col-lg-6">
                         {{--                        <p>Seçenekler</p>--}}
                         @if($product->parent_option != NULL)
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th width="5%" scope="col">#</th>
-                                    <th width="65%" scope="col">Ürün <br> Malzemesi</th>
-                                    <th width="15%" scope="col">Stok <br/> Durumu</th>
-                                    <th width="25%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
-                                </tr>
-                                </thead>
-                                <tbody class="product-options tr">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="5%" scope="col">#</th>
+                                <th width="65%" scope="col">Ürün <br> Malzemesi</th>
+                                <th width="15%" scope="col">Stok <br/> Durumu</th>
+                                <th width="25%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
+                            </tr>
+                            </thead>
+                            <tbody class="product-options tr">
 
-                                @foreach($product->options($product->parent_option) as $option)
-                                    <tr class="@if($loop->first) {{'selected'}} @endif ">
-                                        <th scope="row">
-                                            <div class="custome-checkbox" name="myForm">
+                            @foreach($product->options($product->parent_option) as $option)
+                                <tr class="@if($loop->first) {{'selected'}} @endif ">
+                                    <th scope="row">
+                                        <div class="custome-checkbox" name="myForm">
 
                                                 <input class="form-radio-input option" type="radio" name="radios"
                                                        data-option="{{$option->id}}"
@@ -124,8 +123,8 @@
                                     </tr>
                                 @endforeach
 
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
                         @endif
                     </div>
                     <div class="otherOptions col-lg-6">
@@ -185,7 +184,7 @@
                                 <tr>
                                     <td><span id="calc-w">100</span></td>
                                     <td><span id="calc-h">100</span></td>
-                                    <td><span id="calc-area">1.0000</span></td>
+                                    <td><span id="calc-area">1.00</span></td>
                                 </tr>
 
                                 </tbody>
@@ -216,28 +215,6 @@
                                 @endforeach
                             @endforeach
                         @endif
-
-
-                        <div class="pr_detail">
-                            <div class="product_description">
-                                <div class="pr_detail">
-                                    <div class="product_description">
-                                        <br>
-                                        <ul class="product-meta d-inline">
-                                            <li class="text-default">Sipariş Kodu: <a
-                                                    href="#"> {{$product->product_code}}-<span
-                                                        id="siparisCode">{{$option->product_code}}</span></a></li>
-                                            <li class="text-default">Toplam Fiyat : $ <a
-                                                    class="tutar"> 0.00</a>
-                                            </li>
-                                        </ul>
-                                        <hr/>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
 
 
                         <div class="cart_extra mt-2">
@@ -277,6 +254,7 @@
     <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
         $(function () {
+
             var $featureSelect = $('.allContent');
             var $productFeatureSelect = $('.option')
             var $price = $('#price');
@@ -288,6 +266,9 @@
             var $calcW = $('#calc-w');
             var $calcH = $('#calc-h');
             var $calcArea = $('#calc-area');
+            var $totalCalcW = $('#calc-w');
+            var $totalCalcH = $('#calc-h');
+            var $totalCalcArea = $('#calc-area');
 
             var getWidthM = function () {
                 return parseFloat(parseInt($width.val()) / 100);
@@ -318,7 +299,7 @@
             var updateDimensionsTable = function () {
                 var w = getWidthM();
                 var h = getHeightM();
-                var area = (w * h).toFixed(4);
+                var area = (w * h).toFixed(2);
                 var quantitiy = $quantityInput.val();
                 $calcW.text(parseInt($width.val()));
                 $calcH.text(parseInt($height.val()));
@@ -385,7 +366,16 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function (data) {
-                        return this.data
+                        $.ajax({
+                            method : 'GET',
+                            url:"/kullanici/basket/get/"+AuthUser,
+
+                            success:function(data)
+                            {
+                                $('#cartproducts').html(data.products)
+                                $('#cart_count').html(data.count)
+                            }
+                        })
                     }
                 });
             }

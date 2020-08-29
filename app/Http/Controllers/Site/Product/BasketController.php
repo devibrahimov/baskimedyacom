@@ -23,7 +23,33 @@ class BasketController extends Controller
      return view('Site.pages.Products.Shop.cart',compact(['basketdata']));
     }
 
+        public  function basketfetch($id){
+            $userid  = Crypt::decrypt($id) ;
+            $basket = Basket::where('user_id','=',$userid)->first();
+            $basket = $basket->id;
+            $basketdata = BasketProduct::where('basket_id','=',$basket)->latest()->take(2)->get();
 
+            $productcount =  BasketProduct::where('basket_id','=',$basket)->count() ;
+
+            $basketproducts = '<ul class="cart_list">';
+
+            foreach ($basketdata as $data){
+                $basketproducts.='<li>
+                                    <a href="#" class="item_remove"><i class="ion-close"></i></a>
+                                    <a href="#"><img  maxheight="150px"  alt=" '.$data->product->name.'  title=" '.$data->product->name.' " src="/storage/uploads/thumbnail/products/small/'.$data->product->image.'">'.$data->product->name.'</a>
+                                    <span class="cart_quantity">'.$data->option->name.'</span>
+                                    <span class="cart_quantity">'.$data->quantity.' x <span class="cart_amount"> <span class="price_symbole">$</span></span>' .$data->price.' </span>
+                                </li>';
+            }
+
+            $basketproducts .= '</ul>';
+
+            $baskethtmldata = [
+                'count' => $productcount,
+                'products'=>$basketproducts
+            ];
+            return $baskethtmldata;
+        }
 
 #################### ADD TO CART AJAX ###########################
     public function addtocart(Request $request){
@@ -70,7 +96,7 @@ class BasketController extends Controller
         #==================end OPTIONS============================
 
         #create basket==================
-        
+
 //      $basketcontrol = Basket::find($user_id);
 //        if(!$basketcontrol){
 //

@@ -1,13 +1,4 @@
-<?php
-
-$instajson = file_get_contents('https://www.instagram.com/tiryakioglupixelreklam/?__a=1');
-if (isset($instajson)) {
-    $instadata = json_decode($instajson, true);
-}
-$image[] = '';
-?>
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Meta -->
@@ -119,6 +110,14 @@ $image[] = '';
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="widget">
                         <h6 class="widget_title">Instagram</h6>
+                        <?php
+
+                        $instajson = file_get_contents('https://www.instagram.com/tiryakioglupixelreklam/?__a=1');
+                        if (isset($instajson)) {
+                            $instadata = json_decode($instajson,true);
+                        }
+                        $image[] = '';
+                        ?>
                         <ul class="widget_instafeed instafeed_col4">
                             @if(isset($instadata))
                                 @foreach(array_slice($instadata['graphql']['user']['edge_owner_to_timeline_media']['edges'],0,8) as $image)
@@ -164,6 +163,25 @@ $image[] = '';
 @include('Site.partials.jsscripts')
 <!-- scripts js -->
 @yield('js')
+@auth
+<script >
+    $(function () {
+        var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
+
+        $.ajax({
+            method : 'GET',
+            url:"/kullanici/basket/get/"+AuthUser,
+
+            success:function(data)
+            {
+                $('#cartproducts').html(data.products)
+                $('#cart_count').html(data.count)
+            }
+        })
+
+    });
+</script>
+@endauth
 <script src="/assets/js/scripts.js?v=W2w349005t34SFGER45343"></script>
 
 </html>

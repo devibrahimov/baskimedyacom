@@ -48,9 +48,6 @@ class ProductController extends Controller
      */
     public function store(ProductValidateRequest $request)
     {
-
-
-
        $product  = new Product();
        $product->name = request('name');
        $product->description = request('description');
