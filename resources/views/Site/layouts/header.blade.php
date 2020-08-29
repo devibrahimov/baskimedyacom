@@ -30,7 +30,7 @@
                                 <ul class="header_list">
 
                                     @auth('admin')
-                                    <li><a href="{{route('admin.home')}}"><i class="ti-control-shuffle"></i><span>Yönetim paneli</span></a></li>
+                                    <li><a href="{{route('admin.home')}}"><i class="ti-control-shuffle"></i><span>Yönetim Paneli</span></a></li>
                                     @endif
 
                                     <li>
@@ -38,7 +38,7 @@
 
 {{--                                        <a href="{{route('user.profil',[Auth::user()->id , \Illuminate\Support\Str::slug(Auth::user()->name)])}}" ><i class="ti-user"></i><span>{{Auth::user()->name}}</span></a>--}}
                                     </li>
-                                    <li><a href="#"  onclick="event.preventDefault(); document.getElementById('form-submit').submit()"> <i class="ti-shift-left-alt"></i><span >Çıkış yap</span></a></li>
+                                    <li><a href="#"  onclick="event.preventDefault(); document.getElementById('form-submit').submit()"> <i class="ti-shift-left-alt"></i><span >Çıkış Yap</span></a></li>
                                     <form action="{{route('site.logout')}}" method="post" id="form-submit" style="display: none;">
                                         @csrf
                                     </form>

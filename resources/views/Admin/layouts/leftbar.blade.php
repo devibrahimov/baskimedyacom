@@ -35,6 +35,9 @@
             <li class="slide">
                 <a class="side-menu__item" href="{{route('statistics.index')}}"> <span class="side-menu__label">Google İstatistikleri</span> </a>
             </li>
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('catalogue.read')}}"> <span class="side-menu__label">Katalog Talepleri</span> </a>
+            </li>
 
 
 

@@ -63,6 +63,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'yonetim'], function () {  
     Route::post('informationcat/{id}/edit', 'Admin\InformationController@updatecategory')->name('inform.update');
     Route::delete('informationcat/{id}', 'Admin\InformationController@deletecategory')->name('inform.delete');
 
+    Route::get('/katalog','Admin\AdminController@catalogue')->name('admin.catalogue');
+    Route::post('/katalog','Admin\AdminController@addcatalogue')->name('catalogue.add');
+    Route::get('/katalogliste','Admin\AdminController@readcatalogue')->name('catalogue.read');
+    Route::delete('katalogsil/{id}','Admin\AdminController@delcatalogue')->name('catalogue.delete');
+
     Route::get('/gallerys', 'Admin\ImageGaleryController@fetch')->name('gallery.fetch');
     Route::get('/galleryss', 'Admin\ImageGaleryController@delete')->name('gallery.delete');
 

@@ -104,14 +104,14 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="heading_s1 mb-md-0 heading_light">
-                            <h3>Subscribe Our Newsletter</h3>
+                            <h3>Bültenimize Ücretsiz Abone Olun!</h3>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="newsletter_form">
                             <form>
-                                <input type="text" required="" class="form-control rounded-0" placeholder="Enter Email Address">
-                                <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">Subscribe</button>
+                                <input type="text" required="" class="form-control rounded-0" placeholder="E-Posta Adresinizi Giriniz">
+                                <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">Abone Ol</button>
                             </form>
                         </div>
                     </div>

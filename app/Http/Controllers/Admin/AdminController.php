@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Catalogue;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,33 @@ class AdminController extends Controller
     {
         return view('Admin.pages.home');
     }
+
+    public function catalogue(){
+        return view('Admin.pages.Catalogue.index');
+    }
+
+    public function addcatalogue(Request $request){
+        $catalogue = new Catalogue();
+        $catalogue->name = $request->name;
+        $catalogue->lastname = $request->lastname;
+        $catalogue->email = $request->email;
+        $catalogue->tel = $request->phone;
+        $catalogue->adres = $request->adres;
+        $catalogue->save();
+        return back()->with('success','Talebiniz İletildi!');
+    }
+
+    public function readcatalogue(){
+        $catalogues = Catalogue::all();
+        return view('Admin.pages.Catalogue.index',compact(['catalogues']));
+    }
+
+    public function delcatalogue($id){
+        $catalogue = Catalogue::find($id);
+        $catalogue->delete();
+        return back();
+    }
+
 
     /**
      * Show the form for creating a new resource.
