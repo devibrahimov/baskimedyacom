@@ -32,16 +32,20 @@ class SiteController extends Controller
 
     public function services()
     {
+
         $about = About::first();
         $products = Product::all();
         $references = References::all();
-        return view('Site.pages.home',compact(['about','products','references']));
+
+
+        return view('Site.pages.home',compact(['about','products','references','breadcrump']));
     }
 
     public function information(){
         $infos = Information::all();
         $cats = InfoCat::all();
-        return view('Site.pages.Information.index',compact(['cats','infos']));
+        $breadcrump = ['thispage' => 'Bilgilendirme Sayfası' , 'thispageURL' => route('site.information')];
+        return view('Site.pages.Information.index',compact(['cats','infos','breadcrump']));
     }
 
     public function catalogue(){

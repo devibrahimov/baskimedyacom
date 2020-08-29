@@ -8,6 +8,9 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
+        tr.selected{
+            background: #ddd;
+        }
     </style>
     <!-- START MAIN CONTENT -->
     <div class="main_content">
@@ -58,14 +61,6 @@
                             <div class="product_description">
                                 {{--                                @dd($product);--}}
                                 <h4 class="product_title"><a href="#">{{$product->name}}</a></h4>
-                                <div class="product_price">
-                                    <span class="price">${{$product->price}}</span>
-                                    <del>$55.25</del>
-
-                                </div>
-
-                                <br>
-                                <hr>
 
                                 <div class="pr_detail">
                                     <div class="product_description">
@@ -97,19 +92,20 @@
                 <div class="row">
                     <div class="col-lg-6">
                         {{--                        <p>Seçenekler</p>--}}
-
+                        @if($product->parent_option != NULL)
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th width="5%" scope="col">#</th>
-                                <th width="75%" scope="col">Ürün <br> Malzemesi</th>
+                                <th width="65%" scope="col">Ürün <br> Malzemesi</th>
                                 <th width="15%" scope="col">Stok <br/> Durumu</th>
-                                <th width="15%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
+                                <th width="25%" scope="col">m <sup>2</sup> <br/>fiyatı</th>
                             </tr>
                             </thead>
                             <tbody class="product-options tr">
+
                             @foreach($product->options($product->parent_option) as $option)
-                                <tr>
+                                <tr class="@if($loop->first) {{'selected'}} @endif ">
                                     <th scope="row">
                                         <div class="custome-checkbox" name="myForm">
 
@@ -125,9 +121,10 @@
                                     <td>$ {{$option->price}}</td>
                                 </tr>
                             @endforeach
+
                             </tbody>
                         </table>
-
+                        @endif
                     </div>
                     <div class="otherOptions col-lg-6">
 
@@ -176,20 +173,17 @@
                             <table class="table table-sm table-hover mb-0 font-sm text-center">
                                 <thead>
                                 <tr>
-                                    <th class="compress"></th>
+
                                     <th>En (cm)</th>
                                     <th>Boy (cm)</th>
                                     <th>Alan (m<sup>2</sup>)</th>
-                                    <th>Çevre (m)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <th class="text-right">Birim</th>
                                     <td><span id="calc-w">100</span></td>
                                     <td><span id="calc-h">100</span></td>
                                     <td><span id="calc-area">1.0000</span></td>
-                                    <td><span id="calc-perimeter">4.0000</span></td>
                                 </tr>
 
                                 </tbody>
@@ -210,7 +204,7 @@
                                         </div>
 
                                         <select class="custom-select additionaloption" id="inputGroupSelect01">
-                                            <option value="0"> -----</option>
+
                                             @foreach($product->additionaloption($option->id)  as $opt)
                                                 <option name="veri" value="{{$opt->id}}">{{$opt->name}}</option>
                                             @endforeach

@@ -26,7 +26,7 @@ class LoginController extends Controller
             'password'=>$request->passwd,
             'role'=> 0,
             'active'=> 1
-        ])){
+        ],request()->has('remembered'))){
             request()->session()->regenerate();
             return redirect()->intended('/');
         }else{

@@ -53,7 +53,7 @@
 
 
                             <div class="d-flex  mt-2">
-                                <div class="mt-2 product-title">Stock biligisi: {{$product->stock==0?'Hizmet Yok':'Hizmet var'}}</div>
+                                <div class="mt-2 product-title">Stock biligisi:  </div>
 
                             </div>
                             <div class="action">

@@ -14,7 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('Site.pages.Contact.contact');
+        $breadcrump = ['thispage' => ' İletişim' , 'thispageURL' => route('site.contact')];
+        return view('Site.pages.Contact.contact',compact(['breadcrump']));
 
     }
 

@@ -16,7 +16,8 @@ class AboutController extends Controller
     public function index()
     {
         $company = About::first();
-        return view('Site.pages.About.aboutus',compact(['company']));
+        $breadcrump = ['thispage' => 'Hakkımızda' , 'thispageURL' => route('site.about')];
+        return view('Site.pages.About.aboutus',compact(['company','breadcrump']));
     }
 
     /**

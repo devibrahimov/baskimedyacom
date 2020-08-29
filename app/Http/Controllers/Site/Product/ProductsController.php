@@ -21,7 +21,8 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('Site.pages.Products.products',compact(['products']));
+        $breadcrump = ['thispage' => 'Ürünlerimiz' , 'thispageURL' => route('site.product')];
+        return view('Site.pages.Products.products',compact(['products',"breadcrump"]));
     }
 
     /**
@@ -56,7 +57,12 @@ class ProductsController extends Controller
         $product = Product::where('slug','=',$slug)->find($id);
         $images = ProductImage::where('product_id','=',$id)->get();
         $additonaloptionparents = AdditionalOption::where('parent_id','=',NULL)->get();
-         return view('Site.pages.Products.product_detail',compact(['product','images','additonaloptionparents']) );
+
+        $breadcrump = ['thispage' => $product->name , 'parentpage'=>'Ürünlerimiz' ,
+            'parentURL'=> route('site.product'),
+            'thispageURL' => route('showProducts',[$product->id,$product->slug]) ];
+
+         return view('Site.pages.Products.product_detail',compact(['product','images','additonaloptionparents',"breadcrump"]) );
     }
 
     /**
@@ -100,7 +106,7 @@ class ProductsController extends Controller
 
         $product = Product::find($id);
         $options = Option::all();
- 
+
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $basket = new Basket($oldCart);
         $basket->add($product,$product->id);

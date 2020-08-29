@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label >Ürün açıklaması</label>
-                            <textarea name="description"  class="form-control " id="" cols="30" rows="10">{{old('description')}}</textarea>
+                            <textarea name="description" maxlength="650" class="form-control " id="" cols="30" rows="10">{{old('description')}}</textarea>
                         </div>
                         <div class="form-group">
                             <label >Ürün Meta başlık</label>

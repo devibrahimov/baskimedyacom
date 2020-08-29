@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Ürün açıklaması</label>
-                            <textarea name="description" class="form-control " id="" cols="20" rows="5">{{$product->description }}</textarea>
+                            <textarea name="description" maxlength="650" class="form-control " id="" cols="20" rows="5">{{$product->description }}</textarea>
                         </div>
                         <div class="row">
                         @foreach(json_decode($product->meta) as $k=>$v)
