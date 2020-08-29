@@ -84,7 +84,7 @@
                         </li>
                         <li><a class="nav-link nav_item" href="{{route('site.contact')}}">İLETİŞİM</a></li>
                         </li>
-                        <li><a class="nav-link nav_item" href="#">ÜCRETSİZ KATALOG</a></li>
+                        <li><a class="nav-link nav_item" href="{{route('site.catalogue')}}">ÜCRETSİZ KATALOG</a></li>
 
                     </ul>
                 </div>

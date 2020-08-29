@@ -43,6 +43,11 @@ class SiteController extends Controller
         $cats = InfoCat::all();
         return view('Site.pages.Information.index',compact(['cats','infos']));
     }
+
+    public function catalogue(){
+        return view('Site.pages.Catalogue.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -25,9 +25,6 @@
                                     <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Siparişlerim</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Adres Bilgileri</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" id="address-tab" data-toggle="tab" href="#corporative" role="tab" aria-controls="corporative" aria-selected="true"><i class="fa fa-building "></i>Kurumsal Bilgiler</a>
                                 </li>
                                 <li class="nav-item">
@@ -46,9 +43,6 @@
                             </div>
                             <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                                 @include('Site.pages.User.partials.orders')
-                            </div>
-                            <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                                @include('Site.pages.User.partials.address')
                             </div>
                             <div class="tab-pane fade" id="corporative" role="tabpanel" aria-labelledby="address-tab">
                                 @include('Site.pages.User.partials.corporative')

@@ -4255,6 +4255,7 @@ footer .widget_title {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     padding: 40px 20px;
     border-radius: 10px;
+    max-height:229px;
 }
 .contact_style3 .contact_icon {
     border: 1px solid #FF324D;

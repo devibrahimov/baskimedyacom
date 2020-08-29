@@ -40,7 +40,7 @@
                             <div class="contact_icon">
                                 <i class="linearicons-tablet2"></i>
                             </div>
-                            <div class="contact_text">
+                            <div class="contact_text"  style="max-height: 147px;">
                                 <span>İrtibat</span>
                                 <p>{{$setting?$setting->number : '' }} <br>{{$setting?$setting->phone : '' }}</p>
 
@@ -91,7 +91,6 @@
                         </div>
                     </div>
                     <div class="col-lg-6 pt-2 pt-lg-0 mt-4 mt-lg-0">
-
                         {!! $setting->map?$setting->map : '' !!}
                     </div>
                 </div>

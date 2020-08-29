@@ -77,6 +77,7 @@ Route::get('/iletisim', 'Site\ContactController@index')->name('site.contact');
 Route::get('/galeri', 'Site\GalleryController@index')->name('site.gallery');
 Route::get('/hizmetlerimiz', 'Site\ServicesController@index')->name('site.services');
 Route::get('/bilgilendirme', 'Site\SiteController@information')->name('site.information');
+Route::get('/katalog','Site\SiteController@catalogue')->name('site.catalogue');
 
 Route::group(['prefix' => 'kullanici'], function () {
 
