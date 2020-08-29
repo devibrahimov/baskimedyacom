@@ -49,7 +49,8 @@ class SiteController extends Controller
     }
 
     public function catalogue(){
-        return view('Site.pages.Catalogue.index');
+        $breadcrump = ['thispage' => 'Katalog' , 'thispageURL' => route('site.catalogue')];
+        return view('Site.pages.Catalogue.index',compact(['breadcrump']));
     }
 
     /**

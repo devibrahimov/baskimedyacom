@@ -9,7 +9,7 @@
             border-top: 1px solid #dee2e6;
         }
         tr.selected{
-            background: #ddd;
+            background: #00b4ff;
         }
     </style>
     <!-- START MAIN CONTENT -->
