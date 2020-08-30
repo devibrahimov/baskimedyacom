@@ -178,7 +178,6 @@
                 $('#cart_count').html(data.count)
             }
         })
-
     });
 </script>
 @endauth

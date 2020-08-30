@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input required placeholder="Telefon numaranız *" id="phone" class="form-control"
-                                           name="phone" type="phone">
+                                           name="phone" type="number">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input placeholder="Email adresiniz" id="subject" class="form-control" name="email"

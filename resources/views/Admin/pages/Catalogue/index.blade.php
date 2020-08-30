@@ -34,8 +34,8 @@
                                     <tr>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td> ---- </td>
-                                        <td>{{date('d-m-Y',strtotime($user->created_at) ) }}</td>
+                                        <td> {{$user->tel}} </td>
+                                        <td>{{$user->adres}}</td>
                                         <td>
                                             <div class="btn-icon-list">
                                                 <form class="btn btn-danger btn-icon" action="{{route('catalogue.delete',$user->id)}}" method="post">

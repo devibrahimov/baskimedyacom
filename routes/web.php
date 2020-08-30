@@ -63,11 +63,6 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'yonetim'], function () {  
     Route::post('informationcat/{id}/edit', 'Admin\InformationController@updatecategory')->name('inform.update');
     Route::delete('informationcat/{id}', 'Admin\InformationController@deletecategory')->name('inform.delete');
 
-    Route::get('/katalog','Admin\AdminController@catalogue')->name('admin.catalogue');
-    Route::post('/katalog','Admin\AdminController@addcatalogue')->name('catalogue.add');
-    Route::get('/katalogliste','Admin\AdminController@readcatalogue')->name('catalogue.read');
-    Route::delete('katalogsil/{id}','Admin\AdminController@delcatalogue')->name('catalogue.delete');
-
     Route::get('/gallerys', 'Admin\ImageGaleryController@fetch')->name('gallery.fetch');
     Route::get('/galleryss', 'Admin\ImageGaleryController@delete')->name('gallery.delete');
 
@@ -82,7 +77,12 @@ Route::get('/iletisim', 'Site\ContactController@index')->name('site.contact');
 Route::get('/galeri', 'Site\GalleryController@index')->name('site.gallery');
 Route::get('/hizmetlerimiz', 'Site\ServicesController@index')->name('site.services');
 Route::get('/bilgilendirme', 'Site\SiteController@information')->name('site.information');
+
 Route::get('/katalog','Site\SiteController@catalogue')->name('site.catalogue');
+Route::get('/kataloglar','Admin\AdminController@catalogue')->name('admin.catalogue');
+Route::post('/katalogekle','Admin\AdminController@addcatalogue')->name('catalogue.add');
+Route::get('/katalogliste','Admin\AdminController@readcatalogue')->name('catalogue.read');
+Route::delete('katalogsil/{id}','Admin\AdminController@delcatalogue')->name('catalogue.delete');
 
 Route::group(['prefix' => 'kullanici'], function () {
 
