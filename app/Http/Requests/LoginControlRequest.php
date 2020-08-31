@@ -32,11 +32,11 @@ class LoginControlRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required'=>'email alanını boş bırakamazsınız',
-            'email.email'=>'hatalı email bilgisi girdiniz.Lütfen kontrol edin ve yeniden deneyin',
-            "email.max" => "girdiyiniz veri 30 karakterden fazla olamaz.",
-            "passwd.required"=>"Şifre alanı boş bırakılamaz.",
-            'passwd.string'=>'Şifre alanına girdiyiniz veri metin tipi değildir. '
+            'email.required'=>'Email Alanını Boş Bırakamazsınız',
+            'email.email'=>'Hatalı E-Posta Bilgisi Girdiniz. Lütfen Kontrol Edin ve Yeniden Deneyin',
+            "email.max" => "Girdiyiniz Yeri 30 Karakterden Fazla Olamaz.",
+            "passwd.required"=>"Şifre Alanı Boş Bırakılamaz.",
+            'passwd.string'=>'Geçerli Bir Şifre Giriniz!'
         ];
     }
 }

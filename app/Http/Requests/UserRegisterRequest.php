@@ -34,15 +34,15 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=> 'İsim alanını boş bırakamazsınız!',
-            'name.string'=> 'İsim alanında hatalı bilgi girdiniz!',
-            'name.max'=> 'İsim alanında gereyinden Fazla karakter girdiniz.Maksimum 50!',
-            'email.required'=> 'Email alanını boş bırakamazsınız! ',
-            'phone.unique'=> 'bu Telefon numarası daha önce kullanıldı.Bir Telefon numarası tekrar kullanılamaz ',
-            'phone.number'=> 'Telefon alanında + ve rakamlardan başka karakter kullanamazsınız!',
-            'email.unique'=> 'bu Email adresi ile kullanıcı kaydı tespit edildi.Email adresinizi doğru yazdığınızdan emin olun.',
-            'password.required'=>'Şifre alanı gereklidir.Boş bırakamazsınız',
-            'password.confirmed'=>'Şifreler eşleştirilemedi lütfen Şifreyi tekrar girerken doğru girdiyinizden emin olun',
+            'name.required'=> 'İsim Alanını Boş Bırakılamaz!',
+            'name.string'=> 'İsim Alanında Hatalı Bilgi Girdiniz!',
+            'name.max'=> 'Maksimum 50 Karakter Girilebilir!',
+            'email.required'=> 'Email Alanını Boş Bırakamazsınız! ',
+            'phone.unique'=> 'Bu Telefon Numarası Daha Önce Kullanıldı.Bir Telefon Numarası Tekrar Kullanılamaz ',
+            'phone.number'=> 'Geçerli Bir Telefon Nummarası Giriniz!',
+            'email.unique'=> 'Bu Email Adresi ile Kullanıcı Kaydı Tespit Edildi. Email Adresinizi Doğru Yazdığınızdan Emin Olun.',
+            'password.required'=>'Şifre Alanı Gereklidir. Boş bırakamazsınız',
+            'password.confirmed'=>'Şifreler Eşleştirilemedi. Tekrar Deneyiniz!',
         ];
     }
 }

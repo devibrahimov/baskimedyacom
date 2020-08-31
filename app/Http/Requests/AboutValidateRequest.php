@@ -32,10 +32,10 @@ class AboutValidateRequest extends FormRequest
     public function messages()
     {
         return [
-            'header.required'=>'Bu alan boş bırakılamaz!',
-            'header.string'=>'Bu alan boş bırakılamaz!',
-            'header.max'=>'Bu alan en fazla 150 Karakter alır (boşluklarda makine tarafından karakter olarak tanımlanır)!',
-            'content.required'=>'Bu alan boş bırakılamaz!',
+            'header.required'=>'Bu Alan Boş Bırakılamaz!',
+            'header.string'=>'Bu Alan Boş Bırakılamaz!',
+            'header.max'=>'150 Karakter Limiti Aşıldı! Boşluklar da bir karakterdir.',
+            'content.required'=>'Bu Alan Boş Bırakılamaz!',
         ];
     }
 

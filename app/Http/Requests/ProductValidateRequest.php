@@ -37,14 +37,14 @@ class ProductValidateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>' Ürün adı alanını doldurmak zorunludur!',
-            'description.required'=>'Ürün bilgisi alanını doldurmak zorunludur!',
-            'metatitle.required'=>'SEO için Meta başlık alanını doldurmak zorunludur',
-            'metadescription.required'=>'SEO için Meta açıklaması alanını doldurmak zorunludur!',
-            'product_code.required'=>'Ürün kodu alanını doldurmak zorunludur!',
-            'product_code.unique'=>'Bu ürün kodunu daha önce başka üründe girildi.Ürün kodu ürüne özgün olması gerek!',
-            'stock.required'=>'Stock Bilgisini Seçmek zorunludur!',
-            'category.required'=>'Ürün Kategorisin seçmek zorunludur!'
+            'name.required'=>' Ürün Adı Boş Bırakılamaz!',
+            'description.required'=>'Ürün Bilgisi Alanını Doldurmak Zorunludur!',
+            'metatitle.required'=>'SEO İçin Meta Başlık Alanını Doldurmak Zorunludur',
+            'metadescription.required'=>'SEO İçin Meta Açıklaması Alanını Doldurmak Zorunludur!',
+            'product_code.required'=>'Ürün Kodu Alanını Doldurmak Zorunludur!',
+            'product_code.unique'=>'Bu Ürün Kodu Daha Önce Başka Üründe Girildi. Ürün Kodu Ürüne Özgün Olması Gerek!',
+            'stock.required'=>'Stok Bilgisini Seçmek Zorunludur!',
+            'category.required'=>'Ürün Kategorisini Seçmek Zorunludur!'
         ];
     }
 }
