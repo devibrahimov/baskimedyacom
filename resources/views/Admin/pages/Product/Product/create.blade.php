@@ -44,6 +44,12 @@
                                     <input type="text" class="form-control" name="product_code" value="{{old('product_code')}}">
                                 </div>
                              </div>
+                             <div class="col-lg-4 col-xl-4 col-md-6 col-sm-6">
+                                 <div class="form-group">
+                                     <label>Ürün Sabit Fiyatı</label>
+                                     <input type="number" class="form-control" step="0.01" name="price" value="{{old('price')}}">
+                                 </div>
+                             </div>
 
                              <div class="col-lg-4 col-xl-4 col-md-6 col-sm-6">
                                  <div class="form-group">
@@ -57,9 +63,7 @@
             </div>
         </div>
 <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12">
-
-
-        <div class="card  box-shadow-0">
+    <div class="card  box-shadow-0">
             <div class="card-header">
                 <h4 class="card-title mb-1">Ürün Seçenek bilgileri</h4>
                 <p class="mb-2"> </p>
@@ -92,6 +96,20 @@
 
         </div>
 
+                <div class="form-horizontal mt-5">
+                    <div class="row mg-t-10">
+
+                        <div class="col-lg-6">
+                            <label class="rdiobox"><input name="hasmeter" checked type="radio" value="1"> <span>m²  olacak</span></label>
+                        </div>
+                        <div class="col-lg-6 mg-t-20 mg-lg-t-0">
+                            <label class="rdiobox"><input  name="hasmeter" type="radio" value="0"> <span>m²  olmayacak</span></label>
+                        </div>
+                    </div>
+
+                </div>
+
+
 
                 <div class="form-horizontal mt-4">
 
@@ -104,6 +122,8 @@
                                 {{$option->name}}
                             </option>
                         @endforeach
+
+                        <option value=" "> Seçenekler Kaldırılsın </option>
 
                     </select>
 
