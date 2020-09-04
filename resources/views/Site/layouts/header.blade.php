@@ -95,7 +95,7 @@
                             <div  id="cartproducts" >{{--                          basket products --}}
                             </div>
                             <div class="cart_footer">
-                                <p class="cart_buttons"><a href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @else {{route('site.login')}} @endif" class="btn btn-fill-line view-cart">Sebete Git</a>
+                                <p class="cart_buttons"><a href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @else {{route('site.login')}} @endif" class="btn btn-fill-line view-cart">Sepete Git</a>
 {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
                             </div>

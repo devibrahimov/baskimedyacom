@@ -6,7 +6,6 @@
 
 <!-- START MAIN CONTENT -->
 <div class="main_content">
-
     <!-- START SECTION SHOP -->
     <div class="section">
         <div class="container">
