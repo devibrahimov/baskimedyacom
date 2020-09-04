@@ -153,7 +153,7 @@
                         <div class="heading_s4 text-center">
                             <h2><a href="{{route('site.product')}}">Ürünlerimiz</a></h2>
                         </div>
-                        <p class="text-center leads">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim Nullam nunc varius.</p>
+                        <p class="text-center leads">Bir çok alanda çalışıyoruz. Ürünlerimizi inceleyin ve sipariş verin.</p>
                     </div>
                 </div>
                 <div class="row shop_container">
