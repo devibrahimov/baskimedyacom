@@ -1,16 +1,4 @@
-/*------------------------------------------------------------------
-[Master Stylesheet]
 
-Project        :   VALEX - HTML5 Bootstrap Admin Template
-Version        :   V.1
-Create Date    :   09/05/20
-Copyright      :   Spruko Technologies Private Limited 
-Author         :   SprukoSoft
-Author URL     :   https://themeforest.net/user/sprukosoft
-Support	       :   support@spruko.com
-License        :   Licensed under ThemeForest License
-
--------------------------------------------------------------------*/
 /*
 1.  Accordions
 2.  Alerts
@@ -52506,6 +52494,6 @@ a.text-dark:hover, a.text-dark:focus {
     width: auto !important; } }
 
 .wd-100v {
-  width: 100vw; }
+  width: 100vw;
+}
 
-/*# sourceMappingURL=style.css.map */

@@ -1,5 +1,11 @@
-@extends('Site.index')
+﻿@extends('Site.index')
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
+    <meta name="description" content="{{$setting->metadescription?$setting->metadescription:''}}">
+
+@endsection
 
 @section('content')
 
@@ -108,7 +114,7 @@
                @if($about != NULL)
                     <div class="col-lg-6">
 
-                        <div class="about_img scene mb-4 mb-lg-0 "style="height:400px;  background: url('/uploads/setting/{{$about->image}}') no-repeat;
+                        <div class="about_img scene mb-4 mb-lg-0 "style="height:550px;  background: url('/uploads/setting/{{$about->image}}') no-repeat;
                             background-size: cover;background-position: center center !important;">
 
                         </div>

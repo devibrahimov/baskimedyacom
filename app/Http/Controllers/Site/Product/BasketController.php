@@ -14,42 +14,19 @@ class BasketController extends Controller
 {
 
     public function index($id){
+//        $xml = simplexml_load_file('https://www.tcmb.gov.tr/kurlar/today.xml?_=1598789527253');
+//        echo $xml->Currency[0]->Isim ; die;
+     $breadcrump = ['thispage' => 'Sepet' , 'thispageURL' => route('product.addtocart')];
+
      $userid  = Crypt::decrypt($id) ;
      $basket = Basket::where('user_id','=',$userid)->first();
      $basket = $basket->id;
      $basketdata = BasketProduct::where('basket_id','=',$basket)->get();
 
 
-     return view('Site.pages.Products.Shop.cart',compact(['basketdata']));
+     return view('Site.pages.Products.Shop.cart',compact(['basketdata','breadcrump']));
     }
 
-        public  function basketfetch($id){
-            $userid  = Crypt::decrypt($id) ;
-            $basket = Basket::where('user_id','=',$userid)->first();
-            $basket = $basket->id;
-            $basketdata = BasketProduct::where('basket_id','=',$basket)->latest()->take(2)->get();
-
-            $productcount =  BasketProduct::where('basket_id','=',$basket)->count() ;
-
-            $basketproducts = '<ul class="cart_list">';
-
-            foreach ($basketdata as $data){
-                $basketproducts.='<li>
-                                    <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                    <a href="#"><img  maxheight="150px"  alt=" '.$data->product->name.'  title=" '.$data->product->name.' " src="/storage/uploads/thumbnail/products/small/'.$data->product->image.'">'.$data->product->name.'</a>
-                                    <span class="cart_quantity">'.$data->option->name.'</span>
-                                    <span class="cart_quantity">'.$data->quantity.' x <span class="cart_amount"> <span class="price_symbole">$</span></span>' .$data->price.' </span>
-                                </li>';
-            }
-
-            $basketproducts .= '</ul>';
-
-            $baskethtmldata = [
-                'count' => $productcount,
-                'products'=>$basketproducts
-            ];
-            return $baskethtmldata;
-        }
 
 #################### ADD TO CART AJAX ###########################
     public function addtocart(Request $request){
@@ -71,7 +48,7 @@ class BasketController extends Controller
         $SQUARE = number_format($SQUARE,2);
 
       //  print_r($SQUARE);die;
-        ###########END SQUARE
+        ########### END SQUARE ###########
 
 
         #==================OPTIONS============================
@@ -97,14 +74,7 @@ class BasketController extends Controller
 
         #create basket==================
 
-//      $basketcontrol = Basket::find($user_id);
-//        if(!$basketcontrol){
-//
-//        }else{
-//
-//            $basketid =  $basketcontrol->id ;
-//
-//        }
+
         $basket = Basket::firstOrCreate([
             'user_id'=>$user_id
         ]) ;
@@ -149,4 +119,47 @@ class BasketController extends Controller
 
     }//end add to cart
 
+    public  function basketfetch($id){
+        $userid  = Crypt::decrypt($id);
+        $basket = Basket::where('user_id','=',$userid)->first();
+        $basket = $basket->id;
+        $basketdata = BasketProduct::where('basket_id','=',$basket)->latest()->take(2)->get();
+
+        $productcount =  BasketProduct::where('basket_id','=',$basket)->count() ;
+
+        $basketproducts = '<ul class="cart_list">';
+
+        foreach ($basketdata as $data){
+            $basketproducts.='<li>
+                                    <button  onclick="removeitem('.$data->id.')" class="item_remove  "><i class="ion-close"></i></button>
+                                    <a href="#"><img  maxheight="150px"  alt=" '.$data->product->name.'  title=" '.$data->product->name.' " src="/storage/uploads/thumbnail/products/small/'.$data->product->image.'">'.$data->product->name.'</a>
+                                    <span class="cart_quantity">'.$data->option->name.'</span>
+                                    <span class="cart_quantity">'.$data->quantity.' x <span class="cart_amount"> <span class="price_symbole">$</span></span>' .$data->price.' </span>
+                                </li>';
+        }
+
+        $basketproducts .= '</ul>';
+
+        $baskethtmldata = [
+            'count' => $productcount,
+            'products'=>$basketproducts
+        ];
+        return $baskethtmldata;
+    }
+
+
+    public function basketremove($id){
+       $basket = BasketProduct::where('id','=',$id)->first();
+        $basketid = $basket->basket_id ;
+
+      $del = $basket->delete();
+
+      if(!$del){
+          return false ;
+      }else{
+          return true ;
+      }
+
+
+    }
 }//end class BasketController

@@ -69,7 +69,7 @@ class AdditionalOptionsController extends Controller
     {
         $options = AdditionalOption::all();
         $parents =  AdditionalOption::where('parent_id','=',NULL)->get();
-        return view('Admin.pages.Product.Additionaloptions.edit',compact(['additionaloption','parents','options']));
+        return view('Admin.pages.Product.AdditionalOptions.edit',compact(['additionaloption','parents','options']));
     }
 
     /**

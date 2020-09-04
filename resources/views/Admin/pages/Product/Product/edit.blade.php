@@ -104,9 +104,9 @@
 
 
                                             @foreach($additionaloptions as $adoption)
-                                                    <option value="{{$adoption->id}}" {{in_array($adoption->id,$product_adops)? 'selected' :'' }}   >
-                                                        {{$adoption->name}}
-                                                    </option>
+                                            <option value="{{$adoption->id}}" @if(isset($product_adops)){{in_array($adoption->id,$product_adops)? 'selected' :'' }}  @endif >
+                                                {{$adoption->name}}
+                                            </option>
                                             @endforeach
 
 

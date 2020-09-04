@@ -15,7 +15,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('Site.pages.Login.login');
+        $breadcrump = ['thispage' => 'Giriş' , 'thispageURL' => route('site.login')];
+        return view('Site.pages.Login.login',compact(['breadcrump']));
     }
 
 

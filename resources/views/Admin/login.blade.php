@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from laravel.spruko.com/valex/leftmenu-light-ltr/signin by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Jul 2020 16:28:51 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
+ <head>
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +8,7 @@
     <meta name="Author" content="Spruko Technologies Private Limited">
     <meta name="Keywords" content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"/>
     <!-- Title -->
-    <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
+    <title>Baskı Medya Yönetim Paneli </title>
     <!-- Favicon -->
     <link rel="icon" href="/admin/img/brand/favicon.png" type="image/x-icon"/>
     <!-- Icons css -->
@@ -63,7 +60,7 @@
                                 <div class="mb-5 d-flex"> <a href="index.html"><img src="/admin/img/brand/favicon.png" class="sign-favicon ht-40" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Baskı<span>Media</span></h1></div>
                                 <div class="card-sigin">
                                     <div class="main-signup-header">
-                                        <h2>Yönetim Paneli!</h2>
+                                        <h2>Yönetim Paneli</h2>
                                         @if ($errors->any())
 
                                                 @foreach ($errors->all() as $error)

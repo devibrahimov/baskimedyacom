@@ -21,12 +21,13 @@ class SiteController extends Controller
      */
     public function index()
     {
+        $breadcrump = ['thispage' => 'Ana Sayfa' , 'thispageURL' => route('site.index')];
         $about = About::first();
         $betuls = Slider::all();
         $products = Product::orderBy('id', 'desc')->take(8)->get();
         $services = Service::orderBy('id', 'desc')->take(3)->get();
         $references = References::all();
-        return view('Site.pages.home',compact(['about','products','references','betuls','services']));
+        return view('Site.pages.home',compact(['about','products','references','betuls','services','breadcrump']));
     }
 
 

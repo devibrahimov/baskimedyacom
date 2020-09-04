@@ -1,5 +1,12 @@
 @extends('Site.index')
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
+    <meta name="description" content="Baskıda dijital çağ .baskınız kargo ile ayağınıza gelsin.Ücretsiz Katalog siparişi">
+
+@endsection
+
 @section('content')
     @include('Site.partials.bread')
 

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\Admin;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,6 +119,11 @@ Route::get('/profil', function () {
 //    $user = \App\User::find(1);
     //  return new  App\Mail\UserRegisterMail($user) ;
 });
+//
+//Route::get('/clear-cache', function() {
+//    $exitCode = Artisan::call('cache:clear');
+//    // return what you want
+//});
 
 Route::get('/kur','Currencies@index')->name('kur.index');
 
