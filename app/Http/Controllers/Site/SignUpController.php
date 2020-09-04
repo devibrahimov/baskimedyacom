@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\site;
 
+use App\CompanyInform;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
 use App\Mail\UserRegisterMail;
@@ -70,11 +71,11 @@ class SignUpController extends Controller
         $user->role = 0;
 
         $user->save();
-        $userlastid = $user->id ;
+        $userlastid = $user->id;
         $userinform= new UserInform();
 
         $userinform->user_id =  $userlastid;
-        $userinform->tckimlik = $request->passportid ;
+        $userinform->tckimlik = $request->passportid;
         $userinform->user_province = $request->province ;
         $userinform->user_district = $request->district ;
         $userinform->gsm = $request->gsm ;
@@ -83,7 +84,15 @@ class SignUpController extends Controller
         $userinform->phone2 = $request->phone2 ;
         $userinform->save();
 
-
+        $CompanyInform = new CompanyInform();
+        $CompanyInform->company_name = $request->company_name ;
+        $CompanyInform->user_id = $userlastid ;
+        $CompanyInform->address1 = $request->address1 ;
+        $CompanyInform->address2 = $request->address2 ;
+        $CompanyInform->postcode = $request->postcode ;
+        $CompanyInform->vergino = $request->vergino ;
+        $CompanyInform->vergidairesi = $request->vergidairesi ;
+        $CompanyInform->save();
 
 
 

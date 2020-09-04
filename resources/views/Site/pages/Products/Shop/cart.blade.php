@@ -17,7 +17,7 @@
                                 <th scope="col" width="100">Fiyatı</th>
                                 <th scope="col" width="120">Ürün <br/> Sayı</th>
                                 <th scope="col" width="100">Toplam Fiyat</th>
-                                <th scope="col" width="120" class="text-right"> x </th>
+                                <th scope="col" width="120" class="text-right"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,7 +84,7 @@
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right  " >
-                                     <a href="" class="btn btn-sm btn-outline-danger"> × Sil</a>
+                                     <a   class="btn btn-sm btn-outline-danger item_remove"> × Sil</a>
                                 </td>
                             </tr>
                           @endforeach
@@ -237,4 +237,14 @@
 @endsection
 
 @section('js')
+    <script>
+   //      /*
+   // * Product remove from cart*/
+   //      $(".item_remove").on('click',function() {
+   //          console.log(123);
+   //          var productid = $(this).data("productid");
+   //          console.log(productid);
+   //      });
+
+    </script>
 @endsection

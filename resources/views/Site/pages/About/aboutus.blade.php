@@ -1,6 +1,12 @@
 @extends('Site.index')
 
 
+@section('meta')
+
+    <meta name="title" content="{{$company->header?$company->header:''}}">
+    <meta name="description" content="{{$setting->metadescription?$setting->metadescription:''}}">
+
+@endsection
 @section('content')
     @include('Site.partials.bread')
     <!-- STAT SECTION ABOUT -->

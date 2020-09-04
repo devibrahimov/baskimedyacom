@@ -1,5 +1,16 @@
 @extends('Site.index')
 
+
+@section('meta')
+
+    <meta name="title" content=" ">
+    <meta name="description" content="  ">
+
+@endsection
+
+
+
+
 @section('content')
 
   @include('Site.partials.bread')
