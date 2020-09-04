@@ -84,8 +84,6 @@ Route::post('/katalogekle','Admin\AdminController@addcatalogue')->name('catalogu
 Route::get('/katalogliste','Admin\AdminController@readcatalogue')->name('catalogue.read');
 Route::delete('katalogsil/{id}','Admin\AdminController@delcatalogue')->name('catalogue.delete');
 
-
-
 Route::group(['prefix' => 'kullanici'], function () {
 
     Route::get('/giris', 'Site\LoginController@index')->name('site.login');
