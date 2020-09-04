@@ -1,5 +1,11 @@
 @extends('Site.index')
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
+    <meta name="description" content="Bizimle İletişime Geçin : {{$setting->number?$setting->number:'' }} , {{$setting->phone?$setting->phone:''}} . Adresimiz :{{$setting->address?$setting->address:''}}">
+
+@endsection
 
 @section('content')
 

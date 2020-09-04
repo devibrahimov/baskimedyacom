@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="Anil z" name="author">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="baskimedya">
-    <meta name="keywords" content="baskimedya,baski,medya">
+    @yield('meta')
+    <meta name="keywords"
+          content="baskimedya,baski,medya,türkiye dijital baskı,dijital baskı merkezi,Vinil baskı,bayrak baskı,metch , Ucuz baskı merkezi, Gaziantep baskı merkezi,baskımedya,Gaziantep,Gaziantep baskı,Gazıantep dijital baskı">
 
     <!-- SITE TITLE -->
-    <title>Baskimedya.com</title>
+    <title>Baskimedya.com {{isset($breadcrump['thispage'])?  '|'.$breadcrump['thispage']: ''}}</title>
     <!-- Favicon Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
     <!-- Animation CSS -->
@@ -111,10 +111,16 @@
                     <div class="widget">
                         <h6 class="widget_title">Instagram</h6>
                         <?php
+                        $curl_handle = curl_init();
+                        curl_setopt($curl_handle, CURLOPT_URL, 'https://www.instagram.com/tiryakioglupixelreklam/?__a=1');
+                        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+                        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'ReklamPixsel');
+                        $instajson = curl_exec($curl_handle);
 
-                        $instajson = file_get_contents('https://www.instagram.com/tiryakioglupixelreklam/?__a=1');
+                        //$instajson = file_get_contents('https://www.instagram.com/tiryakioglupixelreklam/?__a=1');
                         if (isset($instajson)) {
-                            $instadata = json_decode($instajson,true);
+                            $instadata = json_decode($instajson, true);
                         }
                         $image[] = '';
                         ?>
@@ -127,6 +133,7 @@
                                 @endforeach
                             @endif
                         </ul>
+                        <?php    curl_close($curl_handle); ?>
                     </div>
                 </div>
                 <!-- </div> -->
@@ -164,22 +171,55 @@
 <!-- scripts js -->
 @yield('js')
 @auth
-<script >
-    $(function () {
+    <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
 
-        $.ajax({
-            method : 'GET',
-            url:"/kullanici/basket/get/"+AuthUser,
+        $(function () {
 
-            success:function(data)
-            {
-                $('#cartproducts').html(data.products)
-                $('#cart_count').html(data.count)
-            }
-        })
-    });
-</script>
+            $.ajax({
+                method: 'GET',
+                url: "/kullanici/basket/get/" + AuthUser,
+
+                success: function (data) {
+                    $('#cartproducts').html(data.products)
+                    $('#cart_count').html(data.count)
+                }
+            })
+
+
+
+        });
+       function removeitem(id){
+
+           $.ajax({
+               method: 'GET',
+               url: "/kullanici/basket/remove/" + id,
+
+               success: function (data) {
+
+                   if (data == true){
+                       $.ajax({
+                           method: 'GET',
+                           url: "/kullanici/basket/get/" + AuthUser,
+
+                           success: function (data) {
+                               $('#cartproducts').html(data.products)
+                               $('#cart_count').html(data.count)
+                           }
+                       })
+
+                       //console.log(data);
+                   }else{
+                       console.log('silinmedi');
+                   }
+
+               }
+           })
+
+       }
+
+
+    </script>
 @endauth
 <script src="/assets/js/scripts.js?v=W2w349005t34SFGER45343"></script>
 

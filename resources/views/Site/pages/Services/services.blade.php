@@ -1,5 +1,12 @@
 @extends("Site.index")
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle}}">
+    <meta name="description" content=" {{$setting->metadescription}} ">
+
+@endsection
+
 @section('content')
     @include('Site.partials.bread')
 

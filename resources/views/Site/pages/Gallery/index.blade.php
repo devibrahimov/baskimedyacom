@@ -1,5 +1,12 @@
 @extends('Site.index')
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
+    <meta name="description" content="Baskıda dijital  Hizmet ve Ürünlerimiz reismlerde  sergilenmektedir.Baskımedya Dijital Baskının Merkezi">
+
+@endsection
+
 @section('content')
 
     @include('Site.partials.bread')

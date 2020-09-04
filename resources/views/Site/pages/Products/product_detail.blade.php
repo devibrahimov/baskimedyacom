@@ -1,5 +1,14 @@
 @extends('Site.index')
 
+@section('meta')
+    <?php
+    $meta = json_decode($product->meta);
+    ?>
+    <meta name="title" content="{{$meta->title}}">
+    <meta name="description" content=" {{$meta->description}} ">
+
+@endsection
+
 @section('content')
     @include('Site.partials.bread')
     <style>
@@ -62,6 +71,11 @@
                             <div class="product_description">
                                 {{--                                @dd($product);--}}
                                 <h4 class="product_title"><a href="#">{{$product->name}}</a></h4>
+                                @if($product->price != NULL)
+                                    <div class="product_price">
+                                        <span class="price">{{$product->price}}</span>
+                                    </div>
+                                @endif
 
                                 <div class="pr_detail">
                                     <div class="product_description">
@@ -208,7 +222,8 @@
                                         <select class="custom-select additionaloption" id="inputGroupSelect01">
 
                                             @foreach($product->additionaloption($option->id)  as $opt)
-                                                <option name="veri" value="{{$opt->id}}" data-price="{{$opt->price}}">{{$opt->name}}</option>
+                                                <option name="veri" value="{{$opt->id}}"
+                                                        data-price="{{$opt->price}}">{{$opt->name}}</option>
                                             @endforeach
                                         </select>
 
@@ -384,7 +399,16 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function (data) {
-                        return this.data
+                        $.ajax({
+                            method : 'GET',
+                            url:"/kullanici/basket/get/"+AuthUser,
+
+                            success:function(data)
+                            {
+                                $('#cartproducts').html(data.products)
+                                $('#cart_count').html(data.count)
+                            }
+                        })
                     }
                 });
             }

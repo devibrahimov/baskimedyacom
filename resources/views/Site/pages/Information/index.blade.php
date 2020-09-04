@@ -1,5 +1,11 @@
 @extends('Site.index')
 
+@section('meta')
+
+    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
+    <meta name="description" content=" {{$setting->metadescription?$setting->metadescription:''}}">
+
+@endsection
 @section('css')
 @endsection
 

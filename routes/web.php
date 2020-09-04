@@ -79,13 +79,11 @@ Route::get('/galeri', 'Site\GalleryController@index')->name('site.gallery');
 Route::get('/hizmetlerimiz', 'Site\ServicesController@index')->name('site.services');
 Route::get('/bilgilendirme', 'Site\SiteController@information')->name('site.information');
 
-Route::get('/katalog','Site\SiteController@catalogue')->name('site.catalogue');
-Route::get('/kataloglar','Admin\AdminController@catalogue')->name('admin.catalogue');
-Route::post('/katalogekle','Admin\AdminController@addcatalogue')->name('catalogue.add');
-Route::get('/katalogliste','Admin\AdminController@readcatalogue')->name('catalogue.read');
-Route::delete('katalogsil/{id}','Admin\AdminController@delcatalogue')->name('catalogue.delete');
-
-
+Route::get('/katalog', 'Site\SiteController@catalogue')->name('site.catalogue');
+Route::get('/kataloglar', 'Admin\AdminController@catalogue')->name('admin.catalogue');
+Route::post('/katalogekle', 'Admin\AdminController@addcatalogue')->name('catalogue.add');
+Route::get('/katalogliste', 'Admin\AdminController@readcatalogue')->name('catalogue.read');
+Route::delete('katalogsil/{id}', 'Admin\AdminController@delcatalogue')->name('catalogue.delete');
 
 Route::group(['prefix' => 'kullanici'], function () {
 
@@ -101,10 +99,11 @@ Route::group(['prefix' => 'kullanici'], function () {
     Route::get('/sepet/{id}', 'Site\Product\BasketController@index')->name('site.addtocart');
 
 
-         Route::group(['middleware' => ['auth']], function () {
-        Route::post('/sepet','Site\Product\BasketController@addtocart')->name('product.addtocart');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::post('/sepet', 'Site\Product\BasketController@addtocart')->name('product.addtocart');
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
-        Route::get('/basket/get/{id}','Site\Product\BasketController@basketfetch')->name('basket.fetch');
+        Route::get('/basket/get/{id}', 'Site\Product\BasketController@basketfetch')->name('basket.fetch');
+        Route::get('/basket/remove/{id}', 'Site\Product\BasketController@basketremove')->name('basket.fetch');
         Route::post('/changepassword', 'Site\UserController@changepassword')->name('password.change');
         Route::post('/accountupdate', 'Site\UserController@updateinform')->name('user.accountchange');
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');
