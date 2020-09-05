@@ -29,16 +29,20 @@ class Product extends Model
         return  $this->belongsTo('App\Option' , 'parent_option');
     }
 
-    public function additionaloptionsparent($parentidsJSON){
-        $parentids =json_decode($parentidsJSON);
-        $additionaloptions = [];
 
-        foreach ($parentids as $parent){
-            $optiondata = AdditionalOption::where('id','=',$parent)->get();
-            $additionaloptions[$parent] =  $optiondata  ;
+    public function additionaloptionsparent($parentidsJSON ){
 
-        }
+         $parentids = json_decode($parentidsJSON);
+         $additionaloptions = [];
+        if($parentids != null){
+         foreach ($parentids as $parent){
+             $optiondata = AdditionalOption::where('id','=',$parent)->get();
+             $additionaloptions[$parent] =  $optiondata  ;
+
+         } }
+
         return $additionaloptions ;
+
     }
 
 

@@ -85,6 +85,8 @@ Route::post('/katalogekle', 'Admin\AdminController@addcatalogue')->name('catalog
 Route::get('/katalogliste', 'Admin\AdminController@readcatalogue')->name('catalogue.read');
 Route::delete('katalogsil/{id}', 'Admin\AdminController@delcatalogue')->name('catalogue.delete');
 
+
+
 Route::group(['prefix' => 'kullanici'], function () {
 
     Route::get('/giris', 'Site\LoginController@index')->name('site.login');
@@ -109,9 +111,9 @@ Route::group(['prefix' => 'kullanici'], function () {
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');
     });
 });
-
-Route::post('/contact','Site\ContactController@getcontact')->name('add.contact');
-/*Route::resource('/about','site\AboutController');*/
+/*
+Route::resource('/contact','site\ContactController');
+Route::resource('/about','site\AboutController');*/
 
 
 Route::get('/profil', function () {
@@ -119,6 +121,11 @@ Route::get('/profil', function () {
 //    $user = \App\User::find(1);
     //  return new  App\Mail\UserRegisterMail($user) ;
 });
+//
+//Route::get('/clear-cache', function() {
+//    $exitCode = Artisan::call('cache:clear');
+//    // return what you want
+//});
 
 Route::get('/kur','Currencies@index')->name('kur.index');
 Route::get('/kurkaydet','Currencies@store')->name('kur.save');

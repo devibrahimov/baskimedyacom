@@ -18,39 +18,39 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-center text-md-right">
-                        @guest
-                            <ul class="header_list">
-                                {{--                            <li><a href="compare.html"><i class="ti-control-shuffle"></i><span>Compare</span></a></li>--}}
-                                <li><a href="{{route('site.login')}}"><i class="ti-user"></i><span>Giriş Yap</span></a>
-                                </li>
-                                <li><a href="{{route('site.signup')}}"> <span>Kayıt ol</span></a></li>
-                            </ul>
-                        @endguest
+
+
+
+                        <ul class="header_list">
+
                             @auth('admin')
                                 <li><a href="{{route('admin.home')}}"><i class="ti-control-shuffle"></i><span>Yönetim paneli</span></a>
                                 </li>
-                            @endauth
+                            @endif
+                            @guest
 
-                        @auth
-                            <ul class="header_list">
+                                <li><a href="{{route('site.login')}}"><i class="ti-user"></i><span>Giriş Yap</span></a>
+                                </li>
+                                <li><a href="{{route('site.signup')}}"> <span>Kayıt ol</span></a></li>
 
-
-
+                            @endguest
+                            @auth
                                 <li>
                                     <a href="{{route( 'user.profil',[Str::slug(Auth::user()->name),\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) ] )}}"><i
                                             class="ti-user"></i><span>{{Auth::user()->name}}</span></a>
 
-                                 </li>
+                                </li>
                                 <li><a href="#"
                                        onclick="event.preventDefault(); document.getElementById('form-submit').submit()">
-                                        <i class="ti-shift-left-alt"></i><span>Çıkış yap</span></a></li>
+                                        <i class="ti-shift-left-alt"></i><span>Çıkış yap</span></a>
+                                </li>
                                 <form action="{{route('site.logout')}}" method="post" id="form-submit"
                                       style="display: none;">
                                     @csrf
                                 </form>
+                            @endauth
+                        </ul>
 
-                            </ul>
-                        @endauth
 
                     </div>
                 </div>
@@ -99,8 +99,7 @@
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i
                                 class="linearicons-cart"></i><span id="cart_count" class="cart_count">0</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
-                            <div id="cartproducts">
-                                {{--  basket products --}}
+                            <div id="cartproducts">{{--                          basket products --}}
                             </div>
                             <div class="cart_footer">
                                 <p class="cart_buttons"><a

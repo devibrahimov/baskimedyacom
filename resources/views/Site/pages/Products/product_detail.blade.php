@@ -106,7 +106,7 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        {{--                        <p>Seçenekler</p>--}}
+                        {{--   <p>Seçenekler</p>--}}
                         @if($product->parent_option != NULL)
                             <table class="table table-bordered">
                                 <thead>
@@ -143,70 +143,70 @@
                         @endif
                     </div>
                     <div class="otherOptions col-lg-6">
+                        @if($product->hasmeter == 1)
 
-                        <div id="dimensions" class="card shadow-sm mb-4 ">
-                            <div class="card-header bg_default text-white">
-                                <h6 class="mb-0 font-weight-bold text-white">Ölçüler</h6>
-                            </div>
-                            <div class="card-body ">
-                                <div class="row ">
-                                    <div class="col-6 ">
-                                        <div class="form-group mb-0 metreKare">
-                                            <label for="width" class="sr-only ">En</label>
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-prepend">
+                            <div id="dimensions" class="card shadow-sm mb-4 ">
+                                <div class="card-header bg_default text-white">
+                                    <h6 class="mb-0 font-weight-bold text-white">Ölçüler</h6>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="row ">
+                                        <div class="col-6 ">
+                                            <div class="form-group mb-0 metreKare">
+                                                <label for="width" class="sr-only ">En</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
                                                     <span
                                                         class="input-group-text bg_default text-white font-weight-bold">EN</span>
-                                                </div>
-                                                <input class="form-control vinilWidth" type="number" min="1" step="1"
-                                                       id="width" name="width"
-                                                       value="100">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text bg_default text-white ">sm</span>
+                                                    </div>
+                                                    <input class="form-control vinilWidth" type="number" min="1" step="1"
+                                                           id="width" name="width"
+                                                           value="100">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text bg_default text-white ">sm</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-6 ">
-                                        <div class="form-group mb-0 metreKare">
-                                            <label for="height" class="sr-only">Boy</label>
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-prepend">
+                                        <div class="col-6 ">
+                                            <div class="form-group mb-0 metreKare">
+                                                <label for="height" class="sr-only">Boy</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
                                                     <span
                                                         class="input-group-text font-weight-bold bg_default text-white ">BOY</span>
-                                                </div>
-                                                <input type="number" min="1" step="1" id="height" name="height"
-                                                       value="100" class="form-control vinilHeight">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text bg_default text-white ">sm</span>
+                                                    </div>
+                                                    <input type="number" min="1" step="1" id="height" name="height"
+                                                           value="100" class="form-control vinilHeight">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text bg_default text-white ">sm</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <table class="table table-sm table-hover mb-0 font-sm text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>En (cm)</th>
+                                        <th>Boy (cm)</th>
+                                        <th>Alan (m<sup>2</sup>)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><span id="calc-w">100</span></td>
+                                        <td><span id="calc-h">100</span></td>
+                                        <td><span id="calc-area">1.00 </span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                            <hr>
+                        @endif
 
-                            <table class="table table-sm table-hover mb-0 font-sm text-center">
-                                <thead>
-                                <tr>
-
-                                    <th>En (cm)</th>
-                                    <th>Boy (cm)</th>
-                                    <th>Alan (m<sup>2</sup>)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><span id="calc-w">100</span></td>
-                                    <td><span id="calc-h">100</span></td>
-                                    <td><span id="calc-area">1.00   </span></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <hr>
 
 
                         @if($product->additional_options != NULL)
@@ -239,11 +239,10 @@
                                     <div class="product_description">
                                         <br>
                                         <ul class="product-meta d-inline">
-                                            <li class="text-default">Sipariş Kodu: <a
-                                                    href="#"> {{$product->product_code}}-<span
-                                                        id="siparisCode">{{$option->product_code}}</span></a></li>
+                                            <li class="text-default">Sipariş Kodu: <a   href="#"> {{$product->product_code}}<span
+                                                        id="siparisCode">{{isset($option->product_code)?'-'.$option->product_code:''}}</span></a></li>
                                             <li class="text-default">Toplam Fiyat : $ <a
-                                                    class="tutar"> 0.00</a>
+                                                    class="tutar">0.00</a>
                                             </li>
                                         </ul>
                                         <hr/>

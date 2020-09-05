@@ -50,10 +50,12 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->name = request('name');
+        $product->price = request('price');
         $product->description = request('description');
         $product->slug = Str::slug(request('name'));
         $product->product_code = request('product_code');
         $product->stock = request('stock');
+        $product->hasmeter = request('hasmeter');
         $product->category = request('category');
         $product->parent_option = request('option');
 
@@ -134,6 +136,8 @@ class ProductController extends Controller
 
 
         $product->name = request('name');
+        $product->price = request('price');
+        $product->hasmeter = request('hasmeter');
         $product->description = request('description');
         $product->slug = Str::slug(request('name'));
         $product->product_code = request('product_code');

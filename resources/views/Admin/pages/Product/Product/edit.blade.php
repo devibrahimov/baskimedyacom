@@ -80,7 +80,12 @@
                                     <input type="text" class="form-control" name="product_code"   value="{{ $product->product_code }}">
                                 </div>
                             </div>
-
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="price">Ürün Fiyatı</label>
+                                    <input type="number" class="form-control" name="price"   value="{{ $product->price }}">
+                                </div>
+                            </div>
                         </div>{{--end row--}}
                         <div class="row">
                             <div class="col-lg-6">  <div class="form-horizontal">
@@ -121,11 +126,13 @@
                                     <select class="form-control select2" name="option" >
                                         <option label="Ürün için Seçenek seçin">
                                         </option>
+
                                         @foreach($options as $option)
                                             <option  value="{{$option->id}}" @if($product->parent_option == $option->id) selected @endif>
                                                 {{$option->name}}
                                             </option>
                                         @endforeach
+                                        <option value=" "> Seçenekler Kaldırılsın </option>
                                     </select>
 
                                 </div>
