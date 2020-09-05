@@ -19,3 +19,11 @@ MAIL_PASSWORD=89e377d7061cc0
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=baskimedyakurumsal@gmail.com
 MAIL_FROM_NAME="${APP_NAME}"
+
+
+
+## Mailtrap Giriş Bilgileri
+
+
+baskimedyakurumsal@gmail.com
+baskimedya1
