@@ -68,30 +68,30 @@
                         </div>
                         <p class="leads">{{$setting->about?$setting->about : '' }}</p>
                         <div class="field_form">
-                            <form method="post" name="enq">
-
+                            <form method="post" name="enq" action="{{route('add.contact')}}">
+                                @csrf
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <input required        placeholder="Adınız *" id="first-name" class="form-control" name="name" type="text">
+                                        <input required        placeholder="Adınız Soyadınız *" id="first-name" class="form-control" name="ad" type="text">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input required        placeholder="Email adresiniz*" id="email" class="form-control" name="email" type="email">
+                                        <input required        placeholder="Email adresiniz*" id="email" class="form-control" name="eposta" type="email">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input required        placeholder="Telefon numaranız. *" id="phone" class="form-control" name="phone">
+                                        <input required        placeholder="Telefon numaranız. *" id="phone" class="form-control" name="telefon" type="number">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input        placeholder="Mesaj başlığı" id="subject" class="form-control" name="subject">
+                                        <input        placeholder="Mesaj başlığı" id="subject" class="form-control" name="subject" type="text">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <textarea        required placeholder="Masajınız *" id="description" class="form-control" name="message" rows="4"></textarea>
+                                        <textarea        required placeholder="Mesajınız *" id="description" class="form-control" name="mesaj" rows="4" type="text"></textarea>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="submit" title="Submit Your Message!" class="btn btn-fill-out" id="submitButton" name="submit" value="Submit">Send Message</button>
+                                        <button type="submit" title="Submit Your Message!" class="btn btn-fill-out" id="submit" name="submit" value="Submit">Send Message</button>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div id="alert-msg" class="alert-msg text-center"></div>
-                                    </div>
+{{--                                    <div class="col-md-12">--}}
+{{--                                        <div id="alert-msg" class="alert-msg text-center"></div>--}}
+{{--                                    </div>--}}
                                 </div>
                             </form>
                         </div>

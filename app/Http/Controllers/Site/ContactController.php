@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use App\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -12,11 +15,28 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $breadcrump = ['thispage' => ' İletişim' , 'thispageURL' => route('site.contact')];
         return view('Site.pages.Contact.contact',compact(['breadcrump']));
 
+    }
+
+
+        public function getcontact(Request $request){
+        $contact = new Contact();
+        $contact->adsoyad = $request->ad;
+        $contact->email = $request->eposta;
+        $contact->phone = $request->telefon;
+        $contact->baslik = $request->subject;
+        $contact->message = $request->mesaj;
+        $contact->save();
+
+        Mail::to($contact->email)->send(new ContactMail($contact));
+
+        return back()->with('success','Talebiniz İletildi!');
     }
 
     /**

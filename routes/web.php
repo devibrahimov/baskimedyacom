@@ -109,9 +109,9 @@ Route::group(['prefix' => 'kullanici'], function () {
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');
     });
 });
-/*
-Route::resource('/contact','site\ContactController');
-Route::resource('/about','site\AboutController');*/
+
+Route::post('/contact','Site\ContactController@getcontact')->name('add.contact');
+/*Route::resource('/about','site\AboutController');*/
 
 
 Route::get('/profil', function () {
@@ -121,4 +121,14 @@ Route::get('/profil', function () {
 });
 
 Route::get('/kur','Currencies@index')->name('kur.index');
+Route::get('/kurkaydet','Currencies@store')->name('kur.save');
 
+Route::get('/mail',function (){
+    $contact = \App\Catalogue::find(1);
+   return new App\Mail\CatalogueMail($contact);
+});
+
+Route::get('/contact-mail',function (){
+    $contact = \App\Contact::find(1);
+   return new App\Mail\ContactMail($contact);
+});

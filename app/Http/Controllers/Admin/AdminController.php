@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Catalogue;
 use App\Http\Controllers\Controller;
+use App\Mail\CatalogueMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -30,6 +32,9 @@ class AdminController extends Controller
         $catalogue->tel = $request->phone;
         $catalogue->adres = $request->adres;
         $catalogue->save();
+
+        Mail::to($request->email)->send(new CatalogueMail($catalogue));
+
         return back()->with('success','Talebiniz İletildi!');
     }
 
