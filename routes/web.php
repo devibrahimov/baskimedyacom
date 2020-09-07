@@ -114,6 +114,9 @@ Route::group(['prefix' => 'kullanici'], function () {
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');
     });
 });
+
+
+Route::post('/contact','Site\ContactController@getcontact')->name('add.contact');
 /*
 Route::resource('/contact','site\ContactController');
 Route::resource('/about','site\AboutController');*/
