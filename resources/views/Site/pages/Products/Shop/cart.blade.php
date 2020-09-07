@@ -21,8 +21,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php $totalPrice = 0; @endphp
                           @foreach($basketdata as $basketproduct)
-                            <tr>
+                            <tr id="{{$basketproduct->id}}">
                                 <td>
                                     <table class="table table-sm font-sm mb-0 mt-2">
                                         <tbody>
@@ -55,7 +56,7 @@
                                                     </tbody>
                                                 </table>
                                             </td>
-                                            <td ><strong class=" border-bottom border-dark">Ürün TL fiyatı</strong> </br><p>{{$basketproduct->option->price*$squaremeter->total}} TL</p> </td>
+                                            <td ><strong class=" border-bottom border-dark">Ürün TL fiyatı</strong> </br><p>{{ number_format(($basketproduct->option->price*$squaremeter->total)*$currency->deger,2) }} <sup>₺</sup></p> </td>
                                         </tr>
 
                                <?php $additional_options = json_decode($basketproduct->additional_options) ;?>
@@ -63,7 +64,7 @@
                                             <tr>
                                                 <th class="compress text-nowrap">{{ (new \App\AdditionalOption())->optionROW($option)->parent->name }}</th>
                                                 <td>{{ (new \App\AdditionalOption())->optionROW($option)->name }}</td>
-                                                <td class="text-monospace text-right">{{ (new \App\AdditionalOption())->optionROW($option)->price }} TL</td>
+                                                <td class="text-monospace text-right">{{ number_format( (new \App\AdditionalOption())->optionROW($option)->price*$currency->deger,2) }} <sup>₺</sup> </td>
                                             </tr>
                                         @endforeach
 
@@ -73,18 +74,18 @@
                                     </table>
                                    <span class=" text-monospace mt-1  text-sm-left">Ürün Sipariş Kodunuz  - {{$basketproduct->product->product_code}}-{{$basketproduct->option->option_code}}</span>
                                 </td>
-                                <td > {{$basketproduct->price}} <sup>₺</sup></td>
+                                <td > {{number_format($basketproduct->price*$currency->deger , 2)}} <sup>₺</sup></td>
                                 <td>
-                                    <input type="number" name="" id="" value="{{$basketproduct->quantity}}" class="form-control">
+                                    <input type="number" name="" onChange="quantityVal({{$basketproduct->id}});" id="" value="{{$basketproduct->quantity}}" class="form-control">
                                 </td>
                                 <td>
                                     <div class="price-wrap">
-                                        <var class="price">₺ 145</var>
-                                        <small class="text-muted">(USD5 each)</small>
+                                        <var class="price"> {{ $priceproduct= number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}  </var><sup>₺</sup>
+                                    @php $totalPrice+= $priceproduct;@endphp
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right  " >
-                                     <a   class="btn btn-sm btn-outline-danger item_remove"> × Sil</a>
+                                     <a  onclick="removecartitem({{$basketproduct->id}})"    class="btn btn-sm btn-outline-danger item_remove"> × Sil</a>
                                 </td>
                             </tr>
                           @endforeach
@@ -97,17 +98,17 @@
                             <tr>
                                 <td colspan="3">&nbsp;</td>
                                 <td class="text-nowrap text-right">Toplam</td>
-                                <td class="text-nowrap text-monospace text-right">252.60 TL</td>
+                                <td class="text-nowrap text-monospace text-right">{{$totalPrice}} TL</td>
                             </tr>
                             <tr>
                                 <td colspan="3">&nbsp;</td>
                                 <td class="text-nowrap text-right">KDV %18</td>
-                                <td class="text-nowrap text-monospace text-right">45.45 TL</td>
+                                <td class="text-nowrap text-monospace text-right">{{ $yuzde=number_format(($totalPrice/100)*18 , 2)}} TL</td>
                             </tr>
                             <tr class="bg-success text-white">
                                 <td colspan="3"></td>
-                                <td class="text-nowrap font-weight-bold text-right">Genel Toplam</td>
-                                <td class="text-nowrap text-monospace text-right">298.05 TL</td>
+                                <td class="text-nowrap font-weight-bold text-right"> Ödenecek Miktar</td>
+                                <td class="text-nowrap text-monospace text-right">{{number_format($totalPrice+$yuzde ,2)}} TL</td>
                             </tr>
                             </tfoot>
                         </table>
@@ -132,56 +133,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="heading_s1 mb-3">
-                        <h6>Calculate Shipping</h6>
+                        <h6> Dosya İndirme Adresi </h6>
                     </div>
+
                     <form class="field_form shipping_calculator">
                         <div class="form-row">
                             <div class="form-group col-lg-12">
-                                <div class="custom_select">
-                                    <input type="text" name="" id="">
-                                </div>
+                                <input required="required" class="form-control" name="filesurl" type="text">
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-lg-6">
-                                <input required="required" placeholder="State / Country" class="form-control" name="name" type="text">
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <input required="required" placeholder="PostCode / ZIP" class="form-control" name="name" type="text">
-                            </div>
+
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-12">
-                                <button class="btn btn-fill-line" type="submit">Update Totals</button>
+                                <a href="#" class="btn btn-fill-out">Proceed To CheckOut</a>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="border p-3 p-md-4">
-                        <div class="heading_s1 mb-3">
-                            <h6>Cart Totals</h6>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <td class="cart_total_label">Cart Subtotal</td>
-                                    <td class="cart_total_amount">$349.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="cart_total_label">Shipping</td>
-                                    <td class="cart_total_amount">Free Shipping</td>
-                                </tr>
-                                <tr>
-                                    <td class="cart_total_label">Total</td>
-                                    <td class="cart_total_amount"><strong>$349.00</strong></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="#" class="btn btn-fill-out">Proceed To CheckOut</a>
-                    </div>
                 </div>
             </div>
 
@@ -189,8 +156,6 @@
     </div>
 
 @endsection
-
-
 
 @section('css')
     .param {
@@ -238,13 +203,49 @@
 
 @section('js')
     <script>
-   //      /*
-   // * Product remove from cart*/
-   //      $(".item_remove").on('click',function() {
-   //          console.log(123);
-   //          var productid = $(this).data("productid");
-   //          console.log(productid);
-   //      });
+
+        function quantityVal(id){
+            var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
+
+            var qty = $(this).val();
+
+            $.ajax({
+                method: 'POST',
+                url: "/kullanici/basket/product/qty/edit/",
+                data: ""
+            });
+
+        }
+
+        function removecartitem(id){
+            var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
+
+            $.ajax({
+                method: 'GET',
+                url: "/kullanici/basket/remove/" + id,
+
+                success: function (data) {
+
+                    if (data == true){
+                        $.ajax({
+                            method: 'GET',
+                            url: "/kullanici/basket/get/" + AuthUser,
+
+                            success: function (data){
+                                $('#'+id).remove();
+                            }
+                        })
+
+                        //console.log(data);
+                    }else{
+                        console.log('silinmedi');
+                    }
+
+                }
+            })
+
+        }
+
 
     </script>
 @endsection

@@ -1,10 +1,13 @@
 <?php
-
+/*
+ * Baski_medya1!
+*/
 namespace App\Http\Controllers\Site\Product;
 
 use App\AdditionalOption;
 use App\Basket;
 use App\BasketProduct;
+use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Option;
 use Illuminate\Http\Request;
@@ -14,8 +17,7 @@ class BasketController extends Controller
 {
 
     public function index($id){
-//        $xml = simplexml_load_file('https://www.tcmb.gov.tr/kurlar/today.xml?_=1598789527253');
-//        echo $xml->Currency[0]->Isim ; die;
+
      $breadcrump = ['thispage' => 'Sepet' , 'thispageURL' => route('product.addtocart')];
 
      $userid  = Crypt::decrypt($id) ;
@@ -23,42 +25,43 @@ class BasketController extends Controller
      $basket = $basket->id;
      $basketdata = BasketProduct::where('basket_id','=',$basket)->get();
 
-
-     return view('Site.pages.Products.Shop.cart',compact(['basketdata','breadcrump']));
+        $currency = Currency::latest('id')->first();
+     return view('Site.pages.Products.Shop.cart',compact(['basketdata','breadcrump','currency']));
     }
 
 
 #################### ADD TO CART AJAX ###########################
     public function addtocart(Request $request){
 
-
         $user_id = Crypt::decrypt($request->user_id);
         $product_id = $request->product_id ;
         $quantity = $request->qty;
 
-
         ############  SQUARE
+if($request->width && $request->height){
+    $width = $request->width;
+    $height= $request->height;
 
-        $width = $request->width;
-        $height= $request->height;
+    $width /=100.0;
+    $height /=100.0;
+    $SQUARE = $width * $height  ;
+    $SQUARE = number_format($SQUARE,2);
+}
 
-        $width /=100.0;
-        $height /=100.0;
-        $SQUARE = $width * $height  ;
-        $SQUARE = number_format($SQUARE,2);
 
-      //  print_r($SQUARE);die;
         ########### END SQUARE ###########
 
-
         #==================OPTIONS============================
-        $optionid = $request->optionid;
-        $option =  Option::find($optionid);
-        $optionprice =$option->price ;
+        if($request->optionid){
+            $optionid = $request->optionid;
+            $option =  Option::find($optionid);
+            $optionprice =$option->price ;
 
-        $additionaloptions = $request->additionaloptions;
-        //  print_r($additionaloptions); die;
+            $additionaloptions = $request->additionaloptions;
+            //  print_r($additionaloptions); die;
 
+
+        }
 
         $ADDITIONALPRICE =  0;
 
@@ -77,16 +80,22 @@ class BasketController extends Controller
 
         $basket = Basket::firstOrCreate([
             'user_id'=>$user_id
-        ]) ;
+        ]);
 
         $basketid = $basket->id;
 
         #end basket=====================
+        if($SQUARE && $optionprice)
+        {
+            $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE));
+        }
+        if($optionprice){
+
+           $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE));
+        }
 
 
-        $PRICE = (( ($optionprice+$ADDITIONALPRICE)*$SQUARE));
-       // print_r($PRICE);die;
-        //print_r($PRICE) ;die;
+
         $item =[
             'basket_id' => $basketid,
             'product_id' => $product_id,
@@ -146,6 +155,13 @@ class BasketController extends Controller
         ];
         return $baskethtmldata;
     }
+
+
+
+public function quantityedit(Request $request){
+
+}
+
 
 
     public function basketremove($id){
