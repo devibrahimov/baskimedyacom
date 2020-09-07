@@ -139,3 +139,5 @@ Route::get('/contact-mail',function (){
     $contact = \App\Contact::find(1);
    return new App\Mail\ContactMail($contact);
 });
+
+Route::post('/sub','Site\SubscriptionController@store')->name('add.sub');

@@ -81,8 +81,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="newsletter_form">
-                        <form>
-                            <input type="text" required="" class="form-control rounded-0" placeholder="E-Posta Adresinizi Giriniz">
+                        <form action="{{route('add.sub')}}" method="post">
+                            @csrf
+                                <input type="text" required="" class="form-control rounded-0" name="subemail" placeholder="E-Posta Adresinizi Giriniz">
                             <button type="submit" class="btn btn-dark rounded-0" name="submit" value="Submit">Abone Ol</button>
                         </form>
                     </div>
