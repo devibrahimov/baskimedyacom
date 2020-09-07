@@ -14,7 +14,7 @@ class TableProductsNewcolumns extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-//
+
             $table->float('price')->nullable();
             $table->boolean('hasmeter');
         });
