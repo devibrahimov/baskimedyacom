@@ -106,6 +106,7 @@ Route::group(['prefix' => 'kullanici'], function () {
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
         Route::get('/basket/get/{id}', 'Site\Product\BasketController@basketfetch')->name('basket.fetch');
         Route::get('/basket/remove/{id}', 'Site\Product\BasketController@basketremove')->name('basket.fetch');
+        Route::post('/basket/product/qty/edit/', 'Site\Product\BasketController@quantityedit')->name('quantity.edit');
         Route::post('/changepassword', 'Site\UserController@changepassword')->name('password.change');
         Route::post('/accountupdate', 'Site\UserController@updateinform')->name('user.accountchange');
         Route::post('/companyupdate', 'Site\UserController@updatecompany')->name('user.companychange');

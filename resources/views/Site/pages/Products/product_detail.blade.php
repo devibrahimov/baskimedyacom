@@ -290,9 +290,10 @@
 @section('js')
     <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
-        $(function () {
+
+        $(function(){
             var $featureSelect = $('.allContent');
-            var $productFeatureSelect = $('.option')
+            var $productFeatureSelect = $('.option');
             var $price = $('#price');
             var $priceShow = $('.tutar');
             var $addToCartBtn = $('.btn-addtocart');
@@ -311,11 +312,19 @@
                 return parseFloat(parseInt($height.val()) / 100);
             };
 
-            var calculateTotal = function () {
-                var $featurePrice = $('.option:checked')[0].dataset.optionprice;
-                var quantitiy = $quantityInput.val();
-                // var price = $price.val();
 
+            var updateDimensionsTable = function () {
+                var w = getWidthM();
+                var h = getHeightM();
+                var area = (w * h).toFixed(4);
+                var quantitiy = $quantityInput.val();
+                $calcW.text(parseInt($width.val()));
+                $calcH.text(parseInt($height.val()));
+                $calcArea.text(area);
+            };
+            var calculateTotal = function () {
+                var $featurePrice =  $('.option:checked')[0].dataset.optionprice  ;
+                var quantitiy = $quantityInput.val();
                 var calcW = parseInt($calcW.text());
                 var calcH = parseInt($calcH.text());
                 var calcArea = parseFloat($calcArea.text());
@@ -326,16 +335,6 @@
                     var calculatedPrice = ((calcArea * $featurePrice) + (calcArea * price)).toFixed(2);
                     $priceShow.text(calculatedPrice);
                 });
-            };
-
-            var updateDimensionsTable = function () {
-                var w = getWidthM();
-                var h = getHeightM();
-                var area = (w * h).toFixed(4);
-                var quantitiy = $quantityInput.val();
-                $calcW.text(parseInt($width.val()));
-                $calcH.text(parseInt($height.val()));
-                $calcArea.text(area);
             };
 
             $featureSelect.on('keyup keydown change', function () {

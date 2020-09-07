@@ -1,11 +1,5 @@
 ﻿@extends('Site.index')
 
-@section('meta')
-
-    <meta name="title" content="{{$setting->metatitle?$setting->metatitle:''}}">
-    <meta name="description" content="{{$setting->metadescription?$setting->metadescription:''}}">
-
-@endsection
 
 @section('content')
 
@@ -107,30 +101,8 @@
     </div>
     <!-- END SECTION BANNER -->
 
-        <!-- STAT SECTION ABOUT -->
-        <div class="section">
-            <div class="container">
-                <div class="row align-items-center">
-               @if($about != NULL)
-                    <div class="col-lg-6">
 
-                        <div class="about_img scene mb-4 mb-lg-0 "style="height:550px;  background: url('/uploads/setting/{{$about->image}}') no-repeat;
-                            background-size: cover;background-position: center center !important;">
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="heading_s1">
-                            <h2>@if(isset($about)){!!$about->header!!}@endif</h2>
-                        </div>@if(isset($about)){!!$about->content!!}@endif</div>
-                     </div>
-                @endif
-
-                </div>
-            </div>
-        </div>
-        <!-- END SECTION ABOUT -->
-    <div class="section pb_20 small_pt">
+    <div style="display:none;" class="section pb_20 small_pt">
         <div class="container-fluid px-2">
             <div class="row no-gutters justify-content-center">
               @foreach($services as $service)
@@ -159,7 +131,7 @@
                         <div class="heading_s4 text-center">
                             <h2><a href="{{route('site.product')}}">Ürünlerimiz</a></h2>
                         </div>
-                        <p class="text-center leads">Bir çok alanda çalışıyoruz. Ürünlerimizi inceleyin ve sipariş verin.</p>
+                        <p class="text-center leads">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa enim Nullam nunc varius.</p>
                     </div>
                 </div>
                 <div class="row shop_container">
@@ -174,7 +146,7 @@
                             <div class="product_info">
                                 <h6 class="product_title"><a href="{{route('showProducts',[$product->id,$product->slug])}}">{{$product->name}}</a></h6>
                                 <div class="product_price">
-                                    <span class="price">$ {{$product->optionchipoption($product->parent_option)->price}}</span>
+                                    <span class="price">$ {{$product->price != NULL?$product->price:$product->optionchipoption($product->parent_option)->price}}</span>
 
                                 </div>
                                 <div class="rating_wrap">
@@ -197,6 +169,40 @@
             </div>
         </div>
         <!-- END SECTION SHOP -->
+
+        <!-- STAT SECTION ABOUT -->
+        <div class="section">
+            <div class="container">
+                <div class="row align-items-center">
+               @if($about != NULL)
+                    <div class="col-lg-6">
+
+                        <div style="display:none;" class="about_img scene mb-4 mb-lg-0 "style="height:550px;  background: url('/uploads/setting/{{$about->image}}') no-repeat;
+                            background-size: cover;background-position: center center !important;">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12" style="text-align:center;">
+                        <div class="heading_s1">
+                            <h2>
+                                @if(isset($about)){!!$about->header!!}@endif
+                            </h2>
+                        </div>
+                            @if(isset($about)){!!substr($about->content,0,1000)!!}@endif...
+                    </div>
+                    <div class="col-lg-12">
+                        <center>
+                            <a title="Detaylara Git" href="{{route("site.about")}}" class="btn btn-fill-out" >Devamını Gör
+                            </a>
+                        </center>
+                    </div>
+                </div>
+                @endif
+
+                </div>
+            </div>
+        </div>
+        <!-- END SECTION ABOUT -->
 
         <!-- START SECTION CLIENT LOGO -->
         <div class="section small_pt">
