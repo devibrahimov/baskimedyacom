@@ -244,7 +244,8 @@
                                                         id="siparisCode">{{isset($option->product_code)?'-'.$option->product_code:''}}</span></a>
                                             </li>
                                             <li class="text-default">Toplam Fiyat : $ <a
-                                                    class="tutar">{{$product->price}}</a>
+                                                    {{--                                                    @dd($product->options($product->parent_option)[0]->price);--}}
+                                                    class="tutar">{{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}}</a>
                                             </li>
                                         </ul>
                                         <hr/>
@@ -295,8 +296,9 @@
         $(document).ready(function () {
 
             var isMeter = {{$product->hasmeter}};
-            var isParentOption = {{$product->parent_option}}
-            var urunFiyat = {{$product->price}}
+            var isParentOption = {{$product->parent_option ? $product->parent_option :  null}}
+            console.log(isParentOption);
+            var urunFiyat = {{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}};
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);
 
@@ -311,7 +313,7 @@
             var $calcW = $('#calc-w');
             var $calcH = $('#calc-h');
             var $calcArea = $('#calc-area');
-            var $featurePrice = $('.option:checked')[0].dataset.optionprice;
+            var $featurePrice = $('.option:checked')[0] == undefined ? null : $('.option:checked')[0].dataset.optionprice;
             var toplamfiyat = 0;
             var fiyat = 0;
             var $additionalOption = $('.additionaloption option:selected');
@@ -320,17 +322,22 @@
             var w;
             var h;
             var area = (w * h).toFixed(2);
+            console.log(fiyat, toplamfiyat, '#######################################')
+
             $featureSelect.on('click change keyup', function () {
                 if (isMeter == 0 && isParentOption != null) {
-                    radiooptioncode()
+                    radiooptionprice()
                     eksecenekler()
                     getQuantity()
                     calculateTotal()
                 } else if (isMeter != 0 && isParentOption != null) {
-                    radiooptioncode()
+                    radiooptionprice()
                     eksecenekler()
                     getQuantity()
                     metreKare()
+                    calculateTotal()
+                }else if (isMeter == 0 && isParentOption == undefined){
+                    eksecenekler()
                     calculateTotal()
                 }
             });
@@ -339,16 +346,27 @@
 
             var calculateTotal = function () {
                 if (isMeter == 0 && isParentOption != null) {
-                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy)).toFixed(2);
-                    urunFiyat = toplamfiyat;
-                    $priceShow.text(urunFiyat);
+                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati))).toFixed(2);
+                    toplamfiyat = urunFiyat + Number(toplamfiyat);
+                    console.log(typeof(urunFiyat),typeof (toplamfiyat))
+                    toplamfiyat = toplamfiyat * quantitiy;
+                    $priceShow.text(toplamfiyat);
                     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-                }else  if (isMeter == 1 && isParentOption != null) {
+                } else if (isMeter == 1 && isParentOption != null) {
                     console.log("giriyopr")
-                    toplamfiyat= ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
-                    console.log('############ ALAN ++++++++++++',area);
-                    urunFiyat = toplamfiyat;
-                    $priceShow.text(urunFiyat);
+                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
+                    console.log('############ ALAN ++++++++++++', area);
+                    toplamfiyat = toplamfiyat * area;
+                    console.log(toplamfiyat,area,"OLLLDUUU LAANNNNNNNNNNN")
+                    $priceShow.text(toplamfiyat);
+                } else if (isMeter == 0 && isParentOption == null){
+                    toplamfiyat = parseFloat(eksecenekFiyati) * parseInt(quantitiy);
+                    toplamfiyat = urunFiyat + Number(toplamfiyat);
+                    toplamfiyat = toplamfiyat * $quantityInput.val();
+                    console.log($quantityInput.val())
+                    console.log(toplamfiyat,"FİYAAAT")
+                    $priceShow.text(toplamfiyat);
                 }
 
             }
@@ -371,18 +389,18 @@
                 parseFloat(area).toFixed(2);
                 $calcArea.text(area);
                 return area;
-                console.log(w,h,area)
+                console.log(area)
             }
 
             // ADET
-            var getQuantity = function (){
+            var getQuantity = function () {
                 quantitiy = $quantityInput.val();
-                console.log('########## ADET ######',quantitiy);
+                console.log('########## ADET ######', quantitiy);
             }
 
 
             var $featureId = $('.option:checked');
-            var optioncode = $featureId[0].dataset.optioncode
+            var optioncode = $featureId[0] == undefined ? null : $featureId[0].dataset.optioncode;
             document.getElementById('siparisCode').innerHTML = optioncode;
 
 
@@ -402,20 +420,26 @@
             //     $featurePrice = $('.option:checked')[0].dataset.optionprice;
             // })
 
-            var radiooptioncode = function () {
+            var radiooptionprice = function () {
                 $radioButton.on('click change', function () {
-                    $(this).children('th').children('div').children('input').prop('checked', true);
-
-                    $('.product-options tr').removeClass('selected');
-                    $(this).toggleClass('selected');
-                    $featureId = $('.option:checked');
-                    optioncode = $featureId[0].dataset.optioncode
-                    document.getElementById('siparisCode').innerHTML = optioncode;
                     $featurePrice = $('.option:checked')[0].dataset.optionprice;
                     console.log('#### RADIOLAR #### ', optioncode, $featurePrice)
                     return parseFloat($featurePrice);
                 });
             }
+
+
+            $('.product-options tr').click(function () {
+                $(this).children('th').children('div').children('input').prop('checked', true);
+                $('.product-options tr').removeClass('selected');
+                $(this).toggleClass('selected');
+
+                //URUN KODLARI
+                $featureId = $('.option:checked');
+                optioncode = $featureId[0].dataset.optioncode
+                document.getElementById('siparisCode').innerHTML = optioncode;
+            });
+
             //--------------------------------------------
         });
 
@@ -434,7 +458,7 @@
             // console.log(additionaloption)
             var loggedIn = {{{(Auth::user())? 'true' : 'false' }}} ;
             if (!loggedIn) {
-                alert('Sebete Ekleye bilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
+                alert('Sepete Ekleyebilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
             } else {
                 $.ajax({ /* AJAX REQUEST */
                     type: 'post',
