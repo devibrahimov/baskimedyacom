@@ -86,7 +86,6 @@ Route::get('/katalogliste', 'Admin\AdminController@readcatalogue')->name('catalo
 Route::delete('katalogsil/{id}', 'Admin\AdminController@delcatalogue')->name('catalogue.delete');
 
 
-
 Route::group(['prefix' => 'kullanici'], function () {
 
     Route::get('/giris', 'Site\LoginController@index')->name('site.login');
@@ -116,10 +115,19 @@ Route::group(['prefix' => 'kullanici'], function () {
 });
 
 
-Route::post('/contact','Site\ContactController@getcontact')->name('add.contact');
-/*
-Route::resource('/contact','site\ContactController');
-Route::resource('/about','site\AboutController');*/
+Route::post('/contact', 'Site\ContactController@getcontact')->name('add.contact');
+Route::post('/sub', 'Site\SubscriptionController@store')->name('add.sub');
+
+
+Route::get('/mail', function () {
+    $contact = \App\Catalogue::find(1);
+    return new App\Mail\CatalogueMail($contact);
+});
+
+Route::get('/contact-mail', function () {
+    $contact = \App\Contact::find(1);
+    return new App\Mail\ContactMail($contact);
+});
 
 
 Route::get('/profil', function () {
@@ -127,23 +135,22 @@ Route::get('/profil', function () {
 //    $user = \App\User::find(1);
     //  return new  App\Mail\UserRegisterMail($user) ;
 });
+
+
+Route::get('/kur', 'Currencies@index')->name('kur.index');
+Route::get('/kurkaydet', 'Currencies@store')->name('kur.save');
+
+
+/*
+Route::resource('/contact','site\ContactController');
+Route::resource('/about','site\AboutController');*/
+
+
 //
 //Route::get('/clear-cache', function() {
 //    $exitCode = Artisan::call('cache:clear');
 //    // return what you want
 //});
 
-Route::get('/kur','Currencies@index')->name('kur.index');
-Route::get('/kurkaydet','Currencies@store')->name('kur.save');
 
-Route::get('/mail',function (){
-    $contact = \App\Catalogue::find(1);
-   return new App\Mail\CatalogueMail($contact);
-});
 
-Route::get('/contact-mail',function (){
-    $contact = \App\Contact::find(1);
-   return new App\Mail\ContactMail($contact);
-});
-
-Route::post('/sub','Site\SubscriptionController@store')->name('add.sub');

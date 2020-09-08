@@ -1,12 +1,12 @@
 @extends('Site.index')
 
 @section('meta')
-    <?php
-    $meta = json_decode($product->meta);
-    ?>
+    @php
+        $meta = json_decode($product->meta);
+    @endphp
+
     <meta name="title" content="{{$meta->title}}">
     <meta name="description" content=" {{$meta->description}} ">
-
 @endsection
 
 @section('content')
@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row allContent">
                     <div class="col-lg-6">
                         {{--   <p>Seçenekler</p>--}}
                         @if($product->parent_option != NULL)
@@ -144,7 +144,6 @@
                     </div>
                     <div class="otherOptions col-lg-6">
                         @if($product->hasmeter == 1)
-
                             <div id="dimensions" class="card shadow-sm mb-4 ">
                                 <div class="card-header bg_default text-white">
                                     <h6 class="mb-0 font-weight-bold text-white">Ölçüler</h6>
@@ -159,7 +158,8 @@
                                                     <span
                                                         class="input-group-text bg_default text-white font-weight-bold">EN</span>
                                                     </div>
-                                                    <input class="form-control vinilWidth" type="number" min="1" step="1"
+                                                    <input class="form-control vinilWidth" type="number" min="1"
+                                                           step="1"
                                                            id="width" name="width"
                                                            value="100">
                                                     <div class="input-group-append">
@@ -239,10 +239,12 @@
                                     <div class="product_description">
                                         <br>
                                         <ul class="product-meta d-inline">
-                                            <li class="text-default">Sipariş Kodu: <a   href="#"> {{$product->product_code}}<span
-                                                        id="siparisCode">{{isset($option->product_code)?'-'.$option->product_code:''}}</span></a></li>
+                                            <li class="text-default">Sipariş Kodu: <a
+                                                    href="#"> {{$product->product_code}}<span
+                                                        id="siparisCode">{{isset($option->product_code)?'-'.$option->product_code:''}}</span></a>
+                                            </li>
                                             <li class="text-default">Toplam Fiyat : $ <a
-                                                    class="tutar">0.00</a>
+                                                    class="tutar">{{$product->price}}</a>
                                             </li>
                                         </ul>
                                         <hr/>
@@ -284,14 +286,20 @@
     </div>
     <!-- END MAIN CONTENT -->
 
-
 @endsection
 
 @section('js')
     <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
 
-        $(function(){
+        $(document).ready(function () {
+
+            var isMeter = {{$product->hasmeter}};
+            var isParentOption = {{$product->parent_option}}
+            var urunFiyat = {{$product->price}}
+
+            console.log(isMeter, '##########################', isParentOption, urunFiyat);
+
             var $featureSelect = $('.allContent');
             var $productFeatureSelect = $('.option');
             var $price = $('#price');
@@ -303,7 +311,49 @@
             var $calcW = $('#calc-w');
             var $calcH = $('#calc-h');
             var $calcArea = $('#calc-area');
+            var $featurePrice = $('.option:checked')[0].dataset.optionprice;
+            var toplamfiyat = 0;
+            var fiyat = 0;
+            var $additionalOption = $('.additionaloption option:selected');
+            var $radioButton = $('.product-options tr');
+            var quantitiy = $quantityInput.val();
+            var w;
+            var h;
+            var area = (w * h).toFixed(2);
+            $featureSelect.on('click change keyup', function () {
+                if (isMeter == 0 && isParentOption != null) {
+                    radiooptioncode()
+                    eksecenekler()
+                    getQuantity()
+                    calculateTotal()
+                } else if (isMeter != 0 && isParentOption != null) {
+                    radiooptioncode()
+                    eksecenekler()
+                    getQuantity()
+                    metreKare()
+                    calculateTotal()
+                }
+            });
 
+            // TOPLAM FIYAT
+
+            var calculateTotal = function () {
+                if (isMeter == 0 && isParentOption != null) {
+                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy)).toFixed(2);
+                    urunFiyat = toplamfiyat;
+                    $priceShow.text(urunFiyat);
+                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                }else  if (isMeter == 1 && isParentOption != null) {
+                    console.log("giriyopr")
+                    toplamfiyat= ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
+                    console.log('############ ALAN ++++++++++++',area);
+                    urunFiyat = toplamfiyat;
+                    $priceShow.text(urunFiyat);
+                }
+
+            }
+
+            //METRE KARE
             var getWidthM = function () {
                 return parseFloat(parseInt($width.val()) / 100);
             };
@@ -312,59 +362,62 @@
                 return parseFloat(parseInt($height.val()) / 100);
             };
 
-
-            var updateDimensionsTable = function () {
-                var w = getWidthM();
-                var h = getHeightM();
-                var area = (w * h).toFixed(4);
-                var quantitiy = $quantityInput.val();
-                $calcW.text(parseInt($width.val()));
-                $calcH.text(parseInt($height.val()));
+            var metreKare = function () {
+                w = getWidthM();
+                h = getHeightM();
+                area = (w * h).toFixed(2);
+                $calcW.text(parseFloat($width.val()));
+                $calcH.text(parseFloat($height.val()));
+                parseFloat(area).toFixed(2);
                 $calcArea.text(area);
-            };
-            var calculateTotal = function () {
-                var $featurePrice =  $('.option:checked')[0].dataset.optionprice  ;
-                var quantitiy = $quantityInput.val();
-                var calcW = parseInt($calcW.text());
-                var calcH = parseInt($calcH.text());
-                var calcArea = parseFloat($calcArea.text());
-                var $additionalOption = $('.additionaloption option:selected');
+                return area;
+                console.log(w,h,area)
+            }
 
-                $additionalOption.each(function (i, elm) {
-                    var price = $(elm).data("price");
-                    var calculatedPrice = ((calcArea * $featurePrice) + (calcArea * price)).toFixed(2);
-                    $priceShow.text(calculatedPrice);
-                });
-            };
+            // ADET
+            var getQuantity = function (){
+                quantitiy = $quantityInput.val();
+                console.log('########## ADET ######',quantitiy);
+            }
 
-            $featureSelect.on('keyup keydown change', function () {
-                calculateTotal();
-            });
-
-            $width.add($height).on('change keyup', function () {
-                var w = getWidthM();
-                var h = getHeightM();
-                var area = w * h;
-                calculateTotal();
-                updateDimensionsTable();
-            });
-        });
-
-        // RADIO BUTTON
-
-        $('.product-options tr').click(function () {
-            $(this).children('th').children('div').children('input').prop('checked', true);
-
-            $('.product-options tr').removeClass('selected');
-            $(this).toggleClass('selected');
 
             var $featureId = $('.option:checked');
             var optioncode = $featureId[0].dataset.optioncode
-            console.log(optioncode)
             document.getElementById('siparisCode').innerHTML = optioncode;
 
+
+            // EK SEÇENEKLER
+            var eksecenekFiyati;
+            var eksecenekler = function () {
+                $additionalOption.each(function (i, elm) {
+                    $additionalOption = $('.additionaloption option:selected');
+                    eksecenekFiyati = $(elm).data("price");
+                    return parseFloat(eksecenekFiyati);
+                });
+            }
+
+            // RADIO BUTTON
+            // $radioButton.on('click change', function () {
+            //     radiooptioncode()
+            //     $featurePrice = $('.option:checked')[0].dataset.optionprice;
+            // })
+
+            var radiooptioncode = function () {
+                $radioButton.on('click change', function () {
+                    $(this).children('th').children('div').children('input').prop('checked', true);
+
+                    $('.product-options tr').removeClass('selected');
+                    $(this).toggleClass('selected');
+                    $featureId = $('.option:checked');
+                    optioncode = $featureId[0].dataset.optioncode
+                    document.getElementById('siparisCode').innerHTML = optioncode;
+                    $featurePrice = $('.option:checked')[0].dataset.optionprice;
+                    console.log('#### RADIOLAR #### ', optioncode, $featurePrice)
+                    return parseFloat($featurePrice);
+                });
+            }
+            //--------------------------------------------
         });
-        //--------------------------------------------
 
 
         $('#addBasket').on('click', function () {
@@ -398,11 +451,10 @@
                     },
                     success: function (data) {
                         $.ajax({
-                            method : 'GET',
-                            url:"/kullanici/basket/get/"+AuthUser,
+                            method: 'GET',
+                            url: "/kullanici/basket/get/" + AuthUser,
 
-                            success:function(data)
-                            {
+                            success: function (data) {
                                 $('#cartproducts').html(data.products)
                                 $('#cart_count').html(data.count)
                             }

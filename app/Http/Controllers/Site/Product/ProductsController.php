@@ -46,6 +46,7 @@ class ProductsController extends Controller
         //
     }
 
+
     /**
      * Display the specified resource.
      *
