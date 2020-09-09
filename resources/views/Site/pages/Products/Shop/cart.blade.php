@@ -212,7 +212,7 @@
             $.ajax({
                 method: 'POST',
                 url: "/kullanici/basket/product/qty/edit/",
-                data: ""
+
             });
 
         }
