@@ -102,7 +102,8 @@ Route::group(['prefix' => 'kullanici'], function () {
 
     Route::group(['middleware' => ['auth']], function () {
         Route::post('/sepet', 'Site\Product\BasketController@addtocart')->name('product.addtocart');
-        Route::get('/odeme', 'Site\Product\OrderController@order')->name('order');
+        Route::post('/odeme', 'Site\Product\BasketController@filesurl')->name('filesurl');
+        Route::get('/odeme/{id}', 'Site\Product\OrderController@order')->name('orderpage');
         Route::get('/odeme/bildirim', 'Site\Product\OrderController@ordercallback')->name('ordercallback');
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
         Route::get('/basket/get/{id}', 'Site\Product\BasketController@basketfetch')->name('basket.fetch');

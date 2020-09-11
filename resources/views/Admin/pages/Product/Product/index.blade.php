@@ -31,8 +31,13 @@
 
                                 <a href="{{route('product.edit',$product->id)}}" class="dropdown-item"> <i class="las la-edit"></i> Düzenle</a>
 
-                                <a href="{{route('product.show',$product->id)}}" class="dropdown-item"> <i class="las la-trash"></i> Sil</a>
+{{--                                <a href="{{route('product.destroy',$product->id)}}" class="dropdown-item"> <i class="las la-trash"></i> Sil</a>--}}
 
+                                <form class="btn btn-danger btn-block" action="{{route('product.destroy',$product->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-icon" ><i class="typcn typcn-trash"> </i> Sil</button>
+                                </form>
                             </div>
                             <div class="text-center pt-3">
                                 <h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">{{$product->name}}</h3>
