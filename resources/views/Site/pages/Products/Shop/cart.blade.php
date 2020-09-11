@@ -108,6 +108,7 @@
                                                     @php
                                                         if ($basketproduct->option_id !=Null){
                                                                 $price = $basketproduct->option->price ;
+                                                                echo '$$$$$$$$$$$$';
                                                             }else{
                                                               $price = $basketproduct->product->price ;
                                                             }
@@ -139,12 +140,17 @@
                                     </td>
                                     <td> {{number_format($basketproduct->price*$currency->deger , 2)}} <sup>₺</sup></td>
                                     <td>
-                                        <input type="number" name="" id="{{$basketproduct->id}}" data-qty="{{$basketproduct->quantity}}" onchange="quantityval({{$basketproduct->id}});"  value="{{$basketproduct->quantity}}" class="form-control">
+                                        <input type="number" name="" id="{{$basketproduct->id}}"
+                                               data-qty="{{$basketproduct->quantity}}"
+                                               onchange="hesapla({{$basketproduct->id}});"
+                                               value="{{$basketproduct->quantity}}" class="adet form-control">
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <var class="price"> {{ $priceproduct= number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}  </var><sup>₺</sup>
-                                            @php $totalPrice+= $priceproduct;@endphp
+                                            {{--                                            {{ $priceproduct= number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}--}}
+                                            <var
+                                                class="price"> {{ $priceproduct = number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}</var><sup>₺</sup>
+                                            {{--                                            @php $totalPrice += $priceproduct;@endphp--}}
                                         </div> <!-- price-wrap .// -->
                                     </td>
                                     <td class="text-right  ">
@@ -160,19 +166,19 @@
                             <tr>
                                 <td colspan="3">&nbsp;</td>
                                 <td class="text-nowrap text-right">Toplam</td>
-                                <td class="text-nowrap text-monospace text-right">{{$totalPrice}} TL</td>
+                                <td class="text-nowrap text-monospace text-right toplamFiyat">{{$totalPrice}} TL</td>
                             </tr>
                             <tr>
                                 <td colspan="3">&nbsp;</td>
                                 <td class="text-nowrap text-right">KDV %18</td>
-                                <td class="text-nowrap text-monospace text-right">{{ $yuzde=number_format(($totalPrice/100)*18 , 2)}}
+                                <td class="text-nowrap text-monospace text-right kdv">{{ $yuzde=number_format(($totalPrice/100)*18 , 2)}}
                                     TL
                                 </td>
                             </tr>
                             <tr class="bg-success text-white">
                                 <td colspan="3"></td>
                                 <td class="text-nowrap font-weight-bold text-right"> Ödenecek Miktar</td>
-                                <td class="text-nowrap text-monospace text-right">{{number_format($totalPrice+$yuzde ,2)}}
+                                <td class="text-nowrap text-monospace text-right odenecek">{{number_format($totalPrice+$yuzde ,2)}}
                                     TL
                                 </td>
                             </tr>
@@ -208,7 +214,8 @@
                             @csrf
                             <input type="hidden" name="basketid" value="{{$basketproduct->basket_id}}">
 
-                            <input type="hidden" name="uid" value="{{ \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id)}}">
+                            <input type="hidden" name="uid"
+                                   value="{{ \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id)}}">
                             <div class="form-group col-lg-3">
                                 <input type="submit" value="Ödeme Sayfasına Geç" class="btn btn-danger">
                             </div>
@@ -236,14 +243,14 @@
                             </div>
                             <div class="col-sm-7">
                                 <div class="popup_content">
-                                    <div  class="popup-text">
+                                    <div class="popup-text">
                                         <div class="heading_s4">
                                             <h4>Hata Mesajı</h4>
                                         </div>
                                         @foreach ($errors->all() as $error)
-                                        <p>
-                                            {{ $error }}
-                                        </p><br>
+                                            <p>
+                                                {{ $error }}
+                                            </p><br>
                                         @endforeach
                                     </div>
                                 </div>
@@ -259,6 +266,101 @@
 @section('js')
     <script>
 
+
+
+
+        var $sagAltToplam = $('.toplamFiyat');
+        $sagAltToplam.text("65465465465")
+
+        //GELEN TABLONUN ID'SINI ALIYORUM
+        function hesapla (id){
+            // GELEN ID İLE TABLOYU SEÇİYORUM
+            $tablo = $('#'+id);
+            console.log($tablo,'bbbbbbbbbbbbb')
+
+            // GELEN UNIQUE ID FİYATINI ALIYORUM
+            var urunFiyat = Number($tablo[0].childNodes[3].childNodes[0].data)
+            // ADETİNİ ALYIORUM
+            var urunAdet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber
+            // console.log("Fiyat :",urunFiyat,"urunAdet : ", urunAdet)
+            // YİNE FİYAT ALIYORUM AMA O KADAR KAFAM KARISTI KI BU HANGİ FİYAT BİMİYORUM
+            var $urunPrice = $tablo[0].childNodes[7].childNodes[1].childNodes[1];
+            // ADET VE URUN FİYAT ÇARPIMI SONUCU TOPLAM
+            var urunToplam = urunFiyat * urunAdet;
+            console.log("URUN FİYAT : ",urunToplam,urunAdet,urunFiyat);
+            console.log("IDDDDDDDDDDDDDDDD: ",id)
+            // JQUERY ADET CLASS ELEMENTI
+            var $adet = $('.adet');
+            // UNIQUE ADET ELEMENTİ HER ADET FARKLI OLABİLİR DİYE
+            var adet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber
+            // HER TOPLAM FARKLI OLABİLİR
+            var $toplam = $tablo[0].children[3].children[0].children[0].innerText;
+
+            // GENEL TOPLAM KDV FALAN FİLAN TOPLANDIĞININ GÖSTERİLDİĞİ ELEMENT
+            var $odenecek = $('.odenecek');
+            var buldummu;
+
+            {{--var $table = $('{{$basketproduct->id}}');--}}
+                $totalPrice = urunToplam;
+            // $toplam = $('.toplamFiyat');
+            // TOPLAM FİYATI ATIYORUM
+            $toplam = $totalPrice.toFixed(2);
+            // KDV HESABI
+            kdvPrice = ($totalPrice / 100) * 18;
+            $kdvToplam = $('.kdv');
+
+            $kdvToplam.text(kdvPrice.toFixed(2));
+
+            $urunPrice = (urunToplam.toFixed(2));
+
+            $odenecekToplam = kdvPrice + $totalPrice;
+            $odenecek.text($odenecekToplam.toFixed(2));
+
+            // ON CHANGE'TE DE HER DEGİSTİĞİNDE YUKARIDA BULUNAN GLOBAL DEGİSKENLERE ATAMA YAPILIYOR
+            // BURADAKİ SORUN HER GELEN AYRI TOPLAMLARIN ON CHANGE OLDUĞUNDA SAĞ ALTTAKİ TOPLAMDA BİRİKTİRİLEMEMESİ
+            {{--// YUKARIDAN {{totalprice kullanılarak global bir toplam degiskeni olusturulabilir kanaatindeiym}}}}--}}
+                // console.log'lar yardımcınız olsun iyi geceler koçlarım
+            $adet.on('change', function ($tablo) {
+                var toplatop = 0;
+                //console.log($tablo)
+                adet = $tablo.originalEvent.path[2].childNodes[5].children[0].valueAsNumber;
+                $toplam = $($tablo.originalEvent.path[2].childNodes[7].children[0].children[0]);
+
+                // SAĞ ALT TOPLAM
+                $noluyo = $($tablo.originalEvent.path[4].children[2].children[0].children[2]);
+                // console.log($noluyo,"noluyooooooooooooooooooooooooooooooooooo")
+
+                urunToplam = urunFiyat * adet;
+                $toplam.text( urunToplam.toFixed(2));
+
+                toplatop = toplatop + urunToplam;
+                var buldummu = toplatop;
+                    buldummu = toplatop + buldummu;
+                // console.log("TOPLA TOPPPP: ",Number(buldummu))
+
+
+                $genelToplam = $($tablo.originalEvent.path[4].children[2].children[0].children[2]);
+                $genelToplam.text(toplatop.toFixed())
+                kdvPrice = ($totalPrice / 100) * 18;
+                $kdvToplam = $('.kdv');
+                $kdvToplam.text(kdvPrice.toFixed(2));
+                $odenecekToplam = kdvPrice + $totalPrice;
+                $odenecek.text($odenecekToplam.toFixed(2));
+            })
+
+        }
+
+
+        {{--$(document).ready(function () {--}}
+
+        {{--    $tablo = $('#{{$basketproduct->id}}');--}}
+        {{--    console.log($tablo)--}}
+        {{--    var urunFiyat = Number($tablo[0].childNodes[3].childNodes[0].data)--}}
+        {{--    var urunAdet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber--}}
+        {{--    var $urunPrice = $('.price');--}}
+        {{--    var urunToplam = urunFiyat * urunAdet;--}}
+        {{--    $urunPrice.text(urunToplam.toFixed(2));--}}
+        {{--});--}}
         {{--function quantityval(id) {--}}
 
         {{--    var qty = $(this).val();--}}
