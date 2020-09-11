@@ -296,6 +296,7 @@
         $(document).ready(function () {
 
             var isMeter = {{$product->hasmeter}};
+            var isAdditional = {{$product->additional_options == 'null' ? 0 : 1 }};
             var isParentOption = {{$product->parent_option ? $product->parent_option :  null}}
             console.log(isParentOption);
             var urunFiyat = {{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}};
@@ -325,7 +326,7 @@
             console.log(fiyat, toplamfiyat, '#######################################')
 
             $featureSelect.on('click change keyup', function () {
-                if (isMeter == 0 && isParentOption != null) {
+                if (isMeter == 0 && isParentOption != null && isAdditional == 1) {
                     radiooptionprice()
                     eksecenekler()
                     getQuantity()
@@ -339,34 +340,54 @@
                 }else if (isMeter == 0 && isParentOption == undefined){
                     eksecenekler()
                     calculateTotal()
+                }else if(isMeter == 1 && isParentOption == undefined){
+                    eksecenekler()
+                    metreKare()
+                    calculateTotal()
+                }else if(isMeter == 0 && isParentOption != null && isAdditional == 0){
+                    radiooptionprice()
+                    getQuantity()
+                    calculateTotal()
+                    console.log("burada burada buar ibo",isAdditional)
                 }
             });
 
             // TOPLAM FIYAT
 
             var calculateTotal = function () {
-                if (isMeter == 0 && isParentOption != null) {
+                if (isMeter == 0 && isParentOption != null && isAdditional == 1) {
                     console.log('###### girmeden önceki fiyatı',toplamfiyat);
                     toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati))).toFixed(2);
                     toplamfiyat = urunFiyat + Number(toplamfiyat);
                     console.log(typeof(urunFiyat),typeof (toplamfiyat))
                     toplamfiyat = toplamfiyat * quantitiy;
-                    $priceShow.text(toplamfiyat);
-                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$',isAdditional)
                 } else if (isMeter == 1 && isParentOption != null) {
                     console.log("giriyopr")
                     toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
                     console.log('############ ALAN ++++++++++++', area);
                     toplamfiyat = toplamfiyat * area;
-                    console.log(toplamfiyat,area,"OLLLDUUU LAANNNNNNNNNNN")
-                    $priceShow.text(toplamfiyat);
+                    console.log(toplamfiyat,area,"OLLLDUUU LAANNNNNNNNNNN",isAdditional)
+                    $priceShow.text(toplamfiyat.toFixed(2));
                 } else if (isMeter == 0 && isParentOption == null){
                     toplamfiyat = parseFloat(eksecenekFiyati) * parseInt(quantitiy);
                     toplamfiyat = urunFiyat + Number(toplamfiyat);
                     toplamfiyat = toplamfiyat * $quantityInput.val();
                     console.log($quantityInput.val())
-                    console.log(toplamfiyat,"FİYAAAT")
-                    $priceShow.text(toplamfiyat);
+                    console.log(toplamfiyat,"FİYAAAT",isAdditional)
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }else if(isMeter == 1 && isParentOption == null){
+                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                    toplamfiyat = (parseFloat(eksecenekFiyati) + urunFiyat);
+                    toplamfiyat = (toplamfiyat * parseFloat(area) * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }else if(isMeter == 0 && isParentOption != null && isAdditional == 0){
+                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                    toplamfiyat = (parseFloat($featurePrice) + urunFiyat);
+                    toplamfiyat = (toplamfiyat * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                    console.log('ibo ibo ibo',isAdditional)
                 }
 
             }
@@ -388,7 +409,7 @@
                 $calcH.text(parseFloat($height.val()));
                 parseFloat(area).toFixed(2);
                 $calcArea.text(area);
-                return area;
+                return parseFloat(area);
                 console.log(area)
             }
 
