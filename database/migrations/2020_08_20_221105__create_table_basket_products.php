@@ -21,6 +21,7 @@ class CreateTableBasketProducts extends Migration
             $table->json('additional_options') ;
             $table->tinyInteger('quantity');
             $table->tinyInteger('square_meter');
+            $table->float('price');
             $table->timestamps();
         });
 
