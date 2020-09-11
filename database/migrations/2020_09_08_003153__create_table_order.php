@@ -16,6 +16,7 @@ class CreateTableOrder extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('basket_id');
+            $table->string('fielsurl',2000);
             $table->timestamps();
         });
     }

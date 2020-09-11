@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Crypt;
 class OrderController extends Controller
 {
 
-    public function order($id){
+
+
+    public function order(){
     $breadcrump = ['thispage' => 'Ödeme Sayfası' , 'thispageURL' => route('order')];
-        $userid  = Crypt::decrypt($id) ;
-        $basket = Basket::where('user_id','=',$userid)->first();
-        $basket = $basket->id;
-        $basketdata = BasketProduct::where('basket_id','=',$basket)->get();
+//        $userid  = Crypt::decrypt($id) ;
+//        $basket = Basket::where('user_id','=',$userid)->first();
+//
+//        $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
 
 
         return view('Site/pages/Products/Shop/order',compact(['breadcrump']));

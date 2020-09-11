@@ -445,10 +445,17 @@
 
 
         $('#addBasket').on('click', function () {
-            var optionid = ($('.option:checked')[0].dataset.option)
+            @if($product->parent_option != null )
+            var optionid =  ($('.option:checked')[0].dataset.option)
+            @endif
+
+            @if($product->hasmeter != null )
             var vinilWidth = $('.vinilWidth').val()
             var vinilHeight = $('.vinilHeight').val()
+            @endif
+
             var qty = $('.qty').val()
+
             //    console.log(qty)
 
             var additionaloption = new Array()
@@ -466,10 +473,16 @@
                     data: {
                         'user_id': AuthUser,
                         'product_id': {{$product->id}},
-                        'optionid': optionid,
                         'additionaloptions': additionaloption,
+                         @if($product->parent_option != null )
+                        'optionid': optionid,
+                        @else
+                        'price':{{$product->price}} ,
+                         @endif
+                        @if($product->hasmeter != null )
                         'height': vinilHeight,
                         'width': vinilWidth,
+                        @endif
                         'qty': qty,
                         "_token": "{{ csrf_token() }}"
                     },

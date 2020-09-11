@@ -150,6 +150,21 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="col-lg-6"> </div>
+                            <div class="col-lg-6">
+                                <div class="form-horizontal mt-5">
+                                    <div class="row mg-t-10">
+
+                                        <div class="col-lg-6">
+                                            <label class="rdiobox"><input name="hasmeter" {{$product->hasmeter==1?'checked':''}} type="radio" value="1"> <span>m² Var</span></label>
+                                        </div>
+                                        <div class="col-lg-6 mg-t-20 mg-lg-t-0">
+                                            <label class="rdiobox"><input  name="hasmeter" {{$product->hasmeter==0?'checked':''}}  type="radio" value="0"> <span>m² Yok</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                     </div>{{--end row--}}
                     </div>
                     <div class="card-footer">

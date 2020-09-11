@@ -37,7 +37,7 @@
                                             <label class="form-check-label" for="exampleCheckbox1"><span>Beni Hatırla</span></label>
                                         </div>
                                     </div>
-                                    <a href="#">Şifremi Unuttum</a>
+{{--                                    <a href="#">Şifremi Unuttum</a>--}}
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-fill-out btn-block" name="login">Giriş Yap</button>
