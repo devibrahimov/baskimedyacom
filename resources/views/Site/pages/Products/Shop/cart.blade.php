@@ -294,16 +294,6 @@
             $odenecektoplam.text($odenecekToplam.toFixed(2) + ' TL');
         })
 
-            // ON CHANGE'TE DE HER DEGİSTİĞİNDE YUKARIDA BULUNAN GLOBAL DEGİSKENLERE ATAMA YAPILIYOR
-            // BURADAKİ SORUN HER GELEN AYRI TOPLAMLARIN ON CHANGE OLDUĞUNDA SAĞ ALTTAKİ TOPLAMDA BİRİKTİRİLEMEMESİ
-            {{--// YUKARIDAN {{totalprice kullanılarak global bir toplam degiskeni olusturulabilir kanaatindeiym}}}}--}}
-                // console.log'lar yardımcınız olsun iyi geceler koçlarım
-            $adet.on('change', function ($tablo) {
-                var toplatop = 0;
-                //console.log($tablo)
-                adet = $tablo.originalEvent.path[2].childNodes[5].children[0].valueAsNumber;
-                $toplam = $($tablo.originalEvent.path[2].childNodes[7].children[0].children[0]);
-
         var reCalc = function (id) {
             let quantity = 0
             let price = 0
@@ -321,36 +311,6 @@
 
         }
 
-
-        {{--$(document).ready(function () {--}}
-
-        {{--    $tablo = $('#{{$basketproduct->id}}');--}}
-        {{--    console.log($tablo)--}}
-        {{--    var urunFiyat = Number($tablo[0].childNodes[3].childNodes[0].data)--}}
-        {{--    var urunAdet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber--}}
-        {{--    var $urunPrice = $('.price');--}}
-        {{--    var urunToplam = urunFiyat * urunAdet;--}}
-        {{--    $urunPrice.text(urunToplam.toFixed(2));--}}
-        {{--});--}}
-        {{--function quantityval(id) {--}}
-
-        {{--    var qty = $(this).val();--}}
-        {{--    --}}
-        {{--    console.log(qty)--}}
-        {{--    $.ajax({--}}
-        {{--        method: 'POST',--}}
-        {{--        url:" {{route('quantity.edit')}}",--}}
-        {{--        data: {--}}
-        {{--            'id': id,--}}
-        {{--            'qty': qty,--}}
-        {{--            '_token': "{{csrf_token()}}"--}}
-        {{--        }, success: function (data) {--}}
-        {{--        //    yeni sayiya uygu olarak fiyati guncelleyecek--}}
-        {{--            console.log(data)--}}
-        {{--        }--}}
-        {{--    });--}}
-
-        {{--}--}}
 
         function removecartitem(id) {
             var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
