@@ -2,6 +2,8 @@
 @extends('Site.index')
 
 
+@php $gelenJSON = json_encode($basketdata) @endphp
+
 @section('css')
     .param {
     margin-bottom: 7px;
@@ -138,24 +140,30 @@
                                         <span
                                             class=" text-monospace mt-1  text-sm-left">Ürün Sipariş Kodunuz  - {{$basketproduct->product->product_code}} @if($basketproduct->option_id != Null){{$basketproduct->option->option_code}} @endif</span>
                                     </td>
-                                    <td> {{number_format($basketproduct->price*$currency->deger , 2)}} <sup>₺</sup></td>
+                                    <td> {{number_format($basketproduct->price*$currency->deger , 2)}} <sup> ₺</sup>
+                                    </td>
                                     <td>
-                                        <input type="number" name="" id="{{$basketproduct->id}}"
-                                               data-qty="{{$basketproduct->quantity}}"
-                                               onchange="hesapla({{$basketproduct->id}});"
-                                               value="{{$basketproduct->quantity}}" class="adet form-control">
+                                        {{--                                        <input type="number" name="" id="{{$basketproduct->id}}"--}}
+                                        {{--                                               data-qty="{{$basketproduct->quantity}}"--}}
+                                        {{--                                               onchange="hesapla({{$basketproduct->id}},{{$basketproduct->quantity}});"--}}
+                                        {{--                                               data-json="{{$gelenJSON = json_encode($basketdata)}}"--}}
+                                        {{--                                               value="{{$adet = $basketproduct->quantity}}" class="adet form-control">--}}
+                                        <h4 class="text-center"><span class="adet  badge badge-secondary "
+                                                                      data-json="{{$gelenJSON = json_encode($basketdata)}}">{{$adet = $basketproduct->quantity}}</span>
+                                        </h4>
                                     </td>
                                     <td>
                                         <div class="price-wrap">
                                             {{--                                            {{ $priceproduct= number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}--}}
                                             <var
-                                                class="price"> {{ $priceproduct = number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}</var><sup>₺</sup>
+                                                class="price"> {{ $priceproduct = number_format(($basketproduct->price*$basketproduct->quantity)*$currency->deger , 2 )}}</var><sup>
+                                                ₺</sup>
                                             {{--                                            @php $totalPrice += $priceproduct;@endphp--}}
                                         </div> <!-- price-wrap .// -->
                                     </td>
                                     <td class="text-right  ">
                                         <a onclick="removecartitem({{$basketproduct->id}})"
-                                           class="btn btn-sm btn-outline-danger item_remove"> × Sil</a>
+                                           class="sil btn btn-sm btn-outline-danger item_remove"> × Sil</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -267,119 +275,45 @@
     <script>
 
 
+        var currency = {{$currency->deger}}
+        var $gelenJSON = $('.adet')[0].dataset.json
+        var json = JSON.parse($gelenJSON);
+        var $toplam = $('.toplamFiyat');
+        var $kdvToplam = $('.kdv');
+        var $odenecektoplam = $('.odenecek');
+        console.log("ILK JSON", json)
+        var genelToplam = 0;
+        json.forEach((b, a) => {
+            var fiyatlar = b.price
+            var adetler = b.quantity
+            var sonucne = (fiyatlar * adetler) * currency
+            genelToplam += sonucne
 
-
-        var $sagAltToplam = $('.toplamFiyat');
-        $sagAltToplam.text("65465465465")
-
-        //GELEN TABLONUN ID'SINI ALIYORUM
-        function hesapla (id){
-            // GELEN ID İLE TABLOYU SEÇİYORUM
-            $tablo = $('#'+id);
-            console.log($tablo,'bbbbbbbbbbbbb')
-
-            // GELEN UNIQUE ID FİYATINI ALIYORUM
-            var urunFiyat = Number($tablo[0].childNodes[3].childNodes[0].data)
-            // ADETİNİ ALYIORUM
-            var urunAdet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber
-            // console.log("Fiyat :",urunFiyat,"urunAdet : ", urunAdet)
-            // YİNE FİYAT ALIYORUM AMA O KADAR KAFAM KARISTI KI BU HANGİ FİYAT BİMİYORUM
-            var $urunPrice = $tablo[0].childNodes[7].childNodes[1].childNodes[1];
-            // ADET VE URUN FİYAT ÇARPIMI SONUCU TOPLAM
-            var urunToplam = urunFiyat * urunAdet;
-            console.log("URUN FİYAT : ",urunToplam,urunAdet,urunFiyat);
-            console.log("IDDDDDDDDDDDDDDDD: ",id)
-            // JQUERY ADET CLASS ELEMENTI
-            var $adet = $('.adet');
-            // UNIQUE ADET ELEMENTİ HER ADET FARKLI OLABİLİR DİYE
-            var adet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber
-            // HER TOPLAM FARKLI OLABİLİR
-            var $toplam = $tablo[0].children[3].children[0].children[0].innerText;
-
-            // GENEL TOPLAM KDV FALAN FİLAN TOPLANDIĞININ GÖSTERİLDİĞİ ELEMENT
-            var $odenecek = $('.odenecek');
-            var buldummu;
-
-            {{--var $table = $('{{$basketproduct->id}}');--}}
-                $totalPrice = urunToplam;
-            // $toplam = $('.toplamFiyat');
-            // TOPLAM FİYATI ATIYORUM
-            $toplam = $totalPrice.toFixed(2);
+            $toplam.text(genelToplam.toFixed(2) + ' TL')
             // KDV HESABI
-            kdvPrice = ($totalPrice / 100) * 18;
-            $kdvToplam = $('.kdv');
-
-            $kdvToplam.text(kdvPrice.toFixed(2));
-
-            $urunPrice = (urunToplam.toFixed(2));
-
-            $odenecekToplam = kdvPrice + $totalPrice;
-            $odenecek.text($odenecekToplam.toFixed(2));
-
-            // ON CHANGE'TE DE HER DEGİSTİĞİNDE YUKARIDA BULUNAN GLOBAL DEGİSKENLERE ATAMA YAPILIYOR
-            // BURADAKİ SORUN HER GELEN AYRI TOPLAMLARIN ON CHANGE OLDUĞUNDA SAĞ ALTTAKİ TOPLAMDA BİRİKTİRİLEMEMESİ
-            {{--// YUKARIDAN {{totalprice kullanılarak global bir toplam degiskeni olusturulabilir kanaatindeiym}}}}--}}
-                // console.log'lar yardımcınız olsun iyi geceler koçlarım
-            $adet.on('change', function ($tablo) {
-                var toplatop = 0;
-                //console.log($tablo)
-                adet = $tablo.originalEvent.path[2].childNodes[5].children[0].valueAsNumber;
-                $toplam = $($tablo.originalEvent.path[2].childNodes[7].children[0].children[0]);
-
-                // SAĞ ALT TOPLAM
-                $noluyo = $($tablo.originalEvent.path[4].children[2].children[0].children[2]);
-                // console.log($noluyo,"noluyooooooooooooooooooooooooooooooooooo")
-
-                urunToplam = urunFiyat * adet;
-                $toplam.text( urunToplam.toFixed(2));
-
-                toplatop = toplatop + urunToplam;
-                var buldummu = toplatop;
-                    buldummu = toplatop + buldummu;
-                // console.log("TOPLA TOPPPP: ",Number(buldummu))
+            kdvPrice = (genelToplam / 100) * 18;
+            $kdvToplam.text(kdvPrice.toFixed(2) + ' TL');
+            $odenecekToplam = kdvPrice + genelToplam;
+            $odenecektoplam.text($odenecekToplam.toFixed(2) + ' TL');
+        })
 
 
-                $genelToplam = $($tablo.originalEvent.path[4].children[2].children[0].children[2]);
-                $genelToplam.text(toplatop.toFixed())
-                kdvPrice = ($totalPrice / 100) * 18;
-                $kdvToplam = $('.kdv');
-                $kdvToplam.text(kdvPrice.toFixed(2));
-                $odenecekToplam = kdvPrice + $totalPrice;
-                $odenecek.text($odenecekToplam.toFixed(2));
+        var reCalc = function (id) {
+            let quantity = 0
+            let price = 0
+            json.filter(x => x.id === id).map(x => {
+                quantity = x.quantity
+                price = x.price
             })
+            var sonucne = (price * quantity) * currency
+            genelToplam -= sonucne
+            $toplam.text(genelToplam.toFixed(2) + ' TL')
+            kdvPrice = (genelToplam / 100) * 18;
+            $kdvToplam.text(kdvPrice.toFixed(2) + ' TL');
+            $odenecekToplam = kdvPrice + genelToplam;
+            $odenecektoplam.text($odenecekToplam.toFixed(2) + ' TL');
 
         }
-
-
-        {{--$(document).ready(function () {--}}
-
-        {{--    $tablo = $('#{{$basketproduct->id}}');--}}
-        {{--    console.log($tablo)--}}
-        {{--    var urunFiyat = Number($tablo[0].childNodes[3].childNodes[0].data)--}}
-        {{--    var urunAdet = $tablo[0].childNodes[5].childNodes[1].valueAsNumber--}}
-        {{--    var $urunPrice = $('.price');--}}
-        {{--    var urunToplam = urunFiyat * urunAdet;--}}
-        {{--    $urunPrice.text(urunToplam.toFixed(2));--}}
-        {{--});--}}
-        {{--function quantityval(id) {--}}
-
-        {{--    var qty = $(this).val();--}}
-        {{--    --}}
-        {{--    console.log(qty)--}}
-        {{--    $.ajax({--}}
-        {{--        method: 'POST',--}}
-        {{--        url:" {{route('quantity.edit')}}",--}}
-        {{--        data: {--}}
-        {{--            'id': id,--}}
-        {{--            'qty': qty,--}}
-        {{--            '_token': "{{csrf_token()}}"--}}
-        {{--        }, success: function (data) {--}}
-        {{--        //    yeni sayiya uygu olarak fiyati guncelleyecek--}}
-        {{--            console.log(data)--}}
-        {{--        }--}}
-        {{--    });--}}
-
-        {{--}--}}
 
         function removecartitem(id) {
             var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
@@ -408,6 +342,7 @@
                 }
             })
 
+            reCalc(id)
         }
 
 
