@@ -97,10 +97,8 @@
                                                                 <td class="text-nowrap">{{$squaremeter->width}} cm</td>
                                                                 <td class="text-nowrap">{{$squaremeter->height}} cm</td>
                                                                 <td class="text-nowrap">
-
                                                                     <span class="text-muted"><strong> {{$squaremeter->total}}m<sup>2</sup></strong>  </span>
                                                                 </td>
-
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -112,7 +110,6 @@
                                                             }else{
                                                               $price = $basketproduct->product->price ;
                                                             }
-
                                                     @endphp
                                                     <td><strong class=" border-bottom border-dark">Ürün TL
                                                             fiyatı</strong> </br>
@@ -361,6 +358,8 @@
         {{--    var urunToplam = urunFiyat * urunAdet;--}}
         {{--    $urunPrice.text(urunToplam.toFixed(2));--}}
         {{--});--}}
+
+
         {{--function quantityval(id) {--}}
 
         {{--    var qty = $(this).val();--}}
