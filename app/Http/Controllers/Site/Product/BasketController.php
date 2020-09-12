@@ -237,15 +237,19 @@ class BasketController extends Controller
         $basketid= $request->basketid ;
         $fileurl = $request->filesurl;
 
+
+        $basket = Basket::find($basketid);
+
+        $basketid = $basket->id;
+        $basket_userid = $basket->user_id;
+
+
         $order = new Orders();
         $order->basket_id = $basketid ;
         $order->filesurl = $fileurl ;
+        $order->user_id = $basket_userid ;
         $order->save();
-
-        $basket = Basket::find($basketid);
-        $basket->sold = 1;
-        $basket->save();
-
+        $basket->delete();
         $message = [
             'name' => Auth::user()->name,
             'message' => 'Siparişiniz onaylanmıştır.En kısa zamanda ekibimiz sizinle iletişime geçecektir'

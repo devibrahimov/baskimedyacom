@@ -18,7 +18,7 @@ class CreateTableBasketProducts extends Migration
             $table->unsignedBigInteger('basket_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('option_id');
-            $table->json('additional_options') ;
+            $table->json('additional_options');
             $table->tinyInteger('quantity');
             $table->tinyInteger('square_meter');
             $table->float('price');

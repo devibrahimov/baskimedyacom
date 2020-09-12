@@ -16,9 +16,16 @@ class CreateTableOrder extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('basket_id');
-            $table->string('fielsurl',2000);
+            $table->string('filesurl',2000);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+        });
+
     }
 
     /**
