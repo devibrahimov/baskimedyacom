@@ -18,6 +18,7 @@ class CreateTableOrder extends Migration
             $table->integer('basket_id');
             $table->string('filesurl',2000);
             $table->unsignedBigInteger('user_id');
+            $table->boolean('sold') ;
             $table->timestamps();
         });
 

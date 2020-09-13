@@ -57,6 +57,7 @@
 
                 if( $post['status'] == 'success' ) { ## Ödeme Onaylandı
 
+                    \App\Orders::
                     ## BURADA YAPILMASI GEREKENLER
                     ## 1) Siparişi onaylayın.
                     ## 2) Eğer müşterinize mesaj / SMS / e-posta gibi bilgilendirme yapacaksanız bu aşamada yapmalısınız.

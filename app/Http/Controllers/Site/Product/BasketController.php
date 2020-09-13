@@ -11,6 +11,7 @@ use App\BasketProduct;
 use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Option;
+use App\OrderProduct;
 use App\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,7 @@ class BasketController extends Controller
 
         $currency = Currency::latest('id')->first();
         return view('Site.pages.Products.Shop.cart', compact(['basketdata', 'breadcrump', 'currency']));
+
     }
 
 
@@ -234,27 +236,31 @@ class BasketController extends Controller
                 ->withInput();
         }
         $userid = $request->uid;
-        $basketid= $request->basketid ;
+        $basketid= $request->basketid;
         $fileurl = $request->filesurl;
-
-
+        $userdecid  = Crypt::decrypt($userid);
         $basket = Basket::find($basketid);
 
         $basketid = $basket->id;
         $basket_userid = $basket->user_id;
 
-
         $order = new Orders();
         $order->basket_id = $basketid ;
         $order->filesurl = $fileurl ;
         $order->user_id = $basket_userid ;
+        $order->sold = 0;
         $order->save();
-        $basket->delete();
-        $message = [
-            'name' => Auth::user()->name,
-            'message' => 'Siparişiniz onaylanmıştır.En kısa zamanda ekibimiz sizinle iletişime geçecektir'
-        ];
-        return redirect()->route('site.index')->with('successorder',$message);
+
+        $basketproductsdata = BasketProduct::where('basket_id', '=', $basketid)->get();
+        //$currency = Currency::latest('id')->first();
+
+     //   $basket->delete();
+        return redirect()->route('orderpage',[$userid,$basketid]);
+//        $message = [
+//            'name' => Auth::user()->name,
+//            'message' => 'Siparişiniz onaylanmıştır.En kısa zamanda ekibimiz sizinle iletişime geçecektir'
+//        ];
+//        return redirect()->route('site.index')->with('successorder',$message);
         }
 
 

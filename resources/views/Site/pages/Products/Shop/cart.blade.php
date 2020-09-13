@@ -54,8 +54,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
+        <p style="color: red">{{$currency->aciklama}}</p>
                     <div class="card">
+                   @if(isset($basketdata))
                         <table class="table   table-bordered shopping-cart-wrap">
                             <thead class="text-muted">
                             <tr>
@@ -68,6 +69,7 @@
                             </thead>
                             <tbody>
                             @php $totalPrice = 0; @endphp
+
                             @foreach($basketdata as $basketproduct)
                                 <tr id="{{$basketproduct->id}}" style="border-bottom: 1px solid red">
                                     <td>
@@ -164,6 +166,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                             </tbody>
 
 
@@ -189,6 +192,9 @@
                             </tr>
                             </tfoot>
                         </table>
+                    @else
+                       <h1>Sepete eklenen urununuz bulunmamaktadir</h1>
+                        @endif
                     </div> <!-- card.// -->
                 </div>
             </div>

@@ -94,12 +94,16 @@
 
                     </ul>
                 </div>
-                <ul class="navbar-nav attr-nav align-items-center">
 
+                <ul class="navbar-nav attr-nav align-items-center">
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i
                                 class="linearicons-cart"></i><span id="cart_count" class="cart_count">0</span></a>
+
                         <div class="cart_box dropdown-menu dropdown-menu-right">
-                            <div id="cartproducts">{{--                          basket products --}}
+
+                            <div id="cartproducts">
+
+                                {{--                          basket products --}}
                             </div>
                             <div class="cart_footer">
                                 <p class="cart_buttons"><a
@@ -107,10 +111,15 @@
                                         class="btn btn-fill-line view-cart">Sebete Git</a>
                                     {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
+
+
                             </div>
+
                         </div>
+
                     </li>
                 </ul>
+
             </nav>
         </div>
     </div>

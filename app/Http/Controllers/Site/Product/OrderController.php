@@ -4,25 +4,71 @@ namespace App\Http\Controllers\Site\Product;
 
 use App\Basket;
 use App\BasketProduct;
+use App\Currency;
 use App\Http\Controllers\Controller;
+use App\Orders;
+use App\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
 
 
 
-    public function order(){
-    $breadcrump = ['thispage' => 'Ödeme Sayfası' , 'thispageURL' => route('order')];
-//        $userid  = Crypt::decrypt($id) ;
-//        $basket = Basket::where('user_id','=',$userid)->first();
-//
-//        $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
+    public function order($id,$basket_id){
+    $breadcrump = ['thispage' => 'Ödeme Sayfası' , 'thispageURL' => route('orderpage',[$id,$basket_id])];
 
 
-        return view('Site/pages/Products/Shop/order',compact(['breadcrump']));
+        $basket  = Basket::where('id','=',$basket_id)->first();
+
+        #user id dectypte edilerek alinmasi
+        $userid  = Crypt::decrypt($id);
+
+
+        #Kullacini bilgilerinin alinmasi ###############################
+        $user = DB::table('users')
+            ->join('user_informations' , 'users.id' , '=' ,'user_informations.user_id')
+             ->join('company_inform' , 'users.id' , '=' ,'company_inform.user_id')
+            ->where('users.id','=',$userid)
+             ->select('users.*','user_informations.*','company_inform.*')
+            ->first();
+
+        #sepetteki urun bilgilerinin alinmasi
+        $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
+
+        #Toplam Urun fiyati ###############################
+
+        #Kur cekilmesi
+        $currencydata =  Currency::latest('id')->first();
+        $currency = number_format($currencydata->deger,2) ;
+
+        $purchases = $basketdata->where('basket_id', '=', $basket_id)->sum('price');
+
+        $totalPrice = number_format($purchases * $currency,2) ;
+        ##############################################
+
+
+        #Paytrye gonderilecek Urun Arrayi ###############################
+
+        $products = array() ;
+        foreach($basketdata as $product){
+            array_push( $products,array($product->product->name, $product->product->price ==Null? $product->option->price * $currency : $product->product->price * $currency ,$product->quantity)   );
+        }
+
+
+        #################################
+        return view('Site/pages/Products/Shop/order',compact([
+            'breadcrump', 'products',
+            'basket_id', 'user',
+            'currency','totalPrice']));
     }
+
+
+
+
+
 
 
     public function ordercallback(){
@@ -30,4 +76,18 @@ class OrderController extends Controller
         return view('Site/pages/Products/Shop/ordercallback',compact(['breadcrump']));
 
     }
+
+
+
+public function successcallback(){
+    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('ordercallback')];
+    return view('Site/pages/Products/Shop/successcallback',compact(['breadcrump']));
 }
+
+public function errorcallback(){
+    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('ordercallback')];
+    return view('Site/pages/Products/Shop/errorcallback',compact(['breadcrump']));
+}
+
+
+}//end order class
