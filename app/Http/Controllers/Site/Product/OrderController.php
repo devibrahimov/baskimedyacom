@@ -75,8 +75,8 @@ class OrderController extends Controller
 
         $merchant_key 	= '1sJBdebKzjP3BRD9';
         $merchant_salt	= 'MpkJG5FhAtNtYBDQ';
-
-        $hash = base64_encode( hash_hmac('sha256', $request->input('merchant_oid').$merchant_salt.$request->input('status').$request->input('total_amount'), $merchant_key, true) );
+        $merchant_oid = $request->input('merchant_oid');
+        $hash = base64_encode( hash_hmac('sha256', $merchant_oid.$merchant_salt.$request->input('status').$request->input('total_amount'), $merchant_key, true) );
 
         if( $hash != $request->input('hash') )
         {
@@ -84,7 +84,11 @@ class OrderController extends Controller
         }
 
         if($request->input('status') == 'success' ) {
-
+            if(strstr($merchant_oid,'KK')) {
+            $basket = Basket::where('merchant_oid', $merchant_oid )->first();
+             $basket->sold = 1;
+             $basket->save();
+            }
         } else {
 
         }
