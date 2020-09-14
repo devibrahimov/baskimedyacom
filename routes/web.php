@@ -102,9 +102,10 @@ Route::group(['prefix' => 'kullanici'], function () {
 
     Route::group(['middleware' => ['auth']], function () {
         Route::post('/sepet', 'Site\Product\BasketController@addtocart')->name('product.addtocart');
+
         Route::post('/odeme', 'Site\Product\BasketController@filesurl')->name('filesurl');
-        Route::get('/odeme/{id}/{basketid}', 'Site\Product\OrderController@order')->name('orderpage');
-        Route::post('/odeme/bildirim', 'Site\Product\OrderController@ordercallback')->name('ordercallback');
+      //  Route::get('/odeme/{id}/{basketid}', 'Site\Product\OrderController@order')->name('orderpage');
+
         Route::get('odeme-basarili','Site\Product\OrderController@successcallback')->name('order.successcallback');
         Route::get('odeme-basarisiz','Site\Product\OrderController@errorcallback')->name('order.errorcallback');
         Route::get('/{slug}/{id}', 'Site\UserController@index')->name('user.profil');
@@ -117,10 +118,10 @@ Route::group(['prefix' => 'kullanici'], function () {
     });
 });
 
+Route::post('/odeme/bildirim', 'Site\Product\OrderController@ordercallback');
 
 Route::post('/contact', 'Site\ContactController@getcontact')->name('add.contact');
 Route::post('/sub', 'Site\SubscriptionController@store')->name('add.sub');
-
 
 Route::get('/mail', function () {
     $contact = \App\Catalogue::find(1);
@@ -154,6 +155,9 @@ Route::resource('/about','site\AboutController');*/
 //    $exitCode = Artisan::call('cache:clear');
 //    // return what you want
 //});
+
+
+
 
 
 

@@ -71,21 +71,36 @@ class OrderController extends Controller
 
 
 
-    public function ordercallback(){
-        $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('ordercallback')];
-        return view('Site/pages/Products/Shop/ordercallback',compact(['breadcrump']));
+    public function ordercallback(Request $request){
 
+        $merchant_key 	= '1sJBdebKzjP3BRD9';
+        $merchant_salt	= 'MpkJG5FhAtNtYBDQ';
+
+        $hash = base64_encode( hash_hmac('sha256', $request->input('merchant_oid').$merchant_salt.$request->input('status').$request->input('total_amount'), $merchant_key, true) );
+
+        if( $hash != $request->input('hash') )
+        {
+            die('PAYTR notification failed: bad hash');
+        }
+
+        if($request->input('status') == 'success' ) {
+
+        } else {
+
+        }
+        echo "OK";
+        exit;
     }
 
 
 
 public function successcallback(){
-    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('ordercallback')];
+    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('successcallback')];
     return view('Site/pages/Products/Shop/successcallback',compact(['breadcrump']));
 }
 
 public function errorcallback(){
-    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('ordercallback')];
+    $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası' , 'thispageURL' => route('errorcallback')];
     return view('Site/pages/Products/Shop/errorcallback',compact(['breadcrump']));
 }
 

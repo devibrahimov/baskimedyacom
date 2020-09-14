@@ -16,6 +16,7 @@ use App\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class BasketController extends Controller
@@ -255,12 +256,64 @@ class BasketController extends Controller
         //$currency = Currency::latest('id')->first();
 
      //   $basket->delete();
-        return redirect()->route('orderpage',[$userid,$basketid]);
-//        $message = [
-//            'name' => Auth::user()->name,
-//            'message' => 'Siparişiniz onaylanmıştır.En kısa zamanda ekibimiz sizinle iletişime geçecektir'
-//        ];
-//        return redirect()->route('site.index')->with('successorder',$message);
+        //return redirect()->route('orderpage',[$userid,$basketid]);
+ ###############################################################################
+        $basket_id =$basketid;
+        $id = $userid;
+
+        $basket  = Basket::where('id','=',$basket_id)->first();
+
+        #user id dectypte edilerek alinmasi
+        $userid  = Crypt::decrypt($id);
+
+
+        #Kullacini bilgilerinin alinmasi ###############################
+        $user = DB::table('users')
+            ->join('user_informations' , 'users.id' , '=' ,'user_informations.user_id')
+            ->join('company_inform' , 'users.id' , '=' ,'company_inform.user_id')
+            ->where('users.id','=',$userid)
+            ->select('users.*','user_informations.*','company_inform.*')
+            ->first();
+
+        #sepetteki urun bilgilerinin alinmasi
+        $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
+
+        #Toplam Urun fiyati ###############################
+
+        #Kur cekilmesi
+        $currencydata =  Currency::latest('id')->first();
+        $currency = number_format($currencydata->deger,2) ;
+
+        $purchases = DB::table('basket_products')->where('basket_id','=',$basket->id)->select( 'quantity','price')->get();
+
+        $total = 0 ;
+        foreach ($purchases as $ps){
+            $total +=  $ps->quantity * $ps->price ;
+        }
+
+
+
+        $totalPrice = number_format($total * $currency,2) ;
+        ##############################################
+
+         
+        #Paytrye gonderilecek Urun Arrayi ###############################
+
+        $products = array() ;
+        foreach($basketdata as $product){
+            array_push( $products,array($product->product->name, $product->product->price ==Null? $product->option->price * $currency : $product->product->price * $currency ,$product->quantity)   );
+        }
+
+
+        #################################
+        $breadcrump = ['thispage' => 'Ödeme Sayfası' , 'thispageURL' => route('filesurl')];
+
+
+        return view('Site/pages/Products/Shop/order',compact([
+            'breadcrump', 'products',
+            'basket_id', 'user',
+            'currency','totalPrice']));
+
         }
 
 
