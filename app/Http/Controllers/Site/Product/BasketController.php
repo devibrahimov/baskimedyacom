@@ -240,28 +240,19 @@ class BasketController extends Controller
         $basketid= $request->basketid;
         $fileurl = $request->filesurl;
         $userdecid  = Crypt::decrypt($userid);
+
         $basket = Basket::find($basketid);
-
-        $basketid = $basket->id;
-        $basket_userid = $basket->user_id;
-
-        $order = new Orders();
-        $order->basket_id = $basketid ;
-        $order->filesurl = $fileurl ;
-        $order->user_id = $basket_userid ;
-        $order->sold = 0;
-        $order->save();
-
-        $basketproductsdata = BasketProduct::where('basket_id', '=', $basketid)->get();
+        $basket->filesurl = $fileurl ;
+        $basket->save();
+        $basketproductsdata = BasketProduct::where('basket_id', '=', $basket->id)->get();
         //$currency = Currency::latest('id')->first();
 
      //   $basket->delete();
         //return redirect()->route('orderpage',[$userid,$basketid]);
  ###############################################################################
-        $basket_id =$basketid;
+
         $id = $userid;
 
-        $basket  = Basket::where('id','=',$basket_id)->first();
 
         #user id dectypte edilerek alinmasi
         $userid  = Crypt::decrypt($id);
@@ -296,7 +287,7 @@ class BasketController extends Controller
         $totalPrice = number_format($total * $currency,2) ;
         ##############################################
 
-         
+
         #Paytrye gonderilecek Urun Arrayi ###############################
 
         $products = array() ;
