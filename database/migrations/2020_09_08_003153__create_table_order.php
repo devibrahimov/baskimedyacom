@@ -19,6 +19,7 @@ class CreateTableOrder extends Migration
             $table->string('filesurl',2000);
             $table->unsignedBigInteger('user_id');
             $table->boolean('sold') ;
+            $table->string('merchant_oid',100);
             $table->timestamps();
         });
 

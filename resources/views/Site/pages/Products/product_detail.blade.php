@@ -309,7 +309,17 @@
             @elseif($product->options($product->parent_option)[0]->price != null)
             {{$product->options($product->parent_option)[0]->price}}
             @elseif($product->additional_options != null)
-            {{$product->additional_options($additional_options->price)}}
+            @foreach($product->additionaloptionsparent($product->additional_options) as $op)
+
+
+            @foreach($options as $key => $option)
+            @foreach($product->additionaloption($option->id)  as $opt)
+            {{$opt->price}}
+            @endforeach
+            @endforeach
+
+
+                @endforeach
             @endif
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);

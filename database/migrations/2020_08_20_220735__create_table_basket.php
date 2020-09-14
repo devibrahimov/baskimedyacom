@@ -16,6 +16,7 @@ class CreateTableBasket extends Migration
         Schema::create('basket', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('filesurl',2000)->nullable();
             $table->timestamps();
 
         });

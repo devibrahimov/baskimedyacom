@@ -240,28 +240,23 @@ class BasketController extends Controller
         $basketid= $request->basketid;
         $fileurl = $request->filesurl;
         $userdecid  = Crypt::decrypt($userid);
+
+        $randomid =  'KK'.rand(10000,999999).time();
+
+
         $basket = Basket::find($basketid);
+        $basket->filesurl = $fileurl ;
+        $basket->merchant_oid =  $randomid;
+        $basket->save();
 
-        $basketid = $basket->id;
-        $basket_userid = $basket->user_id;
-
-        $order = new Orders();
-        $order->basket_id = $basketid ;
-        $order->filesurl = $fileurl ;
-        $order->user_id = $basket_userid ;
-        $order->sold = 0;
-        $order->save();
-
-        $basketproductsdata = BasketProduct::where('basket_id', '=', $basketid)->get();
+        $basketproductsdata = BasketProduct::where('basket_id', '=', $basket->id)->get();
         //$currency = Currency::latest('id')->first();
-
-     //   $basket->delete();
+        // $basket->delete();
         //return redirect()->route('orderpage',[$userid,$basketid]);
  ###############################################################################
-        $basket_id =$basketid;
+
         $id = $userid;
 
-        $basket  = Basket::where('id','=',$basket_id)->first();
 
         #user id dectypte edilerek alinmasi
         $userid  = Crypt::decrypt($id);
@@ -277,7 +272,7 @@ class BasketController extends Controller
 
         #sepetteki urun bilgilerinin alinmasi
         $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
-
+        $basket_id = $basket->id;
         #Toplam Urun fiyati ###############################
 
         #Kur cekilmesi
@@ -296,7 +291,7 @@ class BasketController extends Controller
         $totalPrice = number_format($total * $currency,2) ;
         ##############################################
 
-         
+
         #Paytrye gonderilecek Urun Arrayi ###############################
 
         $products = array() ;
@@ -310,7 +305,7 @@ class BasketController extends Controller
 
 
         return view('Site/pages/Products/Shop/order',compact([
-            'breadcrump', 'products',
+            'breadcrump','randomid', 'products',
             'basket_id', 'user',
             'currency','totalPrice']));
 
