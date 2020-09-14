@@ -309,7 +309,7 @@
             @elseif($product->options($product->parent_option)[0]->price != null)
             {{$product->options($product->parent_option)[0]->price}}
             @elseif($product->additional_options != null)
-            {{$product->additional_options($product->additional_options)->price}}
+            {{$product->additional_options($additional_options->price)}}
             @endif
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);
