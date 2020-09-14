@@ -241,13 +241,17 @@ class BasketController extends Controller
         $fileurl = $request->filesurl;
         $userdecid  = Crypt::decrypt($userid);
 
+        $randomid =  'KK'.rand(10000,999999).time();
+
+
         $basket = Basket::find($basketid);
         $basket->filesurl = $fileurl ;
+        $basket->merchant_oid =  $randomid;
         $basket->save();
+
         $basketproductsdata = BasketProduct::where('basket_id', '=', $basket->id)->get();
         //$currency = Currency::latest('id')->first();
-
-     //   $basket->delete();
+        // $basket->delete();
         //return redirect()->route('orderpage',[$userid,$basketid]);
  ###############################################################################
 
@@ -268,7 +272,7 @@ class BasketController extends Controller
 
         #sepetteki urun bilgilerinin alinmasi
         $basketdata = BasketProduct::where('basket_id','=',$basket->id)->get();
-
+        $basket_id = $basket->id;
         #Toplam Urun fiyati ###############################
 
         #Kur cekilmesi
@@ -301,7 +305,7 @@ class BasketController extends Controller
 
 
         return view('Site/pages/Products/Shop/order',compact([
-            'breadcrump', 'products',
+            'breadcrump','randomid', 'products',
             'basket_id', 'user',
             'currency','totalPrice']));
 

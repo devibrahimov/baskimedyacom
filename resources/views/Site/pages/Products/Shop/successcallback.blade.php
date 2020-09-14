@@ -12,7 +12,8 @@
         <div class="section">
             <div class="container">
 
- <p>basharili  odeme </p>
+        <p>basharili  odeme </p>
+
             </div>
         </div>
     </div>

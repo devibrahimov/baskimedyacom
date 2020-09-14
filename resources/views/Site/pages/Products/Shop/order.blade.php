@@ -35,7 +35,7 @@
 
     $payment_amount	= $totalPrice * 100; //9.99 için 9.99 * 100 = 999 gönderilmelidir.
 
-    $randomid = "21254".rand(10000,999999).'123456798'.rand(10000,999999).'123456798'.rand(10000,999999).'123456798'.rand(10000,999999);
+  // $randomid = "21254".rand(10000,999999).'123456798'.rand(10000,999999).'123456798'.rand(10000,999999).'123456798'.rand(10000,999999);
     #
     ## Sipariş numarası: Her işlemde benzersiz olmalıdır!! Bu bilgi bildirim sayfanıza yapılacak bildirimde geri gönderilir.
     $merchant_oid  = $randomid ;
