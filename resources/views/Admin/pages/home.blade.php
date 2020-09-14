@@ -1,29 +1,29 @@
 
 @extends('Admin.index')
-
+{{--@dd($comparetolastweek)--}}
 @section('css')
 @endsection
 
 
 @section('content')
     <!-- row -->
-    <div class="row row-sm">
+    <div class="row row-sm justify-content-center">
         <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
            <a href="{{route('user.index')}}" >
             <div class="card overflow-hidden sales-card bg-primary-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">Kayıtlı Kullanıcı Sayı</h6>
+                        <h6 class="mb-3 tx-12 text-white">Kullanıcı Sayısı</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white"> 574 </h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white"> {{$registeredusers[0]->registeredusers}} </h4>
+                                <p class="mb-0 tx-12 text-white op-7">Geçen Haftaya Göre Artış</p>
                             </div>
                             <span class="float-right my-auto ml-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
-											<span class="text-white op-7"> +427</span>
+											<span class="text-white op-7"> +{{$comparetolastweek[0]->comparetolastweek}}</span>
 										</span>
                         </div>
                     </div>
@@ -36,17 +36,16 @@
             <div class="card overflow-hidden sales-card bg-danger-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">Toplam Ürün Sayı</h6>
+                        <h6 class="mb-3 tx-12 text-white">Toplam</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">1,230.17</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$totalproducts[0]->totalproducts}}</h4>
+                                <p class="mb-0 tx-12 text-white op-7">Adet Ürün Bulunmaktadır</p>
                             </div>
                             <span class="float-right my-auto ml-auto">
-											<i class="fas fa-arrow-circle-down text-white"></i>
-											<span class="text-white op-7"> -23.09%</span>
+											<span class="text-white op-7"> </span>
 										</span>
                         </div>
                     </div>
@@ -63,39 +62,39 @@
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white"> 7,125.70</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white"> {{$totalorders[0]->totalorders}}</h4>
+                                <p class="mb-0 tx-12 text-white op-7">Geçen Haftaya Göre Artış</p>
                             </div>
                             <span class="float-right my-auto ml-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
-											<span class="text-white op-7"> 52.09%</span>
+											<span class="text-white op-7">+ {{$compareorder[0]->compareorder}}</span>
 										</span>
                         </div>
                     </div>
                 </div>
                </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-            <div class="card overflow-hidden sales-card bg-warning-gradient">
-                <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-                    <div class="">
-                        <h6 class="mb-3 tx-12 text-white">PRODUCT SOLD</h6>
-                    </div>
-                    <div class="pb-0 mt-0">
-                        <div class="d-flex">
-                            <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$4,820.50</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
-                            </div>
-                            <span class="float-right my-auto ml-auto">
-											<i class="fas fa-arrow-circle-down text-white"></i>
-											<span class="text-white op-7"> -152.3</span>
-										</span>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        </div>
+{{--        <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">--}}
+{{--            <div class="card overflow-hidden sales-card bg-warning-gradient">--}}
+{{--                <div class="pl-3 pt-3 pr-3 pb-2 pt-0">--}}
+{{--                    <div class="">--}}
+{{--                        <h6 class="mb-3 tx-12 text-white">PRODUCT SOLD</h6>--}}
+{{--                    </div>--}}
+{{--                    <div class="pb-0 mt-0">--}}
+{{--                        <div class="d-flex">--}}
+{{--                            <div class="">--}}
+{{--                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$4,820.50</h4>--}}
+{{--                                <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>--}}
+{{--                            </div>--}}
+{{--                            <span class="float-right my-auto ml-auto">--}}
+{{--											<i class="fas fa-arrow-circle-down text-white"></i>--}}
+{{--											<span class="text-white op-7"> -152.3</span>--}}
+{{--										</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--             </div>--}}
+{{--        </div>--}}
     </div>
     <!-- row closed -->
 

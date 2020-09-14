@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\CatalogueMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -17,7 +18,26 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.home');
+        $registeredusers = DB::select("
+          SELECT COUNT(*) registeredusers from users
+
+        ");
+
+        $comparetolastweek = DB::select("select COUNT(*) comparetolastweek from users
+where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
+
+        $totalproducts = DB::select("
+         select COUNT(*) totalproducts from products
+         ");
+
+        $totalorders = DB::select("
+         select COUNT(*) totalorders from orders
+         ");
+        $compareorder = DB::select("select COUNT(*) compareorder from orders
+ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now();");
+
+
+        return view('Admin.pages.home',compact('registeredusers','comparetolastweek','totalproducts','totalorders','compareorder'));
     }
 
     public function catalogue(){
@@ -47,6 +67,14 @@ class AdminController extends Controller
         $catalogue = Catalogue::find($id);
         $catalogue->delete();
         return back();
+    }
+
+    public function registereusers(){
+        $registeredusers = DB::select("
+          SELECT COUNT(*) from users
+
+        ");
+        return view('admin.home',compact('registeredusers'));
     }
 
 

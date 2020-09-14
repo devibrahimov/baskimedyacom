@@ -221,6 +221,8 @@
 
                                         <select class="custom-select additionaloption" id="inputGroupSelect01">
 
+                                            <option class="default" default="selected" data-price="0">----------
+                                            </option>
                                             @foreach($product->additionaloption($option->id)  as $opt)
                                                 <option name="veri" value="{{$opt->id}}"
                                                         data-price="{{$opt->price}}">{{$opt->name}}</option>
@@ -293,13 +295,22 @@
     <script>
         var AuthUser = "{{{ (Auth::user()) ? \Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id) : null }}}";
 
+        var counterAddOption = 0;
+        var counterControl = 0;
         $(document).ready(function () {
 
             var isMeter = {{$product->hasmeter}};
             var isAdditional = {{$product->additional_options == 'null' ? 0 : 1 }};
             var isParentOption = {{$product->parent_option ? $product->parent_option :  null}}
             console.log(isParentOption);
-            var urunFiyat = {{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}};
+            var urunFiyat = @if($product->price !=null)
+            {{$product->price}}
+            {{$product->additional_options($product->additional_options)->price}}
+            @elseif($product->options($product->parent_option)[0]->price != null)
+            {{$product->options($product->parent_option)[0]->price}}
+            @elseif($product->additional_options != null)
+            {{$product->additional_options($product->additional_options)->price}}
+            @endif
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);
 
@@ -337,18 +348,18 @@
                     getQuantity()
                     metreKare()
                     calculateTotal()
-                }else if (isMeter == 0 && isParentOption == undefined){
+                } else if (isMeter == 0 && isParentOption == undefined) {
                     eksecenekler()
                     calculateTotal()
-                }else if(isMeter == 1 && isParentOption == undefined){
+                } else if (isMeter == 1 && isParentOption == undefined) {
                     eksecenekler()
                     metreKare()
                     calculateTotal()
-                }else if(isMeter == 0 && isParentOption != null && isAdditional == 0){
+                } else if (isMeter == 0 && isParentOption != null && isAdditional == 0) {
                     radiooptionprice()
                     getQuantity()
                     calculateTotal()
-                    console.log("burada burada buar ibo",isAdditional)
+                    console.log("burada burada buar ibo", isAdditional)
                 }
             });
 
@@ -356,38 +367,39 @@
 
             var calculateTotal = function () {
                 if (isMeter == 0 && isParentOption != null && isAdditional == 1) {
-                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                    console.log('###### girmeden önceki fiyatı', toplamfiyat);
                     toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati))).toFixed(2);
                     toplamfiyat = urunFiyat + Number(toplamfiyat);
-                    console.log(typeof(urunFiyat),typeof (toplamfiyat))
+                    console.log(typeof (urunFiyat), typeof (toplamfiyat))
                     toplamfiyat = toplamfiyat * quantitiy;
                     $priceShow.text(toplamfiyat.toFixed(2));
-                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$',isAdditional)
+                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$', isAdditional)
                 } else if (isMeter == 1 && isParentOption != null) {
-                    console.log("giriyopr")
+                    area = parseFloat(area)
                     toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
-                    console.log('############ ALAN ++++++++++++', area);
-                    toplamfiyat = toplamfiyat * area;
-                    console.log(toplamfiyat,area,"OLLLDUUU LAANNNNNNNNNNN",isAdditional)
+                    console.log('############ ALAN ++++++++++++', typeof (area));
+                    console.log(toplamfiyat, $featurePrice, eksecenekFiyati, quantitiy)
+                    toplamfiyat = (Number(toplamfiyat) * area);
                     $priceShow.text(toplamfiyat.toFixed(2));
-                } else if (isMeter == 0 && isParentOption == null){
+                    console.log(counterControl, counterAddOption, "merekare", parseFloat(toplamfiyat), parseFloat(area), "OLLLDUUU LAANNNNNNNNNNNaa", isAdditional)
+                } else if (isMeter == 0 && isParentOption == null) {
                     toplamfiyat = parseFloat(eksecenekFiyati) * parseInt(quantitiy);
                     toplamfiyat = urunFiyat + Number(toplamfiyat);
                     toplamfiyat = toplamfiyat * $quantityInput.val();
                     console.log($quantityInput.val())
-                    console.log(toplamfiyat,"FİYAAAT",isAdditional)
+                    console.log(toplamfiyat, "FİYAAAT", isAdditional)
                     $priceShow.text(toplamfiyat.toFixed(2));
-                }else if(isMeter == 1 && isParentOption == null){
-                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                } else if (isMeter == 1 && isParentOption == null) {
+                    console.log('###### girmeden önceki fiyatı', toplamfiyat);
                     toplamfiyat = (parseFloat(eksecenekFiyati) + urunFiyat);
                     toplamfiyat = (toplamfiyat * parseFloat(area) * $quantityInput.val());
                     $priceShow.text(toplamfiyat.toFixed(2));
-                }else if(isMeter == 0 && isParentOption != null && isAdditional == 0){
-                    console.log('###### girmeden önceki fiyatı',toplamfiyat);
+                } else if (isMeter == 0 && isParentOption != null && isAdditional == 0) {
+                    console.log('###### girmeden önceki fiyatı', toplamfiyat);
                     toplamfiyat = (parseFloat($featurePrice) + urunFiyat);
                     toplamfiyat = (toplamfiyat * $quantityInput.val());
                     $priceShow.text(toplamfiyat.toFixed(2));
-                    console.log('ibo ibo ibo',isAdditional)
+                    console.log('ibo ibo ibo', isAdditional)
                 }
 
             }
@@ -424,14 +436,27 @@
             var optioncode = $featureId[0] == undefined ? null : $featureId[0].dataset.optioncode;
             document.getElementById('siparisCode').innerHTML = optioncode;
 
-
             // EK SEÇENEKLER
-            var eksecenekFiyati;
+            var eksecenekFiyati = 0;
+
             var eksecenekler = function () {
+                counterAddOption = 0;
+                eksecenekFiyati = 0;
                 $additionalOption.each(function (i, elm) {
-                    $additionalOption = $('.additionaloption option:selected');
-                    eksecenekFiyati = $(elm).data("price");
+                    $additionalOption = $('.additionaloption option:selected')
+                    // if($additionalOption[0].className == "default"){
+                    //     if(counterControl == 0)
+                    //     alert("ek secenek secmediniz")
+                    // }
+                    if (counterControl <= i) {
+                        counterControl++;
+                    }
+                    if (counterAddOption < counterControl) {
+                        eksecenekFiyati += Number($(elm).data("price"));
+                        counterAddOption++;
+                    }
                     return parseFloat(eksecenekFiyati);
+
                 });
             }
 
@@ -467,7 +492,7 @@
 
         $('#addBasket').on('click', function () {
             @if($product->parent_option != null )
-            var optionid =  ($('.option:checked')[0].dataset.option)
+            var optionid = ($('.option:checked')[0].dataset.option)
             @endif
 
             @if($product->hasmeter != null )
@@ -488,37 +513,54 @@
             if (!loggedIn) {
                 alert('Sepete Ekleyebilmeniz için Kullanıcı olarak giriş yapmanız gerekmektedir');
             } else {
-                $.ajax({ /* AJAX REQUEST */
-                    type: 'post',
-                    url: "{{route('product.addtocart')}}",
-                    data: {
-                        'user_id': AuthUser,
-                        'product_id': {{$product->id}},
-                        'additionaloptions': additionaloption,
-                         @if($product->parent_option != null )
-                        'optionid': optionid,
-                        @else
-                        'price':{{$product->price}} ,
-                         @endif
-                        @if($product->hasmeter != null )
-                        'height': vinilHeight,
-                        'width': vinilWidth,
-                        @endif
-                        'qty': qty,
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function (data) {
-                        $.ajax({
-                            method: 'GET',
-                            url: "/kullanici/basket/get/" + AuthUser,
 
-                            success: function (data) {
-                                $('#cartproducts').html(data.products)
-                                $('#cart_count').html(data.count)
-                            }
-                        })
+                var flag = 0;
+
+                for (var i = 0; i < additionaloption.length; i++) {
+                    if (additionaloption[i] === "----------") {
+
+                        if (flag == 0) {
+                            alert("Ek Seçenek Seçmediniz!")
+                            flag = 1;
+                        }
                     }
-                });
+
+                }
+
+                if (flag == 0) {
+                    $.ajax({ /* AJAX REQUEST */
+                        type: 'post',
+                        url: "{{route('product.addtocart')}}",
+                        data: {
+                            'user_id': AuthUser,
+                            'product_id': {{$product->id}},
+                            'additionaloptions': additionaloption,
+                            @if($product->parent_option != null )
+                            'optionid': optionid,
+                            @else
+                            'price':{{$product->price}} ,
+                            @endif
+                                @if($product->hasmeter != null )
+                            'height': vinilHeight,
+                            'width': vinilWidth,
+                            @endif
+                            'qty': qty,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function (data) {
+                            $.ajax({
+                                method: 'GET',
+                                url: "/kullanici/basket/get/" + AuthUser,
+
+                                success: function (data) {
+                                    $('#cartproducts').html(data.products)
+                                    $('#cart_count').html(data.count)
+                                }
+                            })
+                        }
+                    });
+
+                }
             }
         });
 
