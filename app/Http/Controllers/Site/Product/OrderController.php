@@ -88,6 +88,19 @@ class OrderController extends Controller
             $basket = Basket::where('merchant_oid', $merchant_oid )->first();
              $basket->sold = 1;
              $basket->save();
+
+              $order = new Orders();
+
+                  $order["basket_id"] = $basket->id;
+                  $order["user_id"] = $basket->user_id;
+                  $order["filesurl"] = $basket->filesurl;
+                  $order["sold"] = $basket->sold;
+                  $order["merchant_oid"] = $basket->merchant_oid;
+
+                $order->save();
+
+                $basket->delete();
+
             }
         } else {
 
