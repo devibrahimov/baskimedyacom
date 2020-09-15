@@ -89,16 +89,6 @@ class OrderController extends Controller
              $basket->sold = 1;
              $basket->save();
 
-                $currencydata =  Currency::latest('id')->first();
-                $currency = number_format($currencydata->deger,2) ;
-
-                $purchases = DB::table('basket_products')->where('basket_id','=',$basket->id)->select( 'quantity','price')->get();
-
-                $total = 0 ;
-                foreach ($purchases as $ps){
-                    $total +=  $ps->quantity * $ps->price ;
-                }
-                $totalPrice = number_format($total*$currency,2);
               $order = new Orders();
 
                   $order["basket_id"] = $basket->id;
@@ -106,7 +96,6 @@ class OrderController extends Controller
                   $order["filesurl"] = $basket->filesurl;
                   $order["sold"] = $basket->sold;
                   $order["merchant_oid"] = $basket->merchant_oid;
-                  $order["totalPrice"] = $totalPrice;
 
                 $order->save();
 
