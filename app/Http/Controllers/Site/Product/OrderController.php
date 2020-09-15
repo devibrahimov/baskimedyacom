@@ -99,6 +99,7 @@ class OrderController extends Controller
                     $total +=  $ps->quantity * $ps->price ;
                 }
                 $totalPrice = number_format($total*$currency,2);
+                $totalPrice=str_replace(',','',$totalPrice);
               $order = new Orders();
 
                   $order["basket_id"] = $basket->id;

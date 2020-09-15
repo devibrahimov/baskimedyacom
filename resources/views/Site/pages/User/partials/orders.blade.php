@@ -14,14 +14,14 @@
                 </tr>
                 </thead>
                 <tbody>
-            {{--   @foreach()--}}
+               @foreach($orders as $order)
                     <tr>
-                        <td>#1234</td>
-                        <td>March 15, 2020</td>
-                        <td>Processing</td>
-                        <td>$78.00 for 1 item</td>
+                        <td>#{{$order->merchant_oid}}</td>
+                        <td>{{date('d-M-Y',strtotime($order->created_at) )}}</td>
+                        <td>{{$order->totalPrice}} <span>₺</span></td>
+                        <td> {{$order->order_completed == 1? 'Onaylandı' :'Onay Bekliyor'}}</td>
                     </tr>
-    {{-- @endforeach--}}
+             @endforeach
                 </tbody>
             </table>
         </div>
