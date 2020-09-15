@@ -14,8 +14,8 @@ class TableBasketColumns extends Migration
     public function up()
     {
         Schema::table('basket', function (Blueprint $table) {
-
-            $table->boolean('sold')->default(0);
+        $table->boolean('sold')->default(0);
+        $table->float('totalPrice');
         });
     }
 
