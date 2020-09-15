@@ -33,7 +33,9 @@ class Product extends Model
     public function additionaloptionsparent($parentidsJSON ){
 
          $parentids = json_decode($parentidsJSON);
+
          $additionaloptions = [];
+
         if($parentids != null){
          foreach ($parentids as $parent){
              $optiondata = AdditionalOption::where('id','=',$parent)->get();
