@@ -250,9 +250,7 @@ class BasketController extends Controller
         $basket->save();
 
         $basketproductsdata = BasketProduct::where('basket_id', '=', $basket->id)->get();
-        //$currency = Currency::latest('id')->first();
-        // $basket->delete();
-        //return redirect()->route('orderpage',[$userid,$basketid]);
+
  ###############################################################################
 
         $id = $userid;

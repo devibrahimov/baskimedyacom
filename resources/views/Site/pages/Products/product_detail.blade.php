@@ -319,7 +319,7 @@
             @endforeach
 
 
-                @endforeach
+            @endforeach
             @endif
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);
