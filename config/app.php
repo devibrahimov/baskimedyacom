@@ -162,11 +162,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Spatie\Analytics\AnalyticsServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
+        Spatie\Analytics\AnalyticsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Application Service Providers...

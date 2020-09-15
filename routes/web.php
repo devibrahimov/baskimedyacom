@@ -3,6 +3,7 @@
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Spatie\Analytics\Period;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'yonetim'], function () {  
     Route::resource('/options', 'Admin\Product\OptionController');
     Route::resource('/additionaloptions', 'Admin\Product\AdditionalOptionsController');
     Route::get('/statictics', 'Admin\StatisticsController@index')->name('statistics.index');
+    Route::get('/gastatistics', 'Admin\StatisticsController@statistics')->name('get.statistics');
 
     Route::get('informationcat', 'Admin\InformationController@createcategory')->name('inform.category');
     Route::post('informationcat', 'Admin\InformationController@storecategory')->name('inform.addcategory');
@@ -143,7 +145,6 @@ Route::get('/profil', function () {
 
 Route::get('/kur', 'Currencies@index')->name('kur.index');
 Route::get('/kurkaydet', 'Currencies@store')->name('kur.save');
-
 
 /*
 Route::resource('/contact','site\ContactController');
