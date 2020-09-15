@@ -27,7 +27,7 @@ class CreateTableBasketProducts extends Migration
 
 
         Schema::table('basket_products', function (Blueprint $table) {
-            $table->foreign('basket_id')->references('id')->on('basket')->onDelete('cascade');
+            $table->foreign('basket_id')->references('basket_id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
          $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
         });

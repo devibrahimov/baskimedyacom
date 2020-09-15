@@ -18,8 +18,10 @@ class CreateTableOrder extends Migration
             $table->integer('basket_id');
             $table->string('filesurl',2000);
             $table->unsignedBigInteger('user_id');
-            $table->boolean('sold') ;
+            $table->boolean('sold');
             $table->string('merchant_oid',100);
+            $table->float('totalPrice');
+            $table->boolean('order_completed')->default(0);
             $table->timestamps();
         });
 
