@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\CompanyInform;
 use App\Http\Controllers\Controller;
+use App\Orders;
 use App\Province;
 use App\UserInform;
 use  Illuminate\Contracts\Validation\Validator;
@@ -30,11 +31,15 @@ class UserController extends Controller
      // $user = $user[0];
         $provinces = Province::all();
 
+        $orders = Orders::where('user_id','=',$user->user_id)->get();
+
+
+
         $breadcrump = ['thispage' => $user->name ,
             'thispageURL' => route('user.profil',[ Str::slug($user->name) , Crypt::encrypt( $user->user_id)]) ];
 
 
-        return view('Site.pages.User.profil',compact(['user','provinces','breadcrump']));
+        return view('Site.pages.User.profil',compact(['user','provinces','breadcrump','orders']));
     }
 
     public function changepassword(Request $request){

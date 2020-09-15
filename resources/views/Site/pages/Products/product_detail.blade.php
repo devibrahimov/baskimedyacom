@@ -108,6 +108,7 @@
                     <div class="col-lg-6">
                         {{--   <p>Seçenekler</p>--}}
                         @if($product->parent_option != NULL)
+
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -247,7 +248,9 @@
                                             </li>
                                             <li class="text-default">Toplam Fiyat : $ <a
                                                     {{--                                                    @dd($product->options($product->parent_option)[0]->price);--}}
-                                                    class="tutar">{{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}}</a>
+                                                    class="tutar">
+                                                    {{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}}
+                                                </a>
                                             </li>
                                         </ul>
                                         <hr/>
@@ -303,24 +306,17 @@
             var isAdditional = {{$product->additional_options == 'null' ? 0 : 1 }};
             var isParentOption = {{$product->parent_option ? $product->parent_option :  null}}
             console.log(isParentOption);
-            var urunFiyat = @if($product->price !=null)
-            {{$product->price}}
-            {{$product->additional_options($product->additional_options)->price}}
-            @elseif($product->options($product->parent_option)[0]->price != null)
-            {{$product->options($product->parent_option)[0]->price}}
-            @elseif($product->additional_options != null)
-            @foreach($product->additionaloptionsparent($product->additional_options) as $op)
+            var urunFiyat = {{$product->price ? $product->price : $product->options($product->parent_option)[0]->price}}
 
 
-            @foreach($options as $key => $option)
-            @foreach($product->additionaloption($option->id)  as $opt)
-            {{$opt->price}}
-            @endforeach
-            @endforeach
-
-
-            @endforeach
-            @endif
+            {{--                @if($product->price !=null)--}}
+            {{--            {{$product->price}}--}}
+            {{--            {{$product->additional_options($product->additional_options)->price}}--}}
+            {{--            @elseif($product->options($product->parent_option)[0]->price != null)--}}
+            {{--            {{$product->options($product->parent_option)[0]->price}}--}}
+            {{--            @elseif($product->additional_options != null)--}}
+            {{--            {{$product->additional_options($product->additional_options)->price}}--}}
+            {{--            @endif--}}
 
             console.log(isMeter, '##########################', isParentOption, urunFiyat);
 
@@ -347,71 +343,114 @@
             console.log(fiyat, toplamfiyat, '#######################################')
 
             $featureSelect.on('click change keyup', function () {
+                //  0 - 1 - 1 ORNEK URUN : BILLBOARD
                 if (isMeter == 0 && isParentOption != null && isAdditional == 1) {
                     radiooptionprice()
                     eksecenekler()
                     getQuantity()
                     calculateTotal()
-                } else if (isMeter != 0 && isParentOption != null) {
-                    radiooptionprice()
-                    eksecenekler()
-                    getQuantity()
-                    metreKare()
-                    calculateTotal()
-                } else if (isMeter == 0 && isParentOption == undefined) {
-                    eksecenekler()
-                    calculateTotal()
-                } else if (isMeter == 1 && isParentOption == undefined) {
+
+                }
+
+                //  1 - 0 - 1 ORNEK URUN : ONE WAY , MESH
+                else if (isMeter != 0 && isParentOption == null && isAdditional == 1) {
                     eksecenekler()
                     metreKare()
+                    getQuantity()
                     calculateTotal()
-                } else if (isMeter == 0 && isParentOption != null && isAdditional == 0) {
+                }
+                //  1 - 1 - 1 ORNEK URUN : VINIL , FOLYO
+                else if (isMeter != 0 && isParentOption != null && isAdditional == 1) {
+                    radiooptionprice()
+                    eksecenekler()
+                    metreKare()
+                    getQuantity()
+                    calculateTotal()
+                }
+                //  0 - 1 - 0 ORNEK URUN : BAYRAK , ROLL UP
+                else if (isMeter == 0 && isParentOption != null && isAdditional == 0 ) {
                     radiooptionprice()
                     getQuantity()
                     calculateTotal()
-                    console.log("burada burada buar ibo", isAdditional)
+                }
+                //  0 - 0 - 1 ORNEK URUN : RAKET
+                else if (isMeter == 0 && isParentOption == null && isAdditional == 1) {
+                    eksecenekler()
+                    getQuantity()
+                    calculateTotal()
+                }
+                //////////////////////////////////////////////////////////////////////////////
+                //  1 - 1 - 0 ORNEK URUN :
+                else if (isMeter == 1 && isParentOption != null && isAdditional == 0) {
+                    radiooptionprice()
+                    metreKare()
+                    getQuantity()
+                    calculateTotal()
+                }
+                //  1 - 0 - 0 ORNEK URUN :
+                else if (isMeter == 1 && isParentOption == null && isAdditional == 0) {
+                    radiooptionprice()
+                    metreKare()
+                    getQuantity()
+                    calculateTotal()
                 }
             });
 
             // TOPLAM FIYAT
 
             var calculateTotal = function () {
+                //  0 - 1 - 1 ORNEK URUN : BILLBOARD  SİSTEM CALISIYOR
                 if (isMeter == 0 && isParentOption != null && isAdditional == 1) {
-                    console.log('###### girmeden önceki fiyatı', toplamfiyat);
-                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati))).toFixed(2);
-                    toplamfiyat = urunFiyat + Number(toplamfiyat);
-                    console.log(typeof (urunFiyat), typeof (toplamfiyat))
-                    toplamfiyat = toplamfiyat * quantitiy;
-                    $priceShow.text(toplamfiyat.toFixed(2));
-                    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$', isAdditional)
-                } else if (isMeter == 1 && isParentOption != null) {
-                    area = parseFloat(area)
                     toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)) * parseInt(quantitiy))
-                    console.log('############ ALAN ++++++++++++', typeof (area));
-                    console.log(toplamfiyat, $featurePrice, eksecenekFiyati, quantitiy)
-                    toplamfiyat = (Number(toplamfiyat) * area);
+                    console.log("FEAUTE PRICE",$featurePrice);
                     $priceShow.text(toplamfiyat.toFixed(2));
-                    console.log(counterControl, counterAddOption, "merekare", parseFloat(toplamfiyat), parseFloat(area), "OLLLDUUU LAANNNNNNNNNNNaa", isAdditional)
-                } else if (isMeter == 0 && isParentOption == null) {
-                    toplamfiyat = parseFloat(eksecenekFiyati) * parseInt(quantitiy);
-                    toplamfiyat = urunFiyat + Number(toplamfiyat);
-                    toplamfiyat = toplamfiyat * $quantityInput.val();
-                    console.log($quantityInput.val())
-                    console.log(toplamfiyat, "FİYAAAT", isAdditional)
-                    $priceShow.text(toplamfiyat.toFixed(2));
-                } else if (isMeter == 1 && isParentOption == null) {
-                    console.log('###### girmeden önceki fiyatı', toplamfiyat);
+                }
+
+                //  1 - 0 - 1 ORNEK URUN : ONE WAY VISION , MESH  SİSTEM CALIŞIYOR
+                else if (isMeter == 1 && isParentOption == null && isAdditional == 1) {
+                    area = parseFloat(area)
                     toplamfiyat = (parseFloat(eksecenekFiyati) + urunFiyat);
                     toplamfiyat = (toplamfiyat * parseFloat(area) * $quantityInput.val());
                     $priceShow.text(toplamfiyat.toFixed(2));
-                } else if (isMeter == 0 && isParentOption != null && isAdditional == 0) {
+                }
+
+                //  1 - 1 - 1 ORNEK URUN : VINIL , FOLYO  SİSTEM CALIŞIYOR
+                else if (isMeter == 1 && isParentOption != null && isAdditional == 1) {
+                    area = parseFloat(area)
+                    toplamfiyat = ((parseFloat($featurePrice) + parseFloat(eksecenekFiyati)));
+                    toplamfiyat = (toplamfiyat * parseFloat(area) * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }
+
+                //  0 - 0 - 1 ORNEK URUN : RAKET  SİSTEM CALIŞIYOR
+                else if (isMeter == 0 && isParentOption == null && isAdditional == 1) {
+                    toplamfiyat = ( urunFiyat + parseFloat(eksecenekFiyati));
+                    toplamfiyat = (toplamfiyat * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }
+                //  0 - 1 - 0 ORNEK URUN : BAYRAK , ROLL UP  SİSTEM CALIS
+                else if (isMeter == 0 && isParentOption != null && isAdditional == 0) {
                     console.log('###### girmeden önceki fiyatı', toplamfiyat);
-                    toplamfiyat = (parseFloat($featurePrice) + urunFiyat);
+                    toplamfiyat = (parseFloat($featurePrice));
                     toplamfiyat = (toplamfiyat * $quantityInput.val());
                     $priceShow.text(toplamfiyat.toFixed(2));
                     console.log('ibo ibo ibo', isAdditional)
                 }
 
+                /////////////////////////////////////////////////////////////////////////////////
+
+                //  1 - 1 - 0 ORNEK URUN :
+                else if (isMeter == 1 && isParentOption != null && isAdditional == 0) {
+                    area = parseFloat(area)
+                    toplamfiyat = (parseFloat($featurePrice) * parseFloat(area) * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }
+                //  1 - 0 - 0 ORNEK URUN :
+                else if (isMeter == 1 && isParentOption == null && isAdditional == 0) {
+                    area = parseFloat(area)
+                    toplamfiyat = (parseFloat(area) * $quantityInput.val());
+                    $priceShow.text(toplamfiyat.toFixed(2));
+                }
             }
 
             //METRE KARE
@@ -493,7 +532,11 @@
                 //URUN KODLARI
                 $featureId = $('.option:checked');
                 optioncode = $featureId[0].dataset.optioncode
+                console.log("URUN KODUUu ", optioncode);
                 document.getElementById('siparisCode').innerHTML = optioncode;
+
+                $featurePrice = $('.option:checked')[0] == undefined ? null : $('.option:checked')[0].dataset.optionprice;
+
             });
 
             //--------------------------------------------
@@ -548,6 +591,7 @@
                             @if($product->parent_option != null )
                             'optionid': optionid,
                             @else
+                                {{--'price':{{$product->price}} ,--}}
                             'price':{{$product->price}} ,
                             @endif
                                 @if($product->hasmeter != null )
