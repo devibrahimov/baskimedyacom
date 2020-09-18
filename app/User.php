@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public static function adminusers()
     {
-       $users =  User::where('role','=','admin')->get();
+       $users =  User::where('role','=',1)->get();
        return $users;
     }
 

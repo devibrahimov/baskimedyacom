@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Catalogue;
+use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Mail\CatalogueMail;
+use App\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Spatie\Analytics\Period;
+use Analytics;
 
 class AdminController extends Controller
 {
@@ -24,7 +28,7 @@ class AdminController extends Controller
         ");
 
         $comparetolastweek = DB::select("select COUNT(*) comparetolastweek from users
-where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
+                                        where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
 
         $totalproducts = DB::select("
          select COUNT(*) totalproducts from products
@@ -34,17 +38,48 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
          select COUNT(*) totalorders from orders
          ");
         $compareorder = DB::select("select COUNT(*) compareorder from orders
- where created_at between date_sub(now(),INTERVAL 1 WEEK) and now();");
+                                    where created_at between date_sub(now(),INTERVAL 1 WEEK) and now();");
+
+//        $newordertoday = DB::select("select COUNT(*) todayorder from orders where order_completed = 0
+//                                        and created_at between date_sub(now(),INTERVAL 1 DAY ) and now()");
+        $date = \Carbon\Carbon::today()->subDays(1);
+        $newordertoday = Orders::where('created_at','>=',$date)->where('order_completed',0)->get();
+
+        $date = \Carbon\Carbon::today()->subDays(7);
+        $currencytoweek = Currency::where('created_at','>=',$date)->latest()->take(7)->get();
+        $performonsite = $this->sessionsAndUsers();
+        $sessionsandduration = $this->performQuery();
 
 
-        return view('Admin.pages.home',compact('registeredusers','comparetolastweek','totalproducts','totalorders','compareorder'));
+        return view('Admin.pages.home', compact('sessionsandduration','performonsite','newordertoday','registeredusers','currencytoweek', 'comparetolastweek', 'totalproducts', 'totalorders', 'compareorder'));
     }
 
-    public function catalogue(){
+    public function sessionsAndUsers()
+    {
+        return $performonsite = Analytics::performQuery(Period::months(1), 'ga:sessions', ['metrics' => 'ga:sessions,ga:sessionDuration,ga:exitRate,ga:users']);
+    }
+
+    public function performQuery()
+    {
+        return $analyticsData = Analytics::performQuery(
+            Period::years(1),
+            'ga:sessions',
+//            ['metrics' => 'ga:sessions, ga:pageviews',
+//                'dimensions' => 'ga:yearMonth'],
+            ['metrics' => 'ga:pageviews, ga:sessionDuration',
+                'filters' => 'ga:medium==referral',
+                'sort' => 'ga:pageviews',
+                'dimensions' => 'ga:source']
+        );
+    }
+
+    public function catalogue()
+    {
         return view('Admin.pages.Catalogue.index');
     }
 
-    public function addcatalogue(Request $request){
+    public function addcatalogue(Request $request)
+    {
         $catalogue = new Catalogue();
         $catalogue->name = $request->name;
         $catalogue->lastname = $request->lastname;
@@ -55,26 +90,29 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
 
         Mail::to($request->email)->send(new CatalogueMail($catalogue));
 
-        return back()->with('success','Talebiniz İletildi!');
+        return back()->with('success', 'Talebiniz İletildi!');
     }
 
-    public function readcatalogue(){
+    public function readcatalogue()
+    {
         $catalogues = Catalogue::all();
-        return view('Admin.pages.Catalogue.index',compact(['catalogues']));
+        return view('Admin.pages.Catalogue.index', compact(['catalogues']));
     }
 
-    public function delcatalogue($id){
+    public function delcatalogue($id)
+    {
         $catalogue = Catalogue::find($id);
         $catalogue->delete();
         return back();
     }
 
-    public function registereusers(){
+    public function registereusers()
+    {
         $registeredusers = DB::select("
           SELECT COUNT(*) from users
 
         ");
-        return view('admin.home',compact('registeredusers'));
+        return view('admin.home', compact('registeredusers'));
     }
 
 
@@ -91,7 +129,7 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -102,7 +140,7 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -113,7 +151,7 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -124,8 +162,8 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -136,7 +174,7 @@ where created_at between date_sub(now(),INTERVAL 1 WEEK) and now()");
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

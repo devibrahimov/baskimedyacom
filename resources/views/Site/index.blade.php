@@ -181,8 +181,14 @@
                 url: "/kullanici/basket/get/" + AuthUser,
 
                 success: function (data) {
-                    $('#cartproducts').html(data.products)
+                    if(data.count > 0){
+                        $('#cartproducts').html(data.products)
+                        $(".cart_buttons").css("pointer-events","auto");
+                    }else{
+                        $(".cart_buttons").css("pointer-events","none");
+                    }
                     $('#cart_count').html(data.count)
+                    console.log(data,data.count)
                 }
             })
 
@@ -203,6 +209,13 @@
                            url: "/kullanici/basket/get/" + AuthUser,
 
                            success: function (data) {
+                               if(data.count < 1){
+                                   $(".cart_buttons").css("pointer-events","none");
+
+                               }else{
+
+                                   $(".cart_buttons").css("pointer-events","auto");
+                               }
                                $('#cartproducts').html(data.products)
                                $('#cart_count').html(data.count)
                            }

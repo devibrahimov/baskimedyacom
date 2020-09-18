@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -23,7 +24,13 @@ class UserController extends Controller
     {
 
         $menu = '1';
-        $users = User::siteusers();
+       // $users = User::siteusers();
+
+        $users = DB::table('users')
+            ->join('user_informations' , 'users.id' , '=' ,'user_informations.user_id')
+            ->join('company_inform' , 'users.id' , '=' ,'company_inform.user_id')
+            ->select('users.*','user_informations.*','company_inform.*')
+            ->get();
 
         return view('Admin.pages.User.users',compact(['users']));
     }
@@ -44,7 +51,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.User.adduser');
+        $users = User::adminusers();
+        return view('Admin.pages.User.adduser',compact(['users']));
     }
 
     /**
@@ -59,9 +67,9 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
         'name'=>'required|string|max:50',
         'email'=>'required|email|max:50|unique:users',
-        'phone'=>'required|numeric|unique:users',
+//        'phone'=>'required|numeric|unique:users',
         'password'=>'required|string|max:80',
-        'rdio'=>'required|boolean'
+//        'rdio'=>'required|boolean'
     ],
         [
             'name.required'=> 'İsim alanını boş bırakamazsınız!',
@@ -69,10 +77,10 @@ class UserController extends Controller
             'name.max'=> 'İsim alanında gereyinden Fazla karakter girdiniz.Maksimum 50!',
             'email.required'=> 'Email alanını boş bırakamazsınız! ',
             'email.unique'=> 'bu Email daha önce kullanıldı.Bir Email tekrar kullanılamaz ',
-            'phone.unique'=> 'bu Telefon numarası daha önce kullanıldı.Bir Telefon numarası tekrar kullanılamaz ',
-            'phone.number'=> 'Telefon alanında + ve rakamlardan başka karakter kullanamazsınız!',
+//            'phone.unique'=> 'bu Telefon numarası daha önce kullanıldı.Bir Telefon numarası tekrar kullanılamaz ',
+//            'phone.number'=> 'Telefon alanında + ve rakamlardan başka karakter kullanamazsınız!',
             'password.required'=>'Şifre alanı gereklidir.Boş bırakamazsınız',
-            'rdio.required'=>'Kullanıcı tipi seçmediniz!'
+//            'rdio.required'=>'Kullanıcı tipi seçmediniz!'
      ]);
         if ($validator->fails()) {
             return redirect()->route('user.create')
@@ -83,12 +91,13 @@ class UserController extends Controller
         $user = new User();
 
         $user->name = request('name');
-        $user->phone = request('phone');
+    $user->surname = request('surname');
+//        $user->phone = request('phone');
         $user->email = request('email');
         $user->password = Hash::make(request('password'));
         $user->email_verified_at =  now();
         $user->token =  Hash::make(random_int(1,60));
-        $user->role = request('rdio');
+        $user->role =1;
 
          $user->save();
         auth()->login($user);

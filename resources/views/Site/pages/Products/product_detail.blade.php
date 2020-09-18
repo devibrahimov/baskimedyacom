@@ -607,6 +607,7 @@
                                 url: "/kullanici/basket/get/" + AuthUser,
 
                                 success: function (data) {
+                                    $(".cart_buttons").css("pointer-events","auto");
                                     $('#cartproducts').html(data.products)
                                     $('#cart_count').html(data.count)
                                 }

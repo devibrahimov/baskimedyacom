@@ -286,7 +286,7 @@ class BasketController extends Controller
 
 
 
-        $totalPrice = number_format($total * $currency,2) ;
+        $totalPrice = number_format(($total * $currency)*1.18,2) ;
         $totalPrice=str_replace(',','',$totalPrice);
         ##############################################
 

@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $cats = Category::all();
-        return view('Admin.pages.Product.category.index',compact(['cats']));
+        return view('Admin.pages.Product.Category.index',compact(['cats']));
     }
 
     /**

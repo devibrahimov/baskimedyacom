@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
      <!-- Title -->
-    <title>  Baskı Medya </title>
+    <title>  Baskı Medya | Yönetim Paneli</title>
     <!-- Favicon -->
     <link rel="icon" href="/admin/img/brand/favicon.png" type="image/x-icon"/>
     <!-- Icons css -->

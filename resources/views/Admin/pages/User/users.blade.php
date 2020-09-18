@@ -36,12 +36,12 @@
                                   <tr>
                                       <td>{{$user->name}}</td>
                                       <td>{{$user->email}}</td>
-                                      <td> ---- </td>
+                                      <td> {{$user->gsm}} </td>
                                       <td>{{date('d-m-Y',strtotime($user->created_at) ) }}</td>
                                       <td>
                                           <div class="btn-icon-list">
 {{--                                              <a href="#" class="btn btn-indigo btn-icon"><i class="typcn typcn-eye"></i></a>--}}
-                                              <a href="{{route('user.edit',$user->id)}}" class="btn btn-primary btn-icon"><i class="typcn typcn-edit"></i></a>
+{{--                                              <a href="{{route('user.show',$user->id)}}" class="btn btn-primary btn-icon"><i class="typcn typcn-eye"></i></a>--}}
 
                                               <form class="btn btn-danger btn-icon" action="{{route('user.destroy',$user->id)}}" method="post">
                                                   {{ csrf_field() }}
@@ -90,4 +90,6 @@
     <script src="/admin/plugins/datatable/js/buttons.colVis.min.js"></script>
     <script src="/admin/plugins/datatable/js/dataTables.responsive.min.js"></script>
     <script src="/admin/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+
+
 @endsection

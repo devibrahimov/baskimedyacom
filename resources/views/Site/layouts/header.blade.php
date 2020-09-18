@@ -82,9 +82,9 @@
                         <li>
                             <a class="nav-link nav_item" href="{{route('site.product')}}">ÜRÜNLERİMİZ</a>
                         </li>
-                        <li>
-                            <a class="nav-link nav_item" href="{{route('site.services')}}">HİZMETLERİMİZ</a>
-                        </li>
+{{--                        <li>--}}
+{{--                            <a class="nav-link nav_item" href="{{route('site.services')}}">HİZMETLERİMİZ</a>--}}
+{{--                        </li>--}}
                         <li>
                             <a class=" nav-link nav_item" href="{{route('site.gallery')}}">GALERİ</a>
                         </li>
@@ -103,7 +103,8 @@
 
                             <div id="cartproducts">
 
-                                {{--                          basket products --}}
+                                {{--   basket products --}}
+
                             </div>
                             <div class="cart_footer">
                                 <p class="cart_buttons"><a

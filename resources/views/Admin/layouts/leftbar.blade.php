@@ -29,7 +29,7 @@
 
 
             <li class="slide">
-                <a class="side-menu__item" href="{{ route('admin.home') }}"> <span class="side-menu__label">Ana Sayfa</span><span class="badge badge-success side-badge">1</span></a>
+                <a class="side-menu__item" href="{{ route('admin.home') }}"> <span class="side-menu__label">Ana Sayfa</span></a>
             </li>
 
             <li class="slide">
@@ -68,10 +68,10 @@
                 <a class="side-menu__item"   data-toggle="slide" href="index-2.html#"> <span class="side-menu__label">Siparişler</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
 
-                    <li><a class="slide-item" href="chart-morris.html">Yeni Siparişler</a></li>
-                    <li><a class="slide-item" href="chart-morris.html">Onaylanmış Şiparişler</a></li>
-                    <li><a class="slide-item" href="chart-morris.html">Onaylanmamış Şiparişler</a></li>
-                    <li><a class="slide-item" href="chart-morris.html">Teslim edilen Şiparişler</a></li>
+                    <li><a class="slide-item" href="{{route('neworders')}}">Yeni Siparişler</a></li>
+                    <li><a class="slide-item" href="{{route('confirmedorders')}}">Onaylanmış Şiparişler</a></li>
+                    <li><a class="slide-item" href="{{route('completedorders')}}">Teslim edilen Şiparişler</a></li>
+                    <li><a class="slide-item" href="{{route('unconfirmedorders')}}">Onaylanmamış Şiparişler</a></li>
 
                 </ul>
             </li>
@@ -87,9 +87,9 @@
                 <a class="side-menu__item" href="{{route('user.index')}}"> <span class="side-menu__label">Site Üyeleri</span> </a>
             </li>
 
-            <li class="slide">
-                <a class="side-menu__item" href="{{route('user.admins')}}"> <span class="side-menu__label">Yöneticiler</span> </a>
-            </li>
+{{--            <li class="slide">--}}
+{{--                <a class="side-menu__item" href="{{route('user.admins')}}"> <span class="side-menu__label">Yöneticiler</span> </a>--}}
+{{--            </li>--}}
 
             <li class="side-item side-item-category  bg-secondary "><span class=" text-white">Site Ayarları<i class="angle fe fe-chevron-down"> </i></span></li>
 

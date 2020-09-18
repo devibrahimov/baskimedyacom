@@ -13,14 +13,24 @@
                     <th>Onay</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody >
                @foreach($orders as $order)
-                    <tr>
+
+                    <tr style=" background-color: @if($order->order_completed == 1) #00d700
+                    @elseif($order->order_completed == -1) #f60000
+                    @elseif($order->order_completed == 2) #00cdd7
+                    @else #f6f6f6
+                    @endif " >
                         <td>#{{$order->merchant_oid}}</td>
                         <td>{{date('d-M-Y',strtotime($order->created_at) )}}</td>
                         <td>{{$order->totalPrice}} <span>₺</span></td>
-                        <td> {{$order->order_completed == 1? 'Onaylandı' :'Onay Bekliyor'}}</td>
+                        <td>@if($order->order_completed == 0){{'Onay Bekliyor'}}
+                            @elseif($order->order_completed == 1){{'Baskıya Verildi'}}
+                            @elseif($order->order_completed == 2){{'Baskısı Bitti'}}
+                            @else{{'Onaylanmadı'}}
+                            @endif</td>
                     </tr>
+
              @endforeach
                 </tbody>
             </table>

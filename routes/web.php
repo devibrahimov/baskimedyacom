@@ -69,6 +69,13 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'yonetim'], function () {  
     Route::get('/gallerys', 'Admin\ImageGaleryController@fetch')->name('gallery.fetch');
     Route::get('/galleryss', 'Admin\ImageGaleryController@delete')->name('gallery.delete');
 
+    Route::get('/yeni-siparisler' , 'Admin\Product\OrderController@neworders')->name('neworders');
+    Route::get('/onaylanmıs-siparisler' , 'Admin\Product\OrderController@confirmedorders')->name('confirmedorders');
+    Route::get('/onaylanmamıs-siparisler' , 'Admin\Product\OrderController@unconfirmedorders')->name('unconfirmedorders');
+    Route::get('/tamamlanmis-siparisler' , 'Admin\Product\OrderController@completedorders')->name('completedorders');
+    Route::get('/siparis-detay/{id}' , 'Admin\Product\OrderController@orderdetail')->name('orderdetail');
+    Route::get('/siparis-onay/{id}/{slug}' , 'Admin\Product\OrderController@orderconfirm')->name('orderconfirm');
+
 });
 
 

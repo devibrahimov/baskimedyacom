@@ -17,7 +17,7 @@ class ReferencesController extends Controller
     public function index()
     {
         $references = References::all();
-        return view('admin.pages.references.references', compact('references',$references));
+        return view('Admin.pages.References.references', compact('references',$references));
     }
 
     /**
@@ -27,7 +27,7 @@ class ReferencesController extends Controller
      */
     public function create()
     {
-        return view('references.create');
+        return view('References.create');
     }
 
     /**

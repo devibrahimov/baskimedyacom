@@ -38,10 +38,10 @@
                     </div>
                     <div class="col-lg-9 col-md-8">
                         <div class="tab-content dashboard_content">
-                            <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                            <div class="tab-pane fade " id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                 @include('Site.pages.User.partials.dashboard')
                             </div>
-                            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                            <div class="tab-pane fade active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                                 @include('Site.pages.User.partials.orders')
                             </div>
                             <div class="tab-pane fade" id="corporative" role="tabpanel" aria-labelledby="address-tab">
