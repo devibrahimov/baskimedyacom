@@ -34,7 +34,7 @@
                             <div class="panel-body tabs-menu-body">
                                 <div class="tab-content">
                                     @foreach($infos as $info)
-                                    <div class="tab-pane active" id="tab{{$info->InformationCats_id}}">
+                                    <div class="tab-pane {{$loop->first?'active':''}}" id="tab{{$info->InformationCats_id}}">
                                         <nav class="breadcrumb-4">
                                             <ol class="breadcrumb breadcrumb-style1">
 

@@ -39,7 +39,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'yonetim'], function () {  
     Route::resource('/services', 'Admin\ServicesController');
     Route::resource('/slider', 'Admin\SliderController');
     Route::resource('/gallery', 'Admin\ImageGaleryController');
-    Route::resource('/information', 'Admin\InformationController');
+    Route::resource('/information', 'Admin\InformController');
     Route::resource('/category', 'Admin\Product\CategoryController');
     Route::resource('/product', 'Admin\Product\ProductController');
     Route::resource('/references', 'Admin\ReferencesController');
@@ -158,11 +158,11 @@ Route::resource('/contact','site\ContactController');
 Route::resource('/about','site\AboutController');*/
 
 
-//
-//Route::get('/clear-cache', function() {
-//    $exitCode = Artisan::call('cache:clear');
-//    // return what you want
-//});
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
 
 
 

@@ -10,7 +10,7 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Verdiyiniz Hizmetleri buradan ekleyin</h4>
+                    <h4 class="card-title mb-1">VERDİĞİNİZ HİZMETLERİ BURADAN GÜNCELLEYİN</h4>
                     <hr>
                 </div>
                 <div class="card-body pt-0">
@@ -20,7 +20,7 @@
                         <div class="">
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Hizmet adı</label>
+                                <label for="exampleInputEmail1">Hizmet Adı</label>
                         <input type="text" class="form-control" name="name" value="{{$service->name}}">
                             </div>
 
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3 mb-0">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3 mb-0">Kaydet</button>
                     </form>
                 </div>
             </div>

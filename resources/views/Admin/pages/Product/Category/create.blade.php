@@ -11,8 +11,8 @@
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Vertical Form</h4>
-                    <p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>
+                    <h4 class="card-title mb-1">KATEGORİ EKLE</h4>
+                    <p class="mb-2">Bu sayfada yeni kategori ekleyebilirsiniz.</p>
                 </div>
                 <div class="card-body pt-0">
                     <form action="{{route('category.store')}}" method="post">
@@ -23,11 +23,11 @@
                                 <input type="text" class="form-control" name="name" id="exampleInputEmail1" placeholder="Kategori adı"  value="{{old('name')}}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Meta başlıq</label>
+                                <label for="exampleInputEmail1">Meta Başlık</label>
                                 <input type="text" class="form-control" name="metatitle" id="exampleInputEmail1" placeholder="Meta başlıq"  value="{{old('metatitle')}}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Meta Açıklama Metini</label>
+                                <label for="exampleInputEmail1">Meta Açıklama Metni</label>
                                 <input type="text" class="form-control" name="metadescription" id="exampleInputEmail1" placeholder="Meta Açıklama Metini"  value="{{old('metadescription')}}">
                             </div>
 
@@ -40,8 +40,8 @@
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Default Form</h4>
-                    <p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>
+                    <h4 class="card-title mb-1">KATEGORİLER</h4>
+                    <p class="mb-2">Eklenen Kategoriler</p>
                 </div>
                 <div class="card-body pt-0">
                     <div class="table-responsive">
@@ -50,7 +50,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Adı</th>
-                                <th>Kategori</th>
+                                <th>KATEGORİ</th>
                                 <th>İşlemler</th>
                             </tr>
                             </thead>

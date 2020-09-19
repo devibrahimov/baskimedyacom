@@ -23,10 +23,10 @@
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
                             <tr>
-                                <th class="wd-5p border-bottom-0">İd</th>
-                                <th class="wd-25p border-bottom-0">Hizmet</th>
+                                <th class="wd-5p border-bottom-0">ID</th>
+                                <th class="wd-25p border-bottom-0">HİZMET</th>
                                 <th class="wd-25p border-bottom-0">Başlık</th>
-                                <th class="wd-20p border-bottom-0">Oluşturulma tarihi</th>
+                                <th class="wd-20p border-bottom-0">Oluşturulma TARİHİ</th>
                                 <th class="wd-15p border-bottom-0">İşlemler</th>
                             </tr>
                             </thead>

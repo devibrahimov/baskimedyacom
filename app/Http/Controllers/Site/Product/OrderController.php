@@ -120,13 +120,13 @@ class OrderController extends Controller
 
     public function successcallback()
     {
-        $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası', 'thispageURL' => route('successcallback')];
+        $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası', 'thispageURL' => route('order.successcallback')];
         return view('Site/pages/Products/Shop/successcallback', compact(['breadcrump']));
     }
 
     public function errorcallback()
     {
-        $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası', 'thispageURL' => route('errorcallback')];
+        $breadcrump = ['thispage' => 'Ödeme Bildirim Sayfası', 'thispageURL' => route('order.errorcallback')];
         return view('Site/pages/Products/Shop/errorcallback', compact(['breadcrump']));
     }
 

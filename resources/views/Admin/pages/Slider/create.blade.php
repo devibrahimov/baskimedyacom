@@ -10,7 +10,7 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Yeni Slider Ekleyin</h4>
+                    <h4 class="card-title mb-1">YENİ SLİDER EKLEYİN</h4>
                     <hr    >
                 </div>
                 <div class="card-body pt-0">
@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label for="exampleInputPassword1">Yönlendirilecek Sayfa linki</label>
+                                <label for="exampleInputPassword1">Yönlendirilecek sayfa linki</label>
                                 <input type="url" class="form-control" name="url">
                             </div>
                         </div>

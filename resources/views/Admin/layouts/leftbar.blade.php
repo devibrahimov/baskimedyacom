@@ -80,7 +80,7 @@
             <li class="side-item side-item-category  bg-secondary "><span class=" text-white">Üye İşlemleri <i class="angle fe fe-chevron-down"> </i></span></li>
 
             <li class="slide">
-                <a class="side-menu__item" href="{{route('user.create')}}"> <span class="side-menu__label">Yeni üye ekle</span> </a>
+                <a class="side-menu__item" href="{{route('user.create')}}"> <span class="side-menu__label">Yeni Üye Ekle</span> </a>
             </li>
 
             <li class="slide">
@@ -120,7 +120,7 @@
             <li class="slide">
                 <a class="side-menu__item"   data-toggle="slide" href="index-2.html#"> <span class="side-menu__label">Bilgilendirme</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{route('information.index')}}">Bilgilendirme listesi</a></li>
+                    <li><a class="slide-item" href="{{route('information.index')}}">Bilgilendirme Listesi</a></li>
                     <li><a class="slide-item" href="{{route('inform.category')}}">Kategori Ekle</a></li>
                     <li><a class="slide-item" href="{{route('information.create')}}">İçerik bölümü</a></li>
 

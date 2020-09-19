@@ -7,8 +7,8 @@
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Yeni Kullanıcı Ekle</h4>
-                    <p class="mb-2">Site Kullanıcısı ve Yönetici olarak iki Kullanıcı tipi bulunmaktadır</p>
+                    <h4 class="card-title mb-1">YENİ KULLANICI EKLE</h4>
+                    <p class="mb-2">Bu sayfadan yeni yönetici ekleyebilirsiniz.</p>
                 </div>
                 <div class="card-body pt-0">
                     <form class="form-horizontal" action="{{route('user.store')}}" method="POST">
@@ -53,7 +53,7 @@
                         <h4 class="card-title mg-b-0">YÖNETİCİ Tablosu</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <p class="tx-12 tx-gray-500 mb-2">Yönetim Paneline erişimi olan Yönetici tablosu</p>
+                    <p class="tx-12 tx-gray-500 mb-2">Yönetim Paneline erişimi olan yönetici tablosu</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

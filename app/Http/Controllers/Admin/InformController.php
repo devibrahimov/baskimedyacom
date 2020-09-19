@@ -3,80 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Information;
 use App\Information as Info;
-use App\InformationCategory as InfoCat ;
+use App\InformationCategory as InfoCat;
 use Illuminate\Http\Request;
 
-class InformationController extends Controller
+class InformController extends Controller
 {
-
-
-
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-      public function  createcategory(Request $request ){
-
-          $cats=InfoCat::all();
-    return view('Admin.pages.Information.category',compact(['cats']));
-
-
-      }
-
-
-    public function  storecategory(Request $request ){
-
-        $inform = new InfoCat();
-
-        $inform->name = request('name') ;
-
-
-        $inform->save();
-
-        return back();
-
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function  editcategory($id ){
-
-        $cats=InfoCat::all();
-        $informcat=InfoCat::find($id);
-        return view('Admin.pages.Information.editcategory',compact(['cats','informcat']));
-
-
-    }
-
-    public function updatecategory(Request $request, $id)
-    {
-        $infcat = InfoCat::find($id);
-
-        $infcat->name = request('name') ;
-
-        $infcat->save();
-
-        return back();
-    }
-
-public function deletecategory($id){
-    $infcat = InfoCat::find($id);
-
-    $infcat->delete();
-    return redirect()->route('inform.category');
-}
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -108,19 +41,19 @@ public function deletecategory($id){
      */
     public function store(Request $request)
     {
-       $validator =  $request->validate([
+        $validator =  $request->validate([
             'category' => 'required',
             'content' => 'required',
         ]);
 
-       if($validator){
-           $inform = new Info();
+        if($validator){
+            $inform = new Info();
 
-           $inform->InformationCats_id =  request('category') ;
-           $inform->content =  request('content');
-           $inform->save();
+            $inform->InformationCats_id =  request('category') ;
+            $inform->content =  request('content');
+            $inform->save();
 
-       }
+        }
         return back();
     }
 
@@ -155,7 +88,7 @@ public function deletecategory($id){
      * @param  \App\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Information $information)
+    public function update(Request $request,Information $information)
     {
         $validator =  $request->validate([
             'category' => 'required',

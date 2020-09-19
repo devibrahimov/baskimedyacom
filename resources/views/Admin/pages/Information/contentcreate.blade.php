@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="main-content-label mg-b-5">
-                            Bilgilendirme Bölümü İçerik Alanı
+                            BİLGİLENDİRME BÖLÜMÜ İÇERİK ALANI
                         </div>
 
 
@@ -32,7 +32,7 @@
                         <div class="row row-sm mt-5">
                             <div class="col-lg-12">
                                 <div class="main-content-label mg-b-5">
-                                    Bilgilendirme içerik Alanı
+                                    BİLGİLENDİRME İÇERİK ALANI
                                 </div>
                                 <div class="form-group mg-b-0">
 
@@ -53,7 +53,7 @@
                                         <div class="main-content-label mg-b-5">
                                             Bilgilendirme Metin Alanı
                                         </div>
-                                        <p class="mg-b-20">Firma Hakkında içeriği bu alandan gire bilirsiniz .</p>
+                                        <p class="mg-b-20">"Firma Hakkında"  içeriğini bu alandan girebilirsiniz.</p>
                                         <div class="ql-wrapper ql-wrapper-demo bg-gray-100">
                                             <textarea name="content" id="content"  class="content"></textarea>
                                         </div>
@@ -68,7 +68,7 @@
 {{--                                <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>--}}
 
 
-                                <button type="submit" class="btn btn-success waves-effect waves-light">Kayıt Et</button>
+                                <button type="submit" class="btn btn-success waves-effect waves-light">Kaydet</button>
 
 
                         </div>

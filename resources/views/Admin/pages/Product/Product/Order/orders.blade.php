@@ -14,19 +14,19 @@
                         <h4 class="card-title mg-b-0">{{isset($type)?$type:'Siparişleri'}}</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <p class="tx-12 tx-gray-500 mb-2">{{isset($type)?$type:'Siparişleri'}}  aşağıdakı listeden Takip ede bilirsiniz </p>
+                    <p class="tx-12 tx-gray-500 mb-2">{{isset($type)?$type:'Siparişleri'}}  aşağıdaki listeden takip edebilirsiniz. </p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
                             <tr>
-                                <th class="wd-15p border-bottom-0">Şipariş id</th>
+                                <th class="wd-15p border-bottom-0">Sipariş id</th>
                                 <th class="wd-15p border-bottom-0">Soyadı </th>
                                 <th class="wd-20p border-bottom-0">Kullanıcı Adı</th>
-                                <th class="wd-20p border-bottom-0">Sipariş Tarihi</th>
+                                <th class="wd-20p border-bottom-0">SİPARİŞ TARİHİ</th>
                                 <th class="bg-gradient-blue wd-15p border-bottom-0">Tutar</th>
-                                <th class="wd-15p border-bottom-0">Sipariş Detayı</th>
+                                <th class="wd-15p border-bottom-0">SİPARİŞ DETAYI</th>
                             </tr>
                             </thead>
                             <tbody>

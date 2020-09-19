@@ -57,16 +57,16 @@
                                     <p class="main-profile-name-text">{{$setting->slogan}}</p>
                                 </div>
                             </div>
-                            <h6>Meta title</h6>
+                            <h6>Meta Başlık</h6>
                             <div class="main-profile-bio">
                                 {{$setting->metatitle}}
                             </div><!-- main-profile-bio -->
-                            <h6>Meta Description</h6>
+                            <h6>Meta Açıklama Metni</h6>
                             <div class="main-profile-bio">
                                 {{$setting->metadescription}}
                             </div><!-- main-profile-bio -->
                             <hr class="mg-y-30">
-                            <h6>Biografi</h6>
+                            <h6>Biyografi</h6>
                             <div class="main-profile-bio">
                                 {{$setting->about}}
                              </div><!-- main-profile-bio -->
@@ -85,7 +85,7 @@
                         {{-- </div>--}}
                         {{-- </div>--}}
                             <hr class="mg-y-30">
-                            <label class="main-content-label tx-13 mg-b-20">Social Media</label>
+                            <label class="main-content-label tx-13 mg-b-20">Social Medya</label>
                             <div class="main-profile-social-list">
                                 <div class="media">
                                     <div class="media-icon bg-primary-transparent text-primary">
@@ -145,7 +145,7 @@
                         </div>
                         <div class="media">
                             <div class="media-icon bg-success-transparent text-success">
-                                <i class="icon ion-fax"></i>
+                                <i class="icon ion-md-phone-portrait"></i>
                             </div>
                             <div class="media-body">
                                 <span>Telefon numarası</span>
@@ -156,7 +156,7 @@
                         </div>
                         <div class="media">
                             <div class="media-icon bg-success-transparent text-success">
-                                <i class="icon ion-fax"></i>
+                                <i class="icon ion-md-phone-portrait"></i>
                             </div>
                             <div class="media-body">
                                 <span>Fax numarası</span>
@@ -186,7 +186,7 @@
             <form action="@if(!isset($setting)) {{route('setting.store')}} @else {{ route('setting.update',$setting->id)}}@endif" class="form-horizontal" method="POST"  enctype="multipart/form-data" >
             <div class="card">
                 <div class="card-body">
-                    <div class="mb-4 main-content-label">Personal Information</div>
+                    <div class="mb-4 main-content-label">FİRMA BİLGİLERİ</div>
 
 
                         {{ @csrf_field() }}
@@ -232,7 +232,7 @@
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">Meta Title</label>
+                                    <label class="form-label">Meta Başlık</label>
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="metatitle"  value="@if(isset($setting)){{ $setting->metatitle }}@else{{ old('metatitle') }}@endif">
@@ -242,7 +242,7 @@
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">Meta Description</label>
+                                    <label class="form-label">Meta Açıklama Metni</label>
                                 </div>
                                 <div class="col-md-9">
                                     <textarea class="form-control" name="metadescription" rows="2">@if(isset($setting)){{  $setting->metadescription  }}@else{{old('metadescription') }}@endif</textarea>
@@ -251,12 +251,12 @@
                         </div>
 
 
-                        <div class="mb-4 main-content-label">Contact Info</div>
+                        <div class="mb-4 main-content-label">İLETİŞİM BİLGİLERİ</div>
 
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">Email </label>
+                                    <label class="form-label">E-Posta </label>
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="email" value="@if(isset($setting)){{ $setting->email }}@else{{ old('email') }}@endif">
@@ -316,7 +316,7 @@
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">Google Harita kodu</label>
+                                    <label class="form-label">Google Harita Kodu</label>
                                 </div>
                                 <div class="col-md-9">
                                     <textarea class="form-control" name="map"  rows="2">@if(isset($setting)){{$setting->map}}@else{{old('map')}}@endif</textarea>
@@ -324,7 +324,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 main-content-label">Sosial Media</div>
+                        <div class="mb-4 main-content-label">Sosyal Medya</div>
 
                         <div class="form-group ">
                             <div class="row">
@@ -339,7 +339,7 @@
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">İnstagram</label>
+                                    <label class="form-label">Instagram</label>
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="instagram"  value="@if(isset($setting)){{$setting->instagram}}@else{{old('instagram')}}@endif">
@@ -357,11 +357,11 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 main-content-label">Firma Hakkında</div>
+                        <div class="mb-4 main-content-label">FİRMA HAKKINDA</div>
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">Firma Biografisi</label>
+                                    <label class="form-label">Firma Biyografisi</label>
                                 </div>
                                 <div class="col-md-9">
                                     <textarea class="form-control" name="about" rows="4"  >@if(isset($setting)){{$setting->about}}@else{{old('about')}}@endif</textarea>
@@ -376,7 +376,7 @@
                         <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>
 
                     @else
-                        <button type="submit" class="btn btn-success waves-effect waves-light">Kayıt Et</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Kaydet</button>
 
                     @endif
 

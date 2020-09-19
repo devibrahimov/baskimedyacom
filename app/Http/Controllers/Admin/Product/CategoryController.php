@@ -84,7 +84,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequestValidate $request, Category $category)
+    public function update(CategoryRequestValidate $request,Category $category)
     {
         $category->name = request('name');
         $category->slug = Str::slug(request('name'));

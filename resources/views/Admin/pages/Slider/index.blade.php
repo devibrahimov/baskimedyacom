@@ -24,9 +24,9 @@
                             <thead>
                             <tr>
                                 <th class="wd-5p border-bottom-0">Sıra</th>
-                                <th class="wd-40p border-bottom-0">Slider Resimi</th>
+                                <th class="wd-40p border-bottom-0">SLİDER RESMİ</th>
                                 <th class="wd-20p border-bottom-0">Başlık</th>
-                                <th class="wd-20p border-bottom-0">Oluşturulma tarihi</th>
+                                <th class="wd-20p border-bottom-0">Oluşturulma TARİHİ</th>
                                 <th class="wd-15p border-bottom-0">İşlemler</th>
                             </tr>
                             </thead>

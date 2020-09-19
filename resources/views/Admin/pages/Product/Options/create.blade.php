@@ -12,8 +12,8 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Vertical Form</h4>
-                    <p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>
+                    <h4 class="card-title mb-1">Seçenekler</h4>
+                    <p class="mb-2">Bu ekranda ürünlere yeni seçenekler ekleyebilirsiniz.</p>
                 </div>
                 <div class="card-body pt-0">
                     <form action="{{route('options.store')}}" method="post">
@@ -67,10 +67,10 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">SIMPLE TABLE</h4>
+                        <h4 class="card-title mg-b-0">SEÇENEKLER TABLOSU</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="#">Learn more</a></p>
+                    <p class="tx-12 tx-gray-500 mb-2">Eklenen Seçenekler</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

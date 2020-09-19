@@ -22,7 +22,7 @@
                         <div class="form-group mb-0 mt-3 justify-content-end">
                             <div>
                                 <button type="submit" class="btn btn-primary">Kaydet</button>
-                                <button type="submit" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-secondary">İptal</button>
                             </div>
                         </div>
                     </form>

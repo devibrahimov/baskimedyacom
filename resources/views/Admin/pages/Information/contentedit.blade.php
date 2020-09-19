@@ -13,10 +13,10 @@
 @section('content')
     <div class="row">
 
-        <form action="{{route('information.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('information.update',$info->id)}}" method="POST">
 
-
-            {{ @csrf_field() }}
+                @method('PUT')
+                @csrf
 
             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
                 <div class="card">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-group mg-b-0">
 
-                                    <select class="form-control" name="category" required="">
+                                    <select class="form-control" name="category" required >
                                         @foreach($cats as $cat)
                                             <option value="{{$cat->id}}" {{$cat->id==$info->InformationCats_id? 'selected':''}}>  {{$cat->name}}   </option>
                                         @endforeach
@@ -55,7 +55,7 @@
                                         </div>
                                         <p class="mg-b-20">Firma Hakkında içeriği bu alandan gire bilirsiniz .</p>
                                         <div class="ql-wrapper ql-wrapper-demo bg-gray-100">
-                                            <textarea name="content" id="content"  class="content">{!! $info->content  !!}</textarea>
+                                            <textarea name="content" id="content"  class="content">{!!$info->content!!}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -64,10 +64,6 @@
 
 
                         <div class="card-footer">
-
-                            {{--                                <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>--}}
-
-
                             <button type="submit" class="btn btn-success waves-effect waves-light">Güncelle</button>
 
 

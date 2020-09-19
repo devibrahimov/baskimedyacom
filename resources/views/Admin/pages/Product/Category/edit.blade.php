@@ -11,8 +11,8 @@
         <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
             <div class="card  box-shadow-0 ">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Vertical Form</h4>
-                    <p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>
+                    <h4 class="card-title mb-1">KATEGORİ DÜZENLE</h4>
+                    <p class="mb-2">Bu ekranda var olan bir kategoriyi güncelleyebilirsiniz.</p>
                 </div>
                 <div class="card-body pt-0">
                     <form action="{{route('category.update',$category->id)}}" method="post">

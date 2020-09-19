@@ -21,12 +21,12 @@
 
                         <!-- Pagination -->
                         <div class="row mb-5">
-                            <div class="col-md-6 mt-1 d-none d-md-block">1 - 10 of 234 photos</div>
+                            <div class="col-md-6 mt-1 d-none d-md-block">1 - 10 arası fotoğraflar gösteriliyor.</div>
                             <div class="col-md-6">
                                 <div class="float-right">
                                     <ul class="pagination search">
                                         <li class="page-item page-prev disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Prev</a>
+                                            <a class="page-link" href="#" tabindex="-1">Önceki</a>
                                         </li>
                                         <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -34,7 +34,7 @@
                                         <li class="page-item"><a class="page-link" href="#">4</a></li>
                                         <li class="page-item"><a class="page-link" href="#">5</a></li>
                                         <li class="page-item page-next">
-                                            <a class="page-link" href="#">Next</a>
+                                            <a class="page-link" href="#">Sonraki</a>
                                         </li>
                                     </ul>
                                 </div>

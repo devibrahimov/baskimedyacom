@@ -25,13 +25,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="main-content-label mg-b-5">
-                        Hakkımızda Bölümü İçerik Alanı
+                        HAKKIMIZDA BÖLÜMÜ İÇERİK ALANI
                     </div>
 
                         <div class="row row-sm mt-5">
                             <div class="col-lg-12">
                                 <div class="main-content-label mg-b-5">
-                                    Hakkımızda Metin Alanı
+                                    HAKKIMIZDA METİN ALANI
                                 </div>
                                 <div class="form-group mg-b-0">
 
@@ -65,9 +65,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="main-content-label mg-b-5">
-                                            Hakkımızda Metin Alanı
+                                            HAKKIMIZDA METİN ALANI
                                         </div>
-                                        <p class="mg-b-20">Firma Hakkında içeriği bu alandan gire bilirsiniz .</p>
+                                        <p class="mg-b-20">"Firma Hakkında" içeriğini bu alandan girebilirsiniz .</p>
                                         <div class="ql-wrapper ql-wrapper-demo bg-gray-100">
                                            <textarea name="content" id="content" required class="content">@if(isset($about)){{ $about->content  }}@else{{old('content') }}@endif </textarea>
                                         </div>
@@ -82,7 +82,7 @@
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Güncelle</button>
 
                         @else
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Kayıt Et</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Kayıdet</button>
 
                         @endif
 

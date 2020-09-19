@@ -3,9 +3,9 @@
 <header class="header_wrap fixed-top header_with_topbar">
 
     <div class="top-header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-md-6   d-xs-none    ">
+                <div class="col-md-6  col-sm-12  d-xs-none    ">
                     <div class="d-flex align-items-center justify-content-center justify-content-md-start">
 
                         <ul class="contact_detail text-center text-lg-left">
@@ -16,7 +16,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <div class="text-center text-md-right">
 
 
@@ -109,7 +109,7 @@
                             <div class="cart_footer">
                                 <p class="cart_buttons"><a
                                         href="@if (\Illuminate\Support\Facades\Auth::user()) {{route('site.addtocart',\Illuminate\Support\Facades\Crypt::encrypt(Auth::user()->id))}} @else {{route('site.login')}} @endif"
-                                        class="btn btn-fill-line view-cart">Sebete Git</a>
+                                        class="btn btn-fill-line view-cart">Sepete Git</a>
                                     {{--                                    <a href="#" class="btn btn-fill-out checkout">Ödeme Sayfası</a>--}}
                                 </p>
 

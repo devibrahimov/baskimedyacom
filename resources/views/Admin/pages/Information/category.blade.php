@@ -8,7 +8,7 @@
             <div class="card  box-shadow-0">
                 <div class="card-header">
                     <h4 class="card-title mb-1">BİLGİLENDİRME Sayfası Ekle</h4>
-                    <p class="mb-2">Site Kullanıcıları Bilgilendirmelerinin Tutulduöu Sayfalar </p>
+                    <p class="mb-2">Site kullanıcılarını bilgilendirmelerinin tutulduğu sayfalar </p>
                 </div>
                 <div class="card-body pt-0">
                     <form class="form-horizontal" action="{{route('inform.addcategory')}}" method="POST">
@@ -42,7 +42,7 @@
                                    <thead>
                                    <tr>
                                        <th>ID</th>
-                                       <th>Kategori</th>
+                                       <th>KATEGORİ</th>
                                        <th>İşlemler</th>
                                    </tr>
                                    </thead>
